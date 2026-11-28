@@ -61,11 +61,18 @@ spec:
     nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:
     path: "packages/minio-operator/operator/7.1.1"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-operator:7.1.1@sha256:0847bb9ea8043ac6ba896416514decef6a007d9f5fbd7ecbe99bc1594377823a"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-operator:7.1.1"
-    manifestDigest: "sha256:0847bb9ea8043ac6ba896416514decef6a007d9f5fbd7ecbe99bc1594377823a"
-    layerDigest: "sha256:16cbc70c2675573873e45bc328208cd49082b905aedf8ecb483ea9b3e7549b0d"
-    publicationReceipt: "runs/installer-oci/minio-operator-operator/7.1.1/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/minio-operator:v7.1.1@sha256:efdf0556d18bfa40c180b236176df3246721d4ef76860303f173bb1c19b76d5a"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/minio-operator:v7.1.1"
+    manifestDigest: "sha256:efdf0556d18bfa40c180b236176df3246721d4ef76860303f173bb1c19b76d5a"
+    layerDigest: "sha256:df5dce69e2fde4fff6d53f54fa6316b85fea47f43de8285867ea94b6862bc978"
+    publicationReceipt: "runs/ghcr-packages/minio-operator/v7.1.1.yaml"
+    name: "minio-operator"
+    tag: "v7.1.1"
+    installCommand: "cub package install minio-operator:v7.1.1 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/minio-operator@sha256:efdf0556d18bfa40c180b236176df3246721d4ef76860303f173bb1c19b76d5a"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-operator:7.1.1@sha256:0847bb9ea8043ac6ba896416514decef6a007d9f5fbd7ecbe99bc1594377823a"
+      publicationReceipt: "runs/installer-oci/minio-operator-operator/7.1.1/installer-package-publication-receipt.yaml"
     installer: "packages/minio-operator/operator/7.1.1/installer.yaml"
     receipt: "recipes/minio-operator/operator/7.1.1/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "16cbc70c2675573873e45bc328208cd49082b905aedf8ecb483ea9b3e7549b0d"
@@ -97,7 +104,7 @@ spec:
         default: true
         description: "minio-operator/operator default variant rendered from minio-operator/operator@7.1.1"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-operator:7.1.1@sha256:0847bb9ea8043ac6ba896416514decef6a007d9f5fbd7ecbe99bc1594377823a --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/minio-operator:v7.1.1@sha256:efdf0556d18bfa40c180b236176df3246721d4ef76860303f173bb1c19b76d5a --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 8
         cubInstallObjectCountIncludingSupport: 9
         semanticObjectMatches: "8/8"

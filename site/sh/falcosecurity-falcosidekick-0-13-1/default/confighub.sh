@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the default base variant into ./falcosecurity-falcosidekick-0-13-1-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/falcosecurity-falcosidekick:0.13.1@sha256:7fb6d41ff5721ca4df26959bda2c80022a2a3cc70b0e4e4cc8f8f878f7cc11d5 --base default --work-dir ./falcosecurity-falcosidekick-0-13-1-default --non-interactive --namespace default
+cub installer setup --pull oci://ghcr.io/confighub/packages/falcosidekick:v0.13.1@sha256:f82e3aa2b97813bfbc01425fd46b7d14f7724b0ea5f3db89478400f9790f28da --base default --work-dir ./falcosecurity-falcosidekick-0-13-1-default --non-interactive --namespace default
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./falcosecurity-falcosidekick-0-13-1-default --space "${SPACE}"

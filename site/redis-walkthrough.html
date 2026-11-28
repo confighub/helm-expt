@@ -902,7 +902,7 @@ bash &lt;(curl -fsSL https://confighub.github.io/helm-expt/site/sh/bitnami-redis
     <div class="box"><div class="n">2 · DELIVER</div><h3>Then choose where it goes</h3><p>Use <code>kubectl apply</code>, commit the files for GitOps, or push the rendered OCI for Argo CD or Flux. The separate Redis Secret remains under your normal secret-management process.</p></div>
   </div>
   <div class="callout"><p><strong>What is <code>--pull</code>?</strong> It points cub at an installer package. For a public chart, first check that its page links a publication receipt. Then use the package's <code>oci://</code> reference. cub pulls the package into the work directory and writes <code>out/spec</code> and <code>out/manifests</code>. Repository maintainers can use the local <code>packages/...</code> path while a reference is still marked assigned.</p></div>
-  <div class="callout"><p><strong>Registry access today.</strong> Public catalog package refs are published in Google Artifact Registry with anonymous read access. No ConfigHub account or Google registry login is needed for the local setup path.</p></div>
+  <div class="callout"><p><strong>Registry access today.</strong> Catalog packages are published on GitHub's registry, ghcr.io/confighub/packages, with anonymous read access. Installing one into a Space needs a ConfigHub sign-in; the local setup path needs no account and no registry login.</p></div>
 
   <h2>2 · Upgrade the same Redis configuration</h2>
   <p>Now move the same work directory from Redis chart 25.5.3 to 27.0.0. With no account, cub can retain the package selection and inputs it knows about. The recorded ConfigHub proof also checks one specific post-render change: a replica count that the newer base does not change.</p>

@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the default base variant into ./open-telemetry-opentelemetry-operator-0-114-0-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/open-telemetry-opentelemetry-operator:0.114.0@sha256:b6e1298c04526648e5e182fffb70d7fefe40d7809dc400699acb3e3f73abaa24 --base default --work-dir ./open-telemetry-opentelemetry-operator-0-114-0-default --non-interactive --namespace default
+cub installer setup --pull oci://ghcr.io/confighub/packages/opentelemetry-operator:v0.114.0@sha256:10b8c19c061ecd12604a36af141d00d41c99c872aa5c6b4411d1456c1ab24e25 --base default --work-dir ./open-telemetry-opentelemetry-operator-0-114-0-default --non-interactive --namespace default
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./open-telemetry-opentelemetry-operator-0-114-0-default/out/manifests

@@ -50,7 +50,10 @@ for exact base-variant evidence.
 | GitOps runtime review | [recipes/prometheus-community/prometheus/29.9.0/gitops-runtime-review.yaml](gitops-runtime-review.yaml) |
 | Catalog status | [recipes/prometheus-community/prometheus/29.9.0/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/prometheus-community/prometheus/29.9.0/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.9.0@sha256:0be296fd83670ed5469a2ef2abca19cb515546daf7bcb262f6d0142f9269310c` |
+| Install into a Space | `cub package install prometheus:v29.9.0 --space <space>` |
+| Installer package OCI | `oci://ghcr.io/confighub/packages/prometheus:v29.9.0@sha256:9fadf73b91209d98d3ad0e2715ab80c2a8c9d33ea1e88ba34f810470a2b12746` |
+| Installer package publication | [runs/ghcr-packages/prometheus/v29.9.0.yaml](../../../../runs/ghcr-packages/prometheus/v29.9.0.yaml) |
+| Earlier location | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.9.0@sha256:0be296fd83670ed5469a2ef2abca19cb515546daf7bcb262f6d0142f9269310c` |
 | Installer package source | [packages/prometheus-community/prometheus/29.9.0](../../../../packages/prometheus-community/prometheus/29.9.0) |
 | Installer package receipt | [recipes/prometheus-community/prometheus/29.9.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/prometheus-community/prometheus/29.9.0/artifact-index.yaml](artifact-index.yaml) |
@@ -84,12 +87,22 @@ for exact base-variant evidence.
 
 ## Current Install Shape
 
+Install the package into a ConfigHub Space, which renders it and uploads
+one Unit per resource:
+
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.9.0@sha256:0be296fd83670ed5469a2ef2abca19cb515546daf7bcb262f6d0142f9269310c --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub package install prometheus:v29.9.0 --space prometheus --base <variant> --namespace <namespace>
+```
+
+Or render it locally from the exact package bytes, with no Space:
+
+```sh
+cub installer setup --pull oci://ghcr.io/confighub/packages/prometheus:v29.9.0@sha256:9fadf73b91209d98d3ad0e2715ab80c2a8c9d33ea1e88ba34f810470a2b12746 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is
-the public package users pull; the `packages/...` path is the repo source path
+the public package users pull, signed by the package publish workflow; check it with
+`cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/prometheus@sha256:9fadf73b91209d98d3ad0e2715ab80c2a8c9d33ea1e88ba34f810470a2b12746`. The `packages/...` path is the repo source path
 used by maintainers and proof scripts. The proof path compares regular Helm
 output with real `cub installer setup` output and explains every intentional
 difference, such as the Namespace support object or separated Secrets.

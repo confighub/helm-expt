@@ -61,11 +61,18 @@ spec:
     nextAction: ""
   installerPackage:
     path: "packages/prometheus-community/prometheus-operator-crds/28.0.1"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-operator-crds:28.0.1@sha256:666c7cf9a3928b3e47c7b01832cb9dcec116029710a8d4a4a358211aaf238aea"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-operator-crds:28.0.1"
-    manifestDigest: "sha256:666c7cf9a3928b3e47c7b01832cb9dcec116029710a8d4a4a358211aaf238aea"
-    layerDigest: "sha256:6a601a0b29e812364d8840b2f8ea22e0e3ea66ce56e73c1038af150288257481"
-    publicationReceipt: "runs/installer-oci/prometheus-community-prometheus-operator-crds/28.0.1/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/prometheus-operator-crds:v28.0.1@sha256:d1d77f2d31a9f35156b8277a5767e6371a19d4a20e6658c7e5ae19aed18da678"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/prometheus-operator-crds:v28.0.1"
+    manifestDigest: "sha256:d1d77f2d31a9f35156b8277a5767e6371a19d4a20e6658c7e5ae19aed18da678"
+    layerDigest: "sha256:abb0c46ad169ac59c7e57f8e6674d1c25ed93fa7eb8f738eb1528e26504c495c"
+    publicationReceipt: "runs/ghcr-packages/prometheus-operator-crds/v28.0.1.yaml"
+    name: "prometheus-operator-crds"
+    tag: "v28.0.1"
+    installCommand: "cub package install prometheus-operator-crds:v28.0.1 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/prometheus-operator-crds@sha256:d1d77f2d31a9f35156b8277a5767e6371a19d4a20e6658c7e5ae19aed18da678"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-operator-crds:28.0.1@sha256:666c7cf9a3928b3e47c7b01832cb9dcec116029710a8d4a4a358211aaf238aea"
+      publicationReceipt: "runs/installer-oci/prometheus-community-prometheus-operator-crds/28.0.1/installer-package-publication-receipt.yaml"
     installer: "packages/prometheus-community/prometheus-operator-crds/28.0.1/installer.yaml"
     receipt: "recipes/prometheus-community/prometheus-operator-crds/28.0.1/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "6a601a0b29e812364d8840b2f8ea22e0e3ea66ce56e73c1038af150288257481"
@@ -202,7 +209,7 @@ spec:
         default: true
         description: "prometheus-operator-crds chart defaults variant rendered from prometheus-community/prometheus-operator-crds@28.0.1"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-operator-crds:28.0.1@sha256:666c7cf9a3928b3e47c7b01832cb9dcec116029710a8d4a4a358211aaf238aea --base default --work-dir <tmp> --non-interactive --namespace monitoring"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/prometheus-operator-crds:v28.0.1@sha256:d1d77f2d31a9f35156b8277a5767e6371a19d4a20e6658c7e5ae19aed18da678 --base default --work-dir <tmp> --non-interactive --namespace monitoring"
         helmReleaseObjectCount: 10
         cubInstallObjectCountIncludingSupport: 11
         semanticObjectMatches: "10/10"
@@ -364,7 +371,7 @@ spec:
         default: false
         description: "prometheus-operator-crds AICR v0.20.0 and AICR v1.0.0 EKS training values variant rendered from prometheus-community/prometheus-operator-crds@28.0.1"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-operator-crds:28.0.1@sha256:666c7cf9a3928b3e47c7b01832cb9dcec116029710a8d4a4a358211aaf238aea --base aicr-eks-training --work-dir <tmp> --non-interactive --namespace monitoring"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/prometheus-operator-crds:v28.0.1@sha256:d1d77f2d31a9f35156b8277a5767e6371a19d4a20e6658c7e5ae19aed18da678 --base aicr-eks-training --work-dir <tmp> --non-interactive --namespace monitoring"
         helmReleaseObjectCount: 10
         cubInstallObjectCountIncludingSupport: 11
         semanticObjectMatches: "10/10"

@@ -19,7 +19,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner:4.0.18@sha256:83561964324fb9e4bc9befa65c3d130df1cd17fd8211390203e461ee3852aa9a"
+        "ociRef": "oci://ghcr.io/confighub/packages/nfs-subdir-external-provisioner:v4.0.18@sha256:7fb39f34c64d2f0c8276203cb421621eac4a1911667b71a63c3731cd3872b0e8",
+        "installCommand": "cub package install nfs-subdir-external-provisioner:v4.0.18 --space <space>"
       },
       "bases": [
         {

@@ -64,11 +64,18 @@ spec:
     nextAction: "review chart analysis and create a recipe candidate"
   installerPackage:
     path: "packages/nvidia/nvidia-device-plugin/0.19.3"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvidia-device-plugin:0.19.3@sha256:9a4be497da7d3a34faff8bded3a878fb09528138fd3ee94539c97222b7610e07"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvidia-device-plugin:0.19.3"
-    manifestDigest: "sha256:9a4be497da7d3a34faff8bded3a878fb09528138fd3ee94539c97222b7610e07"
-    layerDigest: "sha256:d0e7a8b2426c26b254b2cd100191a697b14a91f0a6e6aeea19f575dc0b32a73a"
-    publicationReceipt: "runs/installer-oci/nvidia-nvidia-device-plugin/0.19.3/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/nvidia-device-plugin:v0.19.3@sha256:8b8b53ef42b75acd08a25bcae6df592c53096dc0177e02d393821ef97ba8c4f3"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/nvidia-device-plugin:v0.19.3"
+    manifestDigest: "sha256:8b8b53ef42b75acd08a25bcae6df592c53096dc0177e02d393821ef97ba8c4f3"
+    layerDigest: "sha256:98e632df412a6613a92247cb4120f4ccf81a6cc083fb2cb53b49230b017250a7"
+    publicationReceipt: "runs/ghcr-packages/nvidia-device-plugin/v0.19.3.yaml"
+    name: "nvidia-device-plugin"
+    tag: "v0.19.3"
+    installCommand: "cub package install nvidia-device-plugin:v0.19.3 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/nvidia-device-plugin@sha256:8b8b53ef42b75acd08a25bcae6df592c53096dc0177e02d393821ef97ba8c4f3"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvidia-device-plugin:0.19.3@sha256:9a4be497da7d3a34faff8bded3a878fb09528138fd3ee94539c97222b7610e07"
+      publicationReceipt: "runs/installer-oci/nvidia-nvidia-device-plugin/0.19.3/installer-package-publication-receipt.yaml"
     installer: "packages/nvidia/nvidia-device-plugin/0.19.3/installer.yaml"
     receipt: "recipes/nvidia/nvidia-device-plugin/0.19.3/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "d0e7a8b2426c26b254b2cd100191a697b14a91f0a6e6aeea19f575dc0b32a73a"
@@ -110,7 +117,7 @@ spec:
         default: true
         description: "nvidia-device-plugin default variant rendered from nvidia/nvidia-device-plugin@0.19.3"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvidia-device-plugin:0.19.3@sha256:9a4be497da7d3a34faff8bded3a878fb09528138fd3ee94539c97222b7610e07 --base default --work-dir <tmp> --non-interactive --namespace gpu-operator"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/nvidia-device-plugin:v0.19.3@sha256:8b8b53ef42b75acd08a25bcae6df592c53096dc0177e02d393821ef97ba8c4f3 --base default --work-dir <tmp> --non-interactive --namespace gpu-operator"
         helmReleaseObjectCount: 5
         cubInstallObjectCountIncludingSupport: 6
         semanticObjectMatches: "5/5"
@@ -172,7 +179,7 @@ spec:
         default: false
         description: "nvidia-device-plugin eks-inference platform scheduling variant rendered from nvidia/nvidia-device-plugin@0.19.3"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvidia-device-plugin:0.19.3@sha256:9a4be497da7d3a34faff8bded3a878fb09528138fd3ee94539c97222b7610e07 --base eks-inference --work-dir <tmp> --non-interactive --namespace gpu-operator"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/nvidia-device-plugin:v0.19.3@sha256:8b8b53ef42b75acd08a25bcae6df592c53096dc0177e02d393821ef97ba8c4f3 --base eks-inference --work-dir <tmp> --non-interactive --namespace gpu-operator"
         helmReleaseObjectCount: 5
         cubInstallObjectCountIncludingSupport: 6
         semanticObjectMatches: "5/5"
@@ -234,7 +241,7 @@ spec:
         default: false
         description: "nvidia-device-plugin eks-inference plus node-feature-discovery variant rendered from nvidia/nvidia-device-plugin@0.19.3"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvidia-device-plugin:0.19.3@sha256:9a4be497da7d3a34faff8bded3a878fb09528138fd3ee94539c97222b7610e07 --base nfd-enabled --work-dir <tmp> --non-interactive --namespace gpu-operator"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/nvidia-device-plugin:v0.19.3@sha256:8b8b53ef42b75acd08a25bcae6df592c53096dc0177e02d393821ef97ba8c4f3 --base nfd-enabled --work-dir <tmp> --non-interactive --namespace gpu-operator"
         helmReleaseObjectCount: 26
         cubInstallObjectCountIncludingSupport: 27
         semanticObjectMatches: "26/26"

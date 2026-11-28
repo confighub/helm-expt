@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:33e9d603109b517560aaa5e244acc3a825977fd5e417b436da07b63930ac2a78",
+      "sha256": "sha256:168547f46c3c4c20ef028a08b6d32d3ad3eef87df4443bb53c51310553722cc3",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/projectcalico-tigera-operator-v3-32-0-default.yaml",
-      "sha256": "sha256:b2efb670509e40d1cd71bf3504cfe7a8cfea4cdcb82f3f309c9037154479669c",
+      "sha256": "sha256:e8f1574e246b7e44230b63d91a9954547e2f853d9b297b7ff4fd307a8b33512a",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/projectcalico-tigera-operator-v3-32-0-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -36,7 +36,7 @@
     "name": "projectcalico/tigera-operator",
     "version": "v3.32.0",
     "reference": "projectcalico/tigera-operator@v3.32.0",
-    "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/projectcalico-tigera-operator:v3.32.0@sha256:c349b9f235ee64ae4743b81d2cb2d01eb5a36e765d3c634b912323ce6c7a135a",
+    "ociRef": "oci://ghcr.io/confighub/packages/tigera-operator:v3.32.0@sha256:d3e129a914498070c0792d7ac804edf48dff3a4464eb961677af1a9805d90ab2",
     "record": "data/helm-render-intents/intents/projectcalico-tigera-operator-v3-32-0-default.yaml",
     "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/projectcalico-tigera-operator-v3-32-0-default.yaml",
     "selection": {
@@ -92,7 +92,7 @@
     }
   },
   "oci": {
-    "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/projectcalico-tigera-operator:v3.32.0@sha256:c349b9f235ee64ae4743b81d2cb2d01eb5a36e765d3c634b912323ce6c7a135a",
+    "sourcePackageRef": "oci://ghcr.io/confighub/packages/tigera-operator:v3.32.0@sha256:d3e129a914498070c0792d7ac804edf48dff3a4464eb961677af1a9805d90ab2",
     "bundles": [
       {
         "role": "source-package",
@@ -137,7 +137,9 @@
         "ghcr": {
           "reference": "oci://ghcr.io/confighub/configs/catalog/catalog-projectcalico-tigera-operator-v3-32-0-default:bundle-720c8bd806c3@sha256:720c8bd806c36911a1897444f18e0a37e7c3eebe20ac339683ee0c29a9da1061",
           "manifestDigest": "sha256:720c8bd806c36911a1897444f18e0a37e7c3eebe20ac339683ee0c29a9da1061",
-          "state": "awaits-workflow-publication",
+          "state": "published-signed",
+          "receipt": "runs/catalog-oci/catalog-projectcalico-tigera-operator-v3-32-0-default/bundle-720c8bd806c3.yaml",
+          "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/runs/catalog-oci/catalog-projectcalico-tigera-operator-v3-32-0-default/bundle-720c8bd806c3.yaml",
           "publisher": ".github/workflows/catalog-oci-publish.yml",
           "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/catalog-projectcalico-tigera-operator-v3-32-0-default@sha256:720c8bd806c36911a1897444f18e0a37e7c3eebe20ac339683ee0c29a9da1061",
           "sameDigestAsEarlier": true
@@ -683,12 +685,12 @@
         },
         {
           "comment": "preview the upload of the published bundle; nothing is written",
-          "command": "cub variant upload --dry-run --component projectcalico-tigera-operator --variant default --space projectcalico-tigera-operator-v3-32-0-default --namespace default oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-projectcalico-tigera-operator-v3-32-0-default:latest@sha256:720c8bd806c36911a1897444f18e0a37e7c3eebe20ac339683ee0c29a9da1061",
+          "command": "cub variant upload --dry-run --component projectcalico-tigera-operator --variant default --space projectcalico-tigera-operator-v3-32-0-default --namespace default oci://ghcr.io/confighub/configs/catalog/catalog-projectcalico-tigera-operator-v3-32-0-default:bundle-720c8bd806c3@sha256:720c8bd806c36911a1897444f18e0a37e7c3eebe20ac339683ee0c29a9da1061",
           "needsAccount": true
         },
         {
           "comment": "upload the bundle as a base Space of Units",
-          "command": "cub variant upload --component projectcalico-tigera-operator --variant default --space projectcalico-tigera-operator-v3-32-0-default --namespace default oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-projectcalico-tigera-operator-v3-32-0-default:latest@sha256:720c8bd806c36911a1897444f18e0a37e7c3eebe20ac339683ee0c29a9da1061",
+          "command": "cub variant upload --component projectcalico-tigera-operator --variant default --space projectcalico-tigera-operator-v3-32-0-default --namespace default oci://ghcr.io/confighub/configs/catalog/catalog-projectcalico-tigera-operator-v3-32-0-default:bundle-720c8bd806c3@sha256:720c8bd806c36911a1897444f18e0a37e7c3eebe20ac339683ee0c29a9da1061",
           "needsAccount": true,
           "writes": true
         }

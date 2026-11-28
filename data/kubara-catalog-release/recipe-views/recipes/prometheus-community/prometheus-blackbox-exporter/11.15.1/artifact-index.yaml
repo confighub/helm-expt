@@ -57,11 +57,18 @@ spec:
     nextAction: ""
   installerPackage:
     path: "packages/prometheus-community/prometheus-blackbox-exporter/11.15.1"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-blackbox-exporter:11.15.1@sha256:d6f157912a513718a387c822a21ab9b9b7bd45b595fe35ee257586a2661c4189"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-blackbox-exporter:11.15.1"
-    manifestDigest: "sha256:d6f157912a513718a387c822a21ab9b9b7bd45b595fe35ee257586a2661c4189"
-    layerDigest: "sha256:efd99d3e0c984d07c25a417b846c1cb1dba3c50d078fcedde2387d181c6ce427"
-    publicationReceipt: "runs/installer-oci/prometheus-community-prometheus-blackbox-exporter/11.15.1/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/prometheus-blackbox-exporter:v11.15.1@sha256:c3145a6ca3e6ff14988019720c0a03705543e13c57849a9b27e6d5b307263d6e"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/prometheus-blackbox-exporter:v11.15.1"
+    manifestDigest: "sha256:c3145a6ca3e6ff14988019720c0a03705543e13c57849a9b27e6d5b307263d6e"
+    layerDigest: "sha256:7603daa433689eec47934ba49d725592aaa8b4227a2ed50b0b9edc5cbd622872"
+    publicationReceipt: "runs/ghcr-packages/prometheus-blackbox-exporter/v11.15.1.yaml"
+    name: "prometheus-blackbox-exporter"
+    tag: "v11.15.1"
+    installCommand: "cub package install prometheus-blackbox-exporter:v11.15.1 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/prometheus-blackbox-exporter@sha256:c3145a6ca3e6ff14988019720c0a03705543e13c57849a9b27e6d5b307263d6e"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-blackbox-exporter:11.15.1@sha256:d6f157912a513718a387c822a21ab9b9b7bd45b595fe35ee257586a2661c4189"
+      publicationReceipt: "runs/installer-oci/prometheus-community-prometheus-blackbox-exporter/11.15.1/installer-package-publication-receipt.yaml"
     installer: "packages/prometheus-community/prometheus-blackbox-exporter/11.15.1/installer.yaml"
     receipt: "recipes/prometheus-community/prometheus-blackbox-exporter/11.15.1/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "efd99d3e0c984d07c25a417b846c1cb1dba3c50d078fcedde2387d181c6ce427"
@@ -93,7 +100,7 @@ spec:
         default: true
         description: "prometheus-blackbox-exporter chart defaults variant rendered from prometheus-community/prometheus-blackbox-exporter@11.15.1"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-blackbox-exporter:11.15.1@sha256:d6f157912a513718a387c822a21ab9b9b7bd45b595fe35ee257586a2661c4189 --base default --work-dir <tmp> --non-interactive --namespace monitoring"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/prometheus-blackbox-exporter:v11.15.1@sha256:c3145a6ca3e6ff14988019720c0a03705543e13c57849a9b27e6d5b307263d6e --base default --work-dir <tmp> --non-interactive --namespace monitoring"
         helmReleaseObjectCount: 4
         cubInstallObjectCountIncludingSupport: 5
         semanticObjectMatches: "4/4"

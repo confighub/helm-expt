@@ -13,7 +13,7 @@ spec:
     name: "argo-cd/argo-rollouts"
     version: "2.40.9"
     record: "data/helm-render-intents/intents/argo-cd-argo-rollouts-2-40-9-default.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-rollouts:2.40.9@sha256:e77d2622b0c73818226779e719ecd8841bc282c710b5cc193940ff5cb8ee00ab"
+    packageOciRef: "oci://ghcr.io/confighub/packages/argo-rollouts:v2.40.9@sha256:8dd6969b19930a78f7a4976ac13f0a6e02fb2aa2c5d4d9eeeb1d14f1f1ed30b7"
     selection:
       name: "default"
       kind: "catalog-preset"

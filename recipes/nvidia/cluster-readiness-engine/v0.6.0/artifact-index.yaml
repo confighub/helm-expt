@@ -60,11 +60,18 @@ spec:
     nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:
     path: "packages/nvidia/cluster-readiness-engine/v0.6.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-cluster-readiness-engine:v0.6.0@sha256:6a1a75b2d243ee4bd2cbea79a91052dfb36beb3e0bc4da0a03b2b589a4dab501"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-cluster-readiness-engine:v0.6.0"
-    manifestDigest: "sha256:6a1a75b2d243ee4bd2cbea79a91052dfb36beb3e0bc4da0a03b2b589a4dab501"
-    layerDigest: "sha256:e3068274eee9e154acce62bfeea4f2ddb523ac7099d41711fc8421d9b49c2d09"
-    publicationReceipt: "runs/installer-oci/nvidia-cluster-readiness-engine/v0.6.0/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/cluster-readiness-engine:v0.6.0@sha256:443bf15c743552fe576cb7b981b058d5d7b08b984e0e7633e2156489ab72374a"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/cluster-readiness-engine:v0.6.0"
+    manifestDigest: "sha256:443bf15c743552fe576cb7b981b058d5d7b08b984e0e7633e2156489ab72374a"
+    layerDigest: "sha256:add7e31cd07242aaaf2b70a53a907ce77ec1bb62544c780a80076eab17597d95"
+    publicationReceipt: "runs/ghcr-packages/cluster-readiness-engine/v0.6.0.yaml"
+    name: "cluster-readiness-engine"
+    tag: "v0.6.0"
+    installCommand: "cub package install cluster-readiness-engine:v0.6.0 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/cluster-readiness-engine@sha256:443bf15c743552fe576cb7b981b058d5d7b08b984e0e7633e2156489ab72374a"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-cluster-readiness-engine:v0.6.0@sha256:6a1a75b2d243ee4bd2cbea79a91052dfb36beb3e0bc4da0a03b2b589a4dab501"
+      publicationReceipt: "runs/installer-oci/nvidia-cluster-readiness-engine/v0.6.0/installer-package-publication-receipt.yaml"
     installer: "packages/nvidia/cluster-readiness-engine/v0.6.0/installer.yaml"
     receipt: "recipes/nvidia/cluster-readiness-engine/v0.6.0/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "e3068274eee9e154acce62bfeea4f2ddb523ac7099d41711fc8421d9b49c2d09"
@@ -177,7 +184,7 @@ spec:
         default: true
         description: "cluster-readiness-engine chart defaults variant rendered from nvidia/cluster-readiness-engine@v0.6.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-cluster-readiness-engine:v0.6.0@sha256:6a1a75b2d243ee4bd2cbea79a91052dfb36beb3e0bc4da0a03b2b589a4dab501 --base default --work-dir <tmp> --non-interactive --namespace nvcre"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/cluster-readiness-engine:v0.6.0@sha256:443bf15c743552fe576cb7b981b058d5d7b08b984e0e7633e2156489ab72374a --base default --work-dir <tmp> --non-interactive --namespace nvcre"
         helmReleaseObjectCount: 43
         cubInstallObjectCountIncludingSupport: 44
         semanticObjectMatches: "43/43"

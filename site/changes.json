@@ -4,8 +4,8 @@
   "retention": {
     "policy": "additive_only",
     "retained_components": 124,
-    "retained_package_versions": 180,
-    "published_package_versions": 180,
+    "retained_package_versions": 181,
+    "published_package_versions": 181,
     "oldest_publication_receipt_at": "2026-08-26T06:59:31.658Z",
     "upstream_republished_version_pairs": 2,
     "license_gate": "evidence_required_before_listing",
@@ -24,12 +24,12 @@
       "aliases": [],
       "digest": "ffed1c0724d57e60706c9d65f281038874859f075f9de64cf4baac3ee78dab6a",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/aqua-trivy-operator-0-32-1.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aqua-trivy-operator:0.32.1",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/trivy-operator:v0.32.1",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/aqua-trivy-operator/0.32.1/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/trivy-operator/v0.32.1.yaml"
           ]
         },
         "chart_analysis": {
@@ -104,12 +104,12 @@
       "aliases": [],
       "digest": "854b791637010199750b249d111ff18ab6c16b8e35c9346caccfe091a9f0ce8b",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-cd-10-1-3.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:10.1.3",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/argo-cd-helm:v10.1.3",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/argo-cd-argo-cd/10.1.3/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/argo-cd-helm/v10.1.3.yaml"
           ]
         },
         "chart_analysis": {
@@ -160,12 +160,68 @@
       "aliases": [],
       "digest": "da6f004da8dfa65785c24378a6292618619cb8bb43eec0e304d56b759b6577ce",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-cd-10-2-1.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:10.2.1",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/argo-cd-helm:v10.2.1",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/argo-cd-argo-cd/10.2.1/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/argo-cd-helm/v10.2.1.yaml"
+          ]
+        },
+        "chart_analysis": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "render_parity": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "values_diagnostics": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "lifecycle_observation": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "local_kubernetes": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "gitops_oci": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "live_parity": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "two_cluster": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "promotion": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "upstream_republish": {
+          "status": "not_checked",
+          "evidence_urls": []
+        }
+      }
+    },
+    {
+      "chart": "argo-cd/argo-cd",
+      "version": "10.20.0",
+      "aliases": [],
+      "digest": "90eae4cafd2a23ad7f56bfa3d60e7e5967626d5624979b28d57101a3f505dea2",
+      "canonical_url": "https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-cd-10-20-0.html",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/argo-cd-helm:v10.20.0",
+      "coverage": {
+        "retained_package": {
+          "status": "checked",
+          "evidence_urls": [
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/argo-cd-helm/v10.20.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -216,12 +272,12 @@
       "aliases": [],
       "digest": "17fe63d588a894457b787496a49d63e5c95372cea2f2668dd3b14bc5452da060",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-cd-10-7-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:10.7.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/argo-cd-helm:v10.7.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/argo-cd-argo-cd/10.7.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/argo-cd-helm/v10.7.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -272,12 +328,12 @@
       "aliases": [],
       "digest": "1a11d380dbed9b18d5c2be5c76bf66951dcfc08025c0270df96592be94ab4557",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-cd-9-5-15.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.15",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/argo-cd-helm:v9.5.15",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/argo-cd-argo-cd/9.5.15/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/argo-cd-helm/v9.5.15.yaml"
           ]
         },
         "chart_analysis": {
@@ -352,12 +408,12 @@
       "aliases": [],
       "digest": "7d3e65afe2f1a41819005d3c2a440340193f3e75ab7b35433dd854ddb0e40182",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-cd-9-5-17.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.17",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/argo-cd-helm:v9.5.17",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/argo-cd-argo-cd/9.5.17/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/argo-cd-helm/v9.5.17.yaml"
           ]
         },
         "chart_analysis": {
@@ -408,12 +464,12 @@
       "aliases": [],
       "digest": "007ff648b1ce66660eec2b128fd765a9a4b9df62d7a00cc3bd6e02f756f3240f",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-events-2-4-21.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-events:2.4.21",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/argo-events:v2.4.21",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/argo-cd-argo-events/2.4.21/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/argo-events/v2.4.21.yaml"
           ]
         },
         "chart_analysis": {
@@ -488,12 +544,12 @@
       "aliases": [],
       "digest": "cec22be9190fc18c4ab4d6a936a53f836df66cf270f1b2497c557ee2de595c63",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-rollouts-2-40-9.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-rollouts:2.40.9",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/argo-rollouts:v2.40.9",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/argo-cd-argo-rollouts/2.40.9/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/argo-rollouts/v2.40.9.yaml"
           ]
         },
         "chart_analysis": {
@@ -568,12 +624,12 @@
       "aliases": [],
       "digest": "901c531b5cecf84ca8aa80a3a5c45608b6d0f18d8856196871fb70360ba75459",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-workflows-1-0-14.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-workflows:1.0.14",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/argo-workflows:v1.0.14",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/argo-cd-argo-workflows/1.0.14/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/argo-workflows/v1.0.14.yaml"
           ]
         },
         "chart_analysis": {
@@ -654,12 +710,12 @@
       "aliases": [],
       "digest": "734237e77d319a0be616920ae63494d6e704289765328677775687f74272befe",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/argo-cd-argocd-image-updater-1-2-2.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argocd-image-updater:1.2.2",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/argocd-image-updater:v1.2.2",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/argo-cd-argocd-image-updater/1.2.2/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/argocd-image-updater/v1.2.2.yaml"
           ]
         },
         "chart_analysis": {
@@ -730,12 +786,12 @@
       "aliases": [],
       "digest": "17ac0b373c34d668fad6fdca47c3774b3cad9b9a64e17b53f12e9fcba8b70566",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/autoscaler-cluster-autoscaler-9-57-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-cluster-autoscaler:9.57.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/cluster-autoscaler:v9.57.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/autoscaler-cluster-autoscaler/9.57.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/cluster-autoscaler/v9.57.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -808,12 +864,12 @@
       "aliases": [],
       "digest": "659dab6ea2e9c4f2c58002508eaa3f8578b03580e597af13c713c79662a1f9d4",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/autoscaler-vertical-pod-autoscaler-0-9-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-vertical-pod-autoscaler:0.9.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/vertical-pod-autoscaler:v0.9.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/autoscaler-vertical-pod-autoscaler/0.9.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/vertical-pod-autoscaler/v0.9.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -890,12 +946,12 @@
       "aliases": [],
       "digest": "d1d55de7845a8419c7ead50a09fb3ad44337b49c0dcd015c1d0a4fea933ceb2c",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/aws-controllers-k8s-ec2-chart-1-18-4.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-ec2-chart:1.18.4",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/ack-ec2-controller:v1.18.4",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/aws-controllers-k8s-ec2-chart/1.18.4/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/ack-ec2-controller/v1.18.4.yaml"
           ]
         },
         "chart_analysis": {
@@ -958,12 +1014,12 @@
       "aliases": [],
       "digest": "a75368ce8fb57d6dffdb369c94ed7cae95de1d61d3abb8bbd2272a0f53dfc1f7",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/aws-controllers-k8s-eks-chart-1-16-3.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-eks-chart:1.16.3",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/ack-eks-controller:v1.16.3",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/aws-controllers-k8s-eks-chart/1.16.3/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/ack-eks-controller/v1.16.3.yaml"
           ]
         },
         "chart_analysis": {
@@ -1026,12 +1082,12 @@
       "aliases": [],
       "digest": "0eae749effdab92c360429845acef602b34b5100333bc07ccfa3d4fcebbc849f",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/aws-controllers-k8s-iam-chart-1-7-3.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-iam-chart:1.7.3",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/ack-iam-controller:v1.7.3",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/aws-controllers-k8s-iam-chart/1.7.3/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/ack-iam-controller/v1.7.3.yaml"
           ]
         },
         "chart_analysis": {
@@ -1094,12 +1150,12 @@
       "aliases": [],
       "digest": "ee8fa30fb080e2214afd4ffb3e6c997c4d34aa9c3a3bb0f0d2e15efd13ec9a92",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-ebs-csi-driver-aws-ebs-csi-driver:2.59.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/aws-ebs-csi-driver:v2.59.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/aws-ebs-csi-driver-aws-ebs-csi-driver/2.59.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/aws-ebs-csi-driver/v2.59.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -1150,12 +1206,12 @@
       "aliases": [],
       "digest": "60ae07d553b41aa92ef3a8663e9275e18077166c3e6e0fad824acfc8d5b21ff6",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-ebs-csi-driver-aws-ebs-csi-driver:2.60.1",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/aws-ebs-csi-driver:v2.60.1",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/aws-ebs-csi-driver-aws-ebs-csi-driver/2.60.1/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/aws-ebs-csi-driver/v2.60.1.yaml"
           ]
         },
         "chart_analysis": {
@@ -1218,12 +1274,12 @@
       "aliases": [],
       "digest": "990b4a48c43ca19e346fceff64b3ad731de93cc088115a3f52923e5de1f1c761",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/bitnami-apache-11-4-29.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-apache:11.4.29",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/apache:v11.4.29",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/bitnami-apache/11.4.29/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/apache/v11.4.29.yaml"
           ]
         },
         "chart_analysis": {
@@ -1291,12 +1347,12 @@
       "aliases": [],
       "digest": "648097b27fe73c3441ed5bf6618b66776aec28ecd3f0ff2181cb83443f189926",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/bitnami-contour-21-1-4.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-contour:21.1.4",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/contour:v21.1.4",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/bitnami-contour/21.1.4/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/contour/v21.1.4.yaml"
           ]
         },
         "chart_analysis": {
@@ -1369,12 +1425,12 @@
       "aliases": [],
       "digest": "4fbd70ca6383f28001ef41bf08ac9ccd4874208a55eaf6febadd061d7aec3ca1",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/bitnami-elasticsearch-22-1-6.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-elasticsearch:22.1.6",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/elasticsearch:v22.1.6",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/bitnami-elasticsearch/22.1.6/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/elasticsearch/v22.1.6.yaml"
           ]
         },
         "chart_analysis": {
@@ -1445,12 +1501,12 @@
       "aliases": [],
       "digest": "7f0484f445800c22ed8df44077a70f13de1449f95de1f933f26b9cea9e72de1b",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/bitnami-memcached-8-5-5.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-memcached:8.5.5",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/memcached:v8.5.5",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/bitnami-memcached/8.5.5/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/memcached/v8.5.5.yaml"
           ]
         },
         "chart_analysis": {
@@ -1521,12 +1577,12 @@
       "aliases": [],
       "digest": "9db4d08d103736553226912b3ee8529545e4779cabeb1b9c930b62c791ab1bff",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/bitnami-mongodb-19-0-7.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.7",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/mongodb:v19.0.7",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/bitnami-mongodb/19.0.7/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/mongodb/v19.0.7.yaml"
           ]
         },
         "chart_analysis": {
@@ -1599,12 +1655,12 @@
       "aliases": [],
       "digest": "eded45268a8e4386e78dfda4d86fb858ac29b94a8f636874a4c441207caf1547",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/bitnami-mongodb-19-0-9.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.9",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/mongodb:v19.0.9",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/bitnami-mongodb/19.0.9/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/mongodb/v19.0.9.yaml"
           ]
         },
         "chart_analysis": {
@@ -1655,12 +1711,12 @@
       "aliases": [],
       "digest": "ac253fd134639ebe4ab3eb186f5f5b03dd320a2090228f6fd75e82b2f38337fb",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/bitnami-mongodb-19-1-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.1.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/mongodb:v19.1.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/bitnami-mongodb/19.1.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/mongodb/v19.1.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -1711,12 +1767,12 @@
       "aliases": [],
       "digest": "b4853b8df0cc7c7c174bcf4cfce89a13f7380980f1372629d26591c14eaa7cb0",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/bitnami-mysql-14-0-3.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mysql:14.0.3",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/mysql:v14.0.3",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/bitnami-mysql/14.0.3/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/mysql/v14.0.3.yaml"
           ]
         },
         "chart_analysis": {
@@ -1791,12 +1847,12 @@
       "aliases": [],
       "digest": "9905c5ba5f0b0187f5d22b7f4113856635476bb081d584b36251f5513b010414",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/bitnami-nginx-24-0-2.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/bitnami-nginx:v24.0.2",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/bitnami-nginx/24.0.2/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/bitnami-nginx/v24.0.2.yaml"
           ]
         },
         "chart_analysis": {
@@ -1869,12 +1925,12 @@
       "aliases": [],
       "digest": "8a888a43351f144ac3900b833a6be01479c534945eb334141dbfffb9ec02a705",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/bitnami-nginx-24-0-4.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.4",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/bitnami-nginx:v24.0.4",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/bitnami-nginx/24.0.4/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/bitnami-nginx/v24.0.4.yaml"
           ]
         },
         "chart_analysis": {
@@ -1925,12 +1981,12 @@
       "aliases": [],
       "digest": "d0f20a25e17f90013e8a8e7e21347033a3c72ae84bf24e79288dda4a8131015f",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/bitnami-nginx-25-0-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:25.0.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/bitnami-nginx:v25.0.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/bitnami-nginx/25.0.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/bitnami-nginx/v25.0.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -1981,12 +2037,12 @@
       "aliases": [],
       "digest": "c981534878c200f8a5c24484aeefd40366a77eda8c7affe28166c2d8f53b544a",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/bitnami-opensearch-2-0-10.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-opensearch:2.0.10",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/opensearch:v2.0.10",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/bitnami-opensearch/2.0.10/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/opensearch/v2.0.10.yaml"
           ]
         },
         "chart_analysis": {
@@ -2057,12 +2113,12 @@
       "aliases": [],
       "digest": "70d1e0822c93fb98c31a3466d7b9390c889673992c83578f58c408f1c49d5d7b",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/bitnami-phpmyadmin-20-0-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-phpmyadmin:20.0.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/phpmyadmin:v20.0.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/bitnami-phpmyadmin/20.0.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/phpmyadmin/v20.0.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -2130,12 +2186,12 @@
       "aliases": [],
       "digest": "8b783c804ffa731539d21c1855dba162c9d31f3a31d0cbbfd285520b35e0da5b",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/bitnami-postgresql-18-6-10.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.6.10",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/postgresql:v18.6.10",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/bitnami-postgresql/18.6.10/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/postgresql/v18.6.10.yaml"
           ]
         },
         "chart_analysis": {
@@ -2186,12 +2242,12 @@
       "aliases": [],
       "digest": "56169f744055cad7e0b8cf1e7c381a8116911b1e3a3e2057a755234a84fc8255",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/bitnami-postgresql-18-6-7.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.6.7",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/postgresql:v18.6.7",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/bitnami-postgresql/18.6.7/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/postgresql/v18.6.7.yaml"
           ]
         },
         "chart_analysis": {
@@ -2264,12 +2320,12 @@
       "aliases": [],
       "digest": "30ac053e6c9b76656926b6af3659f9d8057c3686d5f77af05f540a4f981ce5f9",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/bitnami-postgresql-18-7-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.7.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/postgresql:v18.7.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/bitnami-postgresql/18.7.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/postgresql/v18.7.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -2320,12 +2376,12 @@
       "aliases": [],
       "digest": "1add13b1e9dc72f00b442b70ad31d86e00401dd102811b3935710af7255bb0da",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/bitnami-rabbitmq-16-0-14.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-rabbitmq:16.0.14",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/bitnami-rabbitmq:v16.0.14",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/bitnami-rabbitmq/16.0.14/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/bitnami-rabbitmq/v16.0.14.yaml"
           ]
         },
         "chart_analysis": {
@@ -2400,12 +2456,12 @@
       "aliases": [],
       "digest": "5e683c6f7327875a58d604d9140c510b6a094735f18e4e2219946e3f2e5ed8e7",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/bitnami-redis-25-5-3.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/bitnami-redis:v25.5.3",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/bitnami-redis/25.5.3/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/bitnami-redis/v25.5.3.yaml"
           ]
         },
         "chart_analysis": {
@@ -2480,12 +2536,12 @@
       "aliases": [],
       "digest": "6acadb79462876cae51d10d0c13e8783aa8340f01f35c1b3b06ae229158462f4",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/bitnami-redis-27-0-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:27.0.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/bitnami-redis:v27.0.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/bitnami-redis/27.0.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/bitnami-redis/v27.0.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -2538,12 +2594,12 @@
       "aliases": [],
       "digest": "5bdab75d6c9850a7446a69314672e68512149cebcc49f225e489b4870e5927a8",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/bitnami-spark-10-0-3.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-spark:10.0.3",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/spark:v10.0.3",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/bitnami-spark/10.0.3/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/spark/v10.0.3.yaml"
           ]
         },
         "chart_analysis": {
@@ -2614,12 +2670,12 @@
       "aliases": [],
       "digest": "cb9cbc3db9844aa06219b1d4f1cde30186a85291a83756c7498d33c12054a824",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/bitnami-zookeeper-13-8-7.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-zookeeper:13.8.7",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/zookeeper:v13.8.7",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/bitnami-zookeeper/13.8.7/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/zookeeper/v13.8.7.yaml"
           ]
         },
         "chart_analysis": {
@@ -2690,12 +2746,12 @@
       "aliases": [],
       "digest": "040cb5767ec4d9de62fdfaec96a35574656ef6cd2d50dadccb2c3920ba3b135f",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/cloudnative-pg-cloudnative-pg-0-28-2.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudnative-pg-cloudnative-pg:0.28.2",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/cloudnative-pg:v0.28.2",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/cloudnative-pg-cloudnative-pg/0.28.2/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/cloudnative-pg/v0.28.2.yaml"
           ]
         },
         "chart_analysis": {
@@ -2746,12 +2802,12 @@
       "aliases": [],
       "digest": "12de4fd2745962db45bdfd0b483df74279504000d1b812fc6c543a5af13a5d53",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/cloudnative-pg-cloudnative-pg-0-29-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudnative-pg-cloudnative-pg:0.29.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/cloudnative-pg:v0.29.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/cloudnative-pg-cloudnative-pg/0.29.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/cloudnative-pg/v0.29.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -2812,12 +2868,12 @@
       "aliases": [],
       "digest": "063d2513e81e4ab317c893dac90c337b3dad724bc390de511db4a12cba74c827",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/cloudpirates-nginx-0-16-1.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-nginx:0.16.1",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/cloudpirates-nginx:v0.16.1",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/cloudpirates-nginx/0.16.1/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/cloudpirates-nginx/v0.16.1.yaml"
           ]
         },
         "chart_analysis": {
@@ -2878,12 +2934,12 @@
       "aliases": [],
       "digest": "fd76a776ab4f12beac468bbefad26fd2bc568c0e342556680690f193f92f3449",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/cloudpirates-rabbitmq-0-21-13.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-rabbitmq:0.21.13",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/cloudpirates-rabbitmq:v0.21.13",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/cloudpirates-rabbitmq/0.21.13/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/cloudpirates-rabbitmq/v0.21.13.yaml"
           ]
         },
         "chart_analysis": {
@@ -2946,12 +3002,12 @@
       "aliases": [],
       "digest": "03f31ab491bf1093f1ec0aed11e9f72b098cd8700a382e8cf3164854f4ab4f57",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/cloudpirates-redis-0-34-11.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/cloudpirates-redis:v0.34.11",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/cloudpirates-redis/0.34.11/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/cloudpirates-redis/v0.34.11.yaml"
           ]
         },
         "chart_analysis": {
@@ -3014,12 +3070,12 @@
       "aliases": [],
       "digest": "623602f54f93da3991b59cb870d21e80a79364e9d4f84e311caed0a085b24ea3",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/coredns-coredns-1-45-2.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/coredns-coredns:1.45.2",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/coredns:v1.45.2",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/coredns-coredns/1.45.2/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/coredns/v1.45.2.yaml"
           ]
         },
         "chart_analysis": {
@@ -3090,12 +3146,12 @@
       "aliases": [],
       "digest": "c6fbe8d8b416736ddfaac6a244b2d733695fdbefdd1c5b1cacd9c673c349f051",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/crossplane-stable-crossplane-2-3-1.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/crossplane-stable-crossplane:2.3.1",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/crossplane:v2.3.1",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/crossplane-stable-crossplane/2.3.1/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/crossplane/v2.3.1.yaml"
           ]
         },
         "chart_analysis": {
@@ -3166,12 +3222,12 @@
       "aliases": [],
       "digest": "ebed93eac08d1c2c3846f37c38ee63c0fcc4c48d76ed1195fc8fe616eac7e841",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/descheduler-descheduler-0-36-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/descheduler-descheduler:0.36.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/descheduler:v0.36.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/descheduler-descheduler/0.36.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/descheduler/v0.36.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -3242,12 +3298,12 @@
       "aliases": [],
       "digest": "6d6918a9b4e5b711e09db84e27fc9b8f208f1bb18d3f4921202e32b9a59031af",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/dex-dex-0-24-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/dex-dex:0.24.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/dex:v0.24.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/dex-dex/0.24.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/dex/v0.24.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -3310,12 +3366,12 @@
       "aliases": [],
       "digest": "1df90f46d618e37b6a72f7f6d4d7c3a1ac53b801e53cf989d19b81e752019414",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/dra-driver-nvidia-dra-driver-nvidia-gpu:0.4.1",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/dra-driver-nvidia-gpu:v0.4.1",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/dra-driver-nvidia-dra-driver-nvidia-gpu/0.4.1/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/dra-driver-nvidia-gpu/v0.4.1.yaml"
           ]
         },
         "chart_analysis": {
@@ -3366,12 +3422,12 @@
       "aliases": [],
       "digest": "3a5cd56f37e0408ef8856252c9c22911e0095249d9ee9216283ee9916159572e",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/dra-driver-nvidia-dra-driver-nvidia-gpu:0.5.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/dra-driver-nvidia-gpu:v0.5.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/dra-driver-nvidia-dra-driver-nvidia-gpu/0.5.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/dra-driver-nvidia-gpu/v0.5.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -3436,12 +3492,12 @@
       "aliases": [],
       "digest": "a3dcd8fc7e1afda264126a18edb7d26176a4beeecdb280bb09bafef118860454",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/eks-aws-efa-k8s-device-plugin-v0-5-29.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/eks-aws-efa-k8s-device-plugin:v0.5.29",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/aws-efa-k8s-device-plugin:v0.5.29",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/eks-aws-efa-k8s-device-plugin/v0.5.29/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/aws-efa-k8s-device-plugin/v0.5.29.yaml"
           ]
         },
         "chart_analysis": {
@@ -3504,12 +3560,12 @@
       "aliases": [],
       "digest": "3f4fef3a40243c6919b458818dfa3c67a0bc69cc953e09749b4e7607de55a86b",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/elastic-eck-operator-3-4-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-eck-operator:3.4.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/eck-operator:v3.4.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/elastic-eck-operator/3.4.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/eck-operator/v3.4.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -3588,12 +3644,12 @@
       "aliases": [],
       "digest": "a6182ad06bc42cf50c9b83a77e77891d43000123a2497c6ba68000e630b3eb51",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/elastic-filebeat-8-5-1.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-filebeat:8.5.1",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/filebeat:v8.5.1",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/elastic-filebeat/8.5.1/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/filebeat/v8.5.1.yaml"
           ]
         },
         "chart_analysis": {
@@ -3659,12 +3715,12 @@
       "aliases": [],
       "digest": "a01ae926c3700229d1d4c1f5072ef01e3767e632b68df45e58f5b0cdd9def3d5",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/elastic-kibana-8-5-1.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-kibana:8.5.1",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/kibana:v8.5.1",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/elastic-kibana/8.5.1/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/kibana/v8.5.1.yaml"
           ]
         },
         "chart_analysis": {
@@ -3727,12 +3783,12 @@
       "aliases": [],
       "digest": "2e32a43c4d49f678ea5950fb35f7e2687dbeb6f97590f29d1ca1d07c58934caa",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/elastic-logstash-8-5-1.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-logstash:8.5.1",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/logstash:v8.5.1",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/elastic-logstash/8.5.1/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/logstash/v8.5.1.yaml"
           ]
         },
         "chart_analysis": {
@@ -3807,12 +3863,12 @@
       "aliases": [],
       "digest": "296578528bea356c6b3892038deb3b631d1870b0b25c89ad68deeca580879e88",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/elastic-metricbeat-8-5-1.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-metricbeat:8.5.1",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/metricbeat:v8.5.1",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/elastic-metricbeat/8.5.1/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/metricbeat/v8.5.1.yaml"
           ]
         },
         "chart_analysis": {
@@ -3875,12 +3931,12 @@
       "aliases": [],
       "digest": "f4f3b4457c4b502f4c71e806f0cc46a5b39759ab57b8dfb018d99625aa304704",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/external-dns-external-dns-1-21-1.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-dns-external-dns:1.21.1",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/external-dns:v1.21.1",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/external-dns-external-dns/1.21.1/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/external-dns/v1.21.1.yaml"
           ]
         },
         "chart_analysis": {
@@ -3959,12 +4015,12 @@
       "aliases": [],
       "digest": "c026ff36c6339e6f32fcb583fff9c63775057c9631e9af366bdc4bb7dd984664",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/external-secrets-external-secrets-2-10-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.10.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/external-secrets:v2.10.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/external-secrets-external-secrets/2.10.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/external-secrets/v2.10.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -4015,12 +4071,12 @@
       "aliases": [],
       "digest": "c071847c2e9e7815915cd8a102f3daddc31880f822c7ddc49e23e29581fdcb3a",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/external-secrets-external-secrets-2-5-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.5.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/external-secrets:v2.5.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/external-secrets-external-secrets/2.5.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/external-secrets/v2.5.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -4095,12 +4151,12 @@
       "aliases": [],
       "digest": "943893fcc9fcddb2f4ce3b6cc405d6a8ac3cb91ab416681d4b86aab457e93f2c",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/external-secrets-external-secrets-2-7-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.7.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/external-secrets:v2.7.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/external-secrets-external-secrets/2.7.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/external-secrets/v2.7.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -4151,12 +4207,12 @@
       "aliases": [],
       "digest": "7377e1de207b4ff5286e8753766668d122b4172f9fed3bb43f1f3f868afffbeb",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/external-secrets-external-secrets-2-8-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.8.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/external-secrets:v2.8.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/external-secrets-external-secrets/2.8.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/external-secrets/v2.8.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -4207,12 +4263,12 @@
       "aliases": [],
       "digest": "50987e3319e54f1a216079cc4ff22f67a67721e964302f9f32f4e8dfacac106e",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/fairwinds-stable-goldilocks-10-3-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-goldilocks:10.3.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/goldilocks:v10.3.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/fairwinds-stable-goldilocks/10.3.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/goldilocks/v10.3.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -4286,12 +4342,12 @@
       "aliases": [],
       "digest": "ee06d167d2d000dcace5c8a03bd368a849f20796704a9ad6fdcb23f5ffec9704",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/fairwinds-stable-vpa-4-11-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-vpa:4.11.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/fairwinds-vpa:v4.11.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/fairwinds-stable-vpa/4.11.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/fairwinds-vpa/v4.11.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -4371,12 +4427,12 @@
       "aliases": [],
       "digest": "f6e206e7dd44542fffcf9bc50de58cc40879e0c0b589f9691e3f901f05eb6d7a",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/falcosecurity-falco-9-0-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/falcosecurity-falco:9.0.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/falco:v9.0.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/falcosecurity-falco/9.0.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/falco/v9.0.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -4447,12 +4503,12 @@
       "aliases": [],
       "digest": "a2b9bc98306bc47ee557bfe73fff72b37d15a2a7b18293a3f1837ea4b7f9fdac",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/falcosecurity-falcosidekick-0-13-1.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/falcosecurity-falcosidekick:0.13.1",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/falcosidekick:v0.13.1",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/falcosecurity-falcosidekick/0.13.1/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/falcosidekick/v0.13.1.yaml"
           ]
         },
         "chart_analysis": {
@@ -4523,12 +4579,12 @@
       "aliases": [],
       "digest": "bedeb8f7e3babb28e9b36cd4586ce526a42835534405a37221fb6a1ddf8b733b",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/fluent-fluent-bit-0-57-6.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fluent-fluent-bit:0.57.6",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/fluent-bit:v0.57.6",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/fluent-fluent-bit/0.57.6/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/fluent-bit/v0.57.6.yaml"
           ]
         },
         "chart_analysis": {
@@ -4601,12 +4657,12 @@
       "aliases": [],
       "digest": "d9c767611089bf128564a339b8e352fd8c57ff6febef9ecc1d520dab83f7afd8",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/fluent-fluentd-0-5-3.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fluent-fluentd:0.5.3",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/fluentd:v0.5.3",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/fluent-fluentd/0.5.3/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/fluentd/v0.5.3.yaml"
           ]
         },
         "chart_analysis": {
@@ -4673,12 +4729,12 @@
       "aliases": [],
       "digest": "a3e59845419c6c3e2fcb857c1370df675ad88c10cdf5b03b1839c435e3026756",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/gatekeeper-gatekeeper-3-22-2.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gatekeeper-gatekeeper:3.22.2",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/gatekeeper:v3.22.2",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/gatekeeper-gatekeeper/3.22.2/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/gatekeeper/v3.22.2.yaml"
           ]
         },
         "chart_analysis": {
@@ -4755,12 +4811,12 @@
       "aliases": [],
       "digest": "bb44b4b6fcaea031eba98a6be699cac7c0969df3c3d697aa740439d48c9dc370",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/gitlab-gitlab-runner-0-89-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gitlab-gitlab-runner:0.89.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/gitlab-runner:v0.89.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/gitlab-gitlab-runner/0.89.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/gitlab-runner/v0.89.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -4823,12 +4879,12 @@
       "aliases": [],
       "digest": "75ce791134245455f1982bb83532cd0ff6c0f7ef15da09059eead35a1303206a",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/grafana-alloy-1-11-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.11.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/alloy:v1.11.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/grafana-alloy/1.11.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/alloy/v1.11.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -4879,12 +4935,12 @@
       "aliases": [],
       "digest": "bdc05001ce38eed872f42ff09f04a4a6cff5efe7055dbaa46744962155896ad9",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/grafana-alloy-1-12-1.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.12.1",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/alloy:v1.12.1",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/grafana-alloy/1.12.1/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/alloy/v1.12.1.yaml"
           ]
         },
         "chart_analysis": {
@@ -4945,12 +5001,12 @@
       "aliases": [],
       "digest": "02564022b676af03d04e6f26a36ab3c91d830706c85b5b2dae8084f69c9ab37b",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/grafana-alloy-1-8-2.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.8.2",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/alloy:v1.8.2",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/grafana-alloy/1.8.2/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/alloy/v1.8.2.yaml"
           ]
         },
         "chart_analysis": {
@@ -5001,12 +5057,12 @@
       "aliases": [],
       "digest": "b3480492646d4e9bafdee00abb9e3a8478ae9f3f25290be062b33fca0359f5f6",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/grafana-grafana-10-5-15.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-grafana:10.5.15",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/grafana:v10.5.15",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/grafana-grafana/10.5.15/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/grafana/v10.5.15.yaml"
           ]
         },
         "chart_analysis": {
@@ -5081,12 +5137,12 @@
       "aliases": [],
       "digest": "48497f183fce3117cf94c79d6c472c1b3f9c6719e0809ae002c670f2f6bf8507",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/grafana-loki-7-0-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.0.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/loki:v7.0.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/grafana-loki/7.0.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/loki/v7.0.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -5161,12 +5217,12 @@
       "aliases": [],
       "digest": "d1195d0f327f5b7de83132d1ae3af8c98c44be0394a6601be71ac225f972f365",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/grafana-loki-7-1-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.1.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/loki:v7.1.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/grafana-loki/7.1.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/loki/v7.1.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -5217,12 +5273,12 @@
       "aliases": [],
       "digest": "3f9d88e7bd138835c46fd11de38f59685d32a6d6038ca8ca7b818d0a5847817f",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/grafana-loki-7-3-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.3.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/loki:v7.3.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/grafana-loki/7.3.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/loki/v7.3.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -5273,12 +5329,12 @@
       "aliases": [],
       "digest": "b55fef333b2bd31729b1629e67cc91be51d9662afdbfdc1e3303323059a26577",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/grafana-promtail-6-17-1.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-promtail:6.17.1",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/promtail:v6.17.1",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/grafana-promtail/6.17.1/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/promtail/v6.17.1.yaml"
           ]
         },
         "chart_analysis": {
@@ -5349,12 +5405,12 @@
       "aliases": [],
       "digest": "a6b86f39c7adc52c0a9bd1cbf5231f8d7bf43042e497b16bf838a2eb85921ebf",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/grafana-pyroscope-2-0-2.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-pyroscope:2.0.2",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/pyroscope:v2.0.2",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/grafana-pyroscope/2.0.2/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/pyroscope/v2.0.2.yaml"
           ]
         },
         "chart_analysis": {
@@ -5427,12 +5483,12 @@
       "aliases": [],
       "digest": "2148082a318f8a2f65d3a4691d5797246e69828e1a5068c461d1ec8906c881da",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/grafana-rollout-operator-0-49-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-rollout-operator:0.49.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/rollout-operator:v0.49.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/grafana-rollout-operator/0.49.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/rollout-operator/v0.49.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -5507,12 +5563,12 @@
       "aliases": [],
       "digest": "fb9d1fa30abf0a75cdbed916865e553c3db1d618938551432bc164db29475e0c",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/grafana-tempo-1-24-4.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-tempo:1.24.4",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/tempo:v1.24.4",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/grafana-tempo/1.24.4/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/tempo/v1.24.4.yaml"
           ]
         },
         "chart_analysis": {
@@ -5587,12 +5643,12 @@
       "aliases": [],
       "digest": "62403b6795324b44298cf3ec2322916c55a6c80c7c3e04921168c59c6f270d9e",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/haproxytech-kubernetes-ingress-1-52-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/haproxytech-kubernetes-ingress:1.52.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/kubernetes-ingress:v1.52.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/haproxytech-kubernetes-ingress/1.52.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/kubernetes-ingress/v1.52.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -5663,12 +5719,12 @@
       "aliases": [],
       "digest": "538a6c44df45fdbb0a53f1598f0c34fbe01e613bdc89ef2324481201c1bd6c37",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/hashicorp-consul-2-0-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-consul:2.0.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/consul:v2.0.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/hashicorp-consul/2.0.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/consul/v2.0.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -5743,12 +5799,12 @@
       "aliases": [],
       "digest": "8f7175cd6abb05aaa6b63fe365c3118428a28b40462afbbd93d775453dffcf10",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/hashicorp-terraform-1-1-2.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-terraform:1.1.2",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/hashicorp-terraform:v1.1.2",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/hashicorp-terraform/1.1.2/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/hashicorp-terraform/v1.1.2.yaml"
           ]
         },
         "chart_analysis": {
@@ -5814,12 +5870,12 @@
       "aliases": [],
       "digest": "add21acd201b5c747711f91fdabe3d66bc712cd563f2c279961a5c47b3b91c09",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/hashicorp-vault-0-32-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/vault:v0.32.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/hashicorp-vault/0.32.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/vault/v0.32.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -5898,12 +5954,12 @@
       "aliases": [],
       "digest": "9b9a786b39d8db9c4d180bac306c0e4336eb81b97033229be00ccb91a80c5828",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/ingress-nginx-ingress-nginx-4-15-1.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/ingress-nginx-ingress-nginx:4.15.1",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/ingress-nginx:v4.15.1",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/ingress-nginx-ingress-nginx/4.15.1/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/ingress-nginx/v4.15.1.yaml"
           ]
         },
         "chart_analysis": {
@@ -5985,12 +6041,12 @@
       "aliases": [],
       "digest": "8312840baf16ba8310a00756a161fb5b53b290aa42fa8887fbec089bfca610ad",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/istio-gateway-1-30-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-gateway:1.30.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/istio-gateway:v1.30.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/istio-gateway/1.30.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/istio-gateway/v1.30.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -6056,12 +6112,12 @@
       "aliases": [],
       "digest": "13f0c70fe723daf5c27d959d794a7f9f48e7bb45fd9fdfaf1fcf81f9a345e8fe",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/istio-istiod-1-30-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-istiod:1.30.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/istiod:v1.30.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/istio-istiod/1.30.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/istiod/v1.30.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -6124,12 +6180,12 @@
       "aliases": [],
       "digest": "1fa5ac15b4bd6605b43b8fd97a8974f0e62fee33a7751d3842cdfcbda7e45436",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/jaegertracing-jaeger-4-8-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jaegertracing-jaeger:4.8.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/jaeger:v4.8.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/jaegertracing-jaeger/4.8.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/jaeger/v4.8.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -6200,12 +6256,12 @@
       "aliases": [],
       "digest": "c8ad17a3e068d40895d103e54cb52792feea649682f50c45f3ca151d9d7457c9",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/jaegertracing-jaeger-operator-2-57-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jaegertracing-jaeger-operator:2.57.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/jaeger-operator:v2.57.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/jaegertracing-jaeger-operator/2.57.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/jaeger-operator/v2.57.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -6278,12 +6334,12 @@
       "aliases": [],
       "digest": "63ad0e0f931fcb9fab89af1c5e78297bc3a32bee841d13413211b612818606f9",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/jetstack-cert-manager-v1-20-2.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.20.2",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/cert-manager:v1.20.2",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/jetstack-cert-manager/v1.20.2/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/cert-manager/v1.20.2.yaml"
           ]
         },
         "chart_analysis": {
@@ -6360,12 +6416,12 @@
       "aliases": [],
       "digest": "3aae227fdb5e32be21e01950a13ea8ede2f2090f0386a71d910f28eb2ae220c0",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/jetstack-cert-manager-v1-21-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.21.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/cert-manager:v1.21.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/jetstack-cert-manager/v1.21.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/cert-manager/v1.21.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -6416,12 +6472,12 @@
       "aliases": [],
       "digest": "8fc68b3cafecf7fd55b02e63b88268d1a3b9735c76f809c022ad979e59db8a42",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/jetstack-cert-manager-v1-21-1.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.21.1",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/cert-manager:v1.21.1",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/jetstack-cert-manager/v1.21.1/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/cert-manager/v1.21.1.yaml"
           ]
         },
         "chart_analysis": {
@@ -6472,12 +6528,12 @@
       "aliases": [],
       "digest": "cfb843e3b21e98f9f4b6199a65ef71e501ec67ed9bf859d5d327494a1201e98b",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/jetstack-cert-manager-csi-driver-v0-14-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager-csi-driver:v0.14.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/cert-manager-csi-driver:v0.14.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/jetstack-cert-manager-csi-driver/v0.14.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/cert-manager-csi-driver/v0.14.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -6548,12 +6604,12 @@
       "aliases": [],
       "digest": "31b4af9a07fe7428bb037d9331b1209d1f5bd587e2149846ad80964f418c1c22",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/jetstack-trust-manager-v0-22-1.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-trust-manager:v0.22.1",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/trust-manager:v0.22.1",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/jetstack-trust-manager/v0.22.1/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/trust-manager/v0.22.1.yaml"
           ]
         },
         "chart_analysis": {
@@ -6626,12 +6682,12 @@
       "aliases": [],
       "digest": "70fe17878cfba5380dfa145c35f07eaf3f0a911213b45d1c4d7be39a9ff2bbfe",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics:1.19.2",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/k8s-ephemeral-storage-metrics:v1.19.2",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics/1.19.2/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/k8s-ephemeral-storage-metrics/v1.19.2.yaml"
           ]
         },
         "chart_analysis": {
@@ -6696,12 +6752,12 @@
       "aliases": [],
       "digest": "b1c28a877952e907a8100b1bbbac0472faae9410da17660bad1d9939149bf268",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/kai-scheduler-kai-scheduler-v0-14-1.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kai-scheduler-kai-scheduler:v0.14.1",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/kai-scheduler:v0.14.1",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/kai-scheduler-kai-scheduler/v0.14.1/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/kai-scheduler/v0.14.1.yaml"
           ]
         },
         "chart_analysis": {
@@ -6752,12 +6808,12 @@
       "aliases": [],
       "digest": "3cf5a5c7f75cd08a373e4d8ea934687744fa34a703e4338401f18ffff6ae93e6",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/kai-scheduler-kai-scheduler-v0-16-9.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kai-scheduler-kai-scheduler:v0.16.9",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/kai-scheduler:v0.16.9",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/kai-scheduler-kai-scheduler/v0.16.9/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/kai-scheduler/v0.16.9.yaml"
           ]
         },
         "chart_analysis": {
@@ -6820,12 +6876,12 @@
       "aliases": [],
       "digest": "c3dc6be7c3948fe18a574b54845c1166ad2f6931cf28f5032c6d6c997d3f2bbd",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/karpenter-karpenter-1-14-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/karpenter-karpenter:1.14.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/karpenter:v1.14.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/karpenter-karpenter/1.14.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/karpenter/v1.14.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -6890,12 +6946,12 @@
       "aliases": [],
       "digest": "58a5f496684e8ac91f439b0f1d77f240178a19d21dcc1246130b917baafaf4e8",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/kedacore-keda-2-19-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kedacore-keda:2.19.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/keda:v2.19.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/kedacore-keda/2.19.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/keda/v2.19.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -6972,12 +7028,12 @@
       "aliases": [],
       "digest": "76bef1e49a819db1f630d7440c80db5f97c32cc6ee9de87c2f2a3d22a7f81c5c",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/kubeflow-kubeflow-trainer-2-2-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kubeflow-kubeflow-trainer:2.2.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/kubeflow-trainer:v2.2.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/kubeflow-kubeflow-trainer/2.2.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/kubeflow-trainer/v2.2.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -7042,12 +7098,12 @@
       "aliases": [],
       "digest": "81f11841d7e967ca91f5e6e434ad6b5ff0a5b7b6ed6dcab19535fc8c378bf4b5",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/kyverno-kyverno-3-8-1.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno:3.8.1",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/kyverno:v3.8.1",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/kyverno-kyverno/3.8.1/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/kyverno/v3.8.1.yaml"
           ]
         },
         "chart_analysis": {
@@ -7098,12 +7154,12 @@
       "aliases": [],
       "digest": "59ca868017be80cc2a7cfa67df48ca46c6fc7260bfa46c9ca1e5e093c9fb873b",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/kyverno-kyverno-3-8-2.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno:3.8.2",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/kyverno:v3.8.2",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/kyverno-kyverno/3.8.2/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/kyverno/v3.8.2.yaml"
           ]
         },
         "chart_analysis": {
@@ -7154,12 +7210,12 @@
       "aliases": [],
       "digest": "8d4dab1dbdf1764f18a998c88b53139fb6b8aa63fd85762f2ab18cd90bfcd403",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/kyverno-kyverno-3-9-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno:3.9.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/kyverno:v3.9.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/kyverno-kyverno/3.9.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/kyverno/v3.9.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -7222,12 +7278,12 @@
       "aliases": [],
       "digest": "63aaf9c71000e582e1ebd861246030a07099ca7d4fbb4dc2dcc432a921fc11d9",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/kyverno-kyverno-policies-3-8-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno-policies:3.8.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/kyverno-policies:v3.8.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/kyverno-kyverno-policies/3.8.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/kyverno-policies/v3.8.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -7278,12 +7334,12 @@
       "aliases": [],
       "digest": "1253acd9011bc57c1a996904e4bb161cf1f7865a5f3de5878dd40aa5c998d164",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/kyverno-kyverno-policies-3-8-2.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno-policies:3.8.2",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/kyverno-policies:v3.8.2",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/kyverno-kyverno-policies/3.8.2/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/kyverno-policies/v3.8.2.yaml"
           ]
         },
         "chart_analysis": {
@@ -7334,12 +7390,12 @@
       "aliases": [],
       "digest": "8195bedc68e7c5fb4a6c9c70351b1c8d88e4a49bfdf8518ebf7e4d7d27730193",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/kyverno-kyverno-policies-3-9-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno-policies:3.9.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/kyverno-policies:v3.9.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/kyverno-kyverno-policies/3.9.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/kyverno-policies/v3.9.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -7400,12 +7456,12 @@
       "aliases": [],
       "digest": "121e4bcac07dc893a271531a30ca8ee4d854bdbab5539cdff84afe858c912bb4",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/linkerd-linkerd-crds-1-8-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/linkerd-linkerd-crds:1.8.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/linkerd-crds:v1.8.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/linkerd-linkerd-crds/1.8.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/linkerd-crds/v1.8.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -7472,12 +7528,12 @@
       "aliases": [],
       "digest": "b93bb32cddff28466398e8cad45bbe9e3778df84d996bc9cf64619ad7091aa95",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/longhorn-longhorn-1-11-2.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.11.2",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/longhorn:v1.11.2",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/longhorn-longhorn/1.11.2/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/longhorn/v1.11.2.yaml"
           ]
         },
         "chart_analysis": {
@@ -7552,12 +7608,12 @@
       "aliases": [],
       "digest": "ab0f7a2bb409a3c3cb867c39f1835746d9b0d71edb626d50efc3f5a27d936282",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/longhorn-longhorn-1-12-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.12.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/longhorn:v1.12.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/longhorn-longhorn/1.12.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/longhorn/v1.12.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -7608,12 +7664,12 @@
       "aliases": [],
       "digest": "0b14a71dc38694400cbb71d82530ce1ed42e4bc13d34b13ee4e8382d99c2d3cd",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/longhorn-longhorn-1-12-1.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.12.1",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/longhorn:v1.12.1",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/longhorn-longhorn/1.12.1/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/longhorn/v1.12.1.yaml"
           ]
         },
         "chart_analysis": {
@@ -7664,12 +7720,12 @@
       "aliases": [],
       "digest": "30841c447f2f76e9b7f8665e87c1ae3a9f3cef457818705ff35a3015114ed652",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/metallb-metallb-0-16-1.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metallb-metallb:0.16.1",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/metallb:v0.16.1",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/metallb-metallb/0.16.1/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/metallb/v0.16.1.yaml"
           ]
         },
         "chart_analysis": {
@@ -7720,12 +7776,12 @@
       "aliases": [],
       "digest": "6c0e5cdf921eae97db433726305cbfe67d9c540cf8d8f792679b701fbd4b0089",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/metrics-server-metrics-server-3-13-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.13.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/metrics-server:v3.13.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/metrics-server-metrics-server/3.13.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/metrics-server/v3.13.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -7800,12 +7856,12 @@
       "aliases": [],
       "digest": "0d1781605ee93fd259724491c761d6ae6e3cb885001e84d8ad7465f8f2375991",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/metrics-server-metrics-server-3-13-1.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.13.1",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/metrics-server:v3.13.1",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/metrics-server-metrics-server/3.13.1/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/metrics-server/v3.13.1.yaml"
           ]
         },
         "chart_analysis": {
@@ -7856,12 +7912,12 @@
       "aliases": [],
       "digest": "fc74c0ba1a4a6223e3ebdf82a64a5b10456de7a40cea69578d66321a5cfc4935",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/metrics-server-metrics-server-3-14-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.14.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/metrics-server:v3.14.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/metrics-server-metrics-server/3.14.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/metrics-server/v3.14.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -7914,12 +7970,12 @@
       ],
       "digest": "16cbc70c2675573873e45bc328208cd49082b905aedf8ecb483ea9b3e7549b0d",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/minio-operator-operator-7-1-1.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-operator:7.1.1",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/minio-operator:v7.1.1",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/minio-operator-operator/7.1.1/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/minio-operator/v7.1.1.yaml"
           ]
         },
         "chart_analysis": {
@@ -7992,12 +8048,12 @@
       ],
       "digest": "e4b7cb7c92b63f0057830b0e4e3b0f2024f841d647abbee658d6e6ef731184f6",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/minio-operator-tenant-7-1-1.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-tenant:7.1.1",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/minio-tenant:v7.1.1",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/minio-operator-tenant/7.1.1/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/minio-tenant/v7.1.1.yaml"
           ]
         },
         "chart_analysis": {
@@ -8064,12 +8120,12 @@
       "aliases": [],
       "digest": "5307a3d786f9c7694909fea18c99e0619829edd4fc0b3a0e51749702cc7eb8b2",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/mysql-mysql-operator-2-3-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/mysql-mysql-operator:2.3.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/mysql-operator:v2.3.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/mysql-mysql-operator/2.3.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/mysql-operator/v2.3.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -8130,12 +8186,12 @@
       "aliases": [],
       "digest": "f1ccce2cf17da047870ba3a21c974e70d51cfb22fa8225b9279031f2673bb35d",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/nats-nack-0-34-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-nack:0.34.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/nack:v0.34.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/nats-nack/0.34.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/nack/v0.34.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -8210,12 +8266,12 @@
       "aliases": [],
       "digest": "707a3c3fd2649784637f78f7603e2c9173bc4828c653af0879c742c72d145764",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/nats-nats-2-14-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-nats:2.14.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/nats:v2.14.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/nats-nats/2.14.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/nats/v2.14.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -8290,12 +8346,12 @@
       "aliases": [],
       "digest": "5fb53feeea148cb74518c3b31ee189c6a26b671174ccce9229e18f825c07a321",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/nats-surveyor-0-20-9.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-surveyor:0.20.9",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/nats-surveyor:v0.20.9",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/nats-surveyor/0.20.9/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/nats-surveyor/v0.20.9.yaml"
           ]
         },
         "chart_analysis": {
@@ -8361,12 +8417,12 @@
       "aliases": [],
       "digest": "6b475946a41402ec51d8d6107f6722891a0704b15906a55ecf47105d6b88109c",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner:4.0.18",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/nfs-subdir-external-provisioner:v4.0.18",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner/4.0.18/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/nfs-subdir-external-provisioner/v4.0.18.yaml"
           ]
         },
         "chart_analysis": {
@@ -8429,12 +8485,12 @@
       "aliases": [],
       "digest": "9249260d7911a04453b39d2b6e088cada54e6b71f30b66982f82824becfc076e",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/node-feature-discovery-node-feature-discovery-0-19-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/node-feature-discovery-node-feature-discovery:0.19.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/node-feature-discovery:v0.19.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/node-feature-discovery-node-feature-discovery/0.19.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/node-feature-discovery/v0.19.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -8499,12 +8555,12 @@
       "aliases": [],
       "digest": "e3068274eee9e154acce62bfeea4f2ddb523ac7099d41711fc8421d9b49c2d09",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/nvidia-cluster-readiness-engine-v0-6-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-cluster-readiness-engine:v0.6.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/cluster-readiness-engine:v0.6.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/nvidia-cluster-readiness-engine/v0.6.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/cluster-readiness-engine/v0.6.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -8565,12 +8621,12 @@
       "aliases": [],
       "digest": "744153b8bc1899fa4b41e893b8b21c5eca1f16781d9f1052d2dace418bc9f0e0",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/nvidia-gpu-operator-v25-10-1.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v25.10.1",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/gpu-operator:v25.10.1",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/nvidia-gpu-operator/v25.10.1/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/gpu-operator/v25.10.1.yaml"
           ]
         },
         "chart_analysis": {
@@ -8621,12 +8677,12 @@
       "aliases": [],
       "digest": "241c9b0f47bac7f0d4d82787105ad8b677794b5646e115e165f5314d6d158a5a",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/nvidia-gpu-operator-v26-3-2.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.3.2",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/gpu-operator:v26.3.2",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/nvidia-gpu-operator/v26.3.2/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/gpu-operator/v26.3.2.yaml"
           ]
         },
         "chart_analysis": {
@@ -8677,12 +8733,12 @@
       "aliases": [],
       "digest": "3b725c44020062d3fcc945ed790544999abfb856633b62224958f602d8d6b77d",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/nvidia-gpu-operator-v26-3-3.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.3.3",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/gpu-operator:v26.3.3",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/nvidia-gpu-operator/v26.3.3/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/gpu-operator/v26.3.3.yaml"
           ]
         },
         "chart_analysis": {
@@ -8733,12 +8789,12 @@
       "aliases": [],
       "digest": "3a3722f1ad3ceaa7280c765c22b2f57ce7f2cd08f9911f283474a35238aa10bd",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/nvidia-gpu-operator-v26-7-1.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.7.1",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/gpu-operator:v26.7.1",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/nvidia-gpu-operator/v26.7.1/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/gpu-operator/v26.7.1.yaml"
           ]
         },
         "chart_analysis": {
@@ -8803,12 +8859,12 @@
       "aliases": [],
       "digest": "0d487bab6f732bb5176775d222e9006c47ed58a35d72548acece8e98ab7d1efd",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/nvidia-k8s-nim-operator-3-1-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-k8s-nim-operator:3.1.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/k8s-nim-operator:v3.1.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/nvidia-k8s-nim-operator/3.1.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/k8s-nim-operator/v3.1.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -8859,12 +8915,12 @@
       "aliases": [],
       "digest": "b9d16ed1c7f44ff81598337fe8935fdaf6ed550c3a0d8b5a00bf5e60c6e9ba5d",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/nvidia-k8s-nim-operator-3-1-2.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-k8s-nim-operator:3.1.2",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/k8s-nim-operator:v3.1.2",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/nvidia-k8s-nim-operator/3.1.2/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/k8s-nim-operator/v3.1.2.yaml"
           ]
         },
         "chart_analysis": {
@@ -8925,12 +8981,12 @@
       "aliases": [],
       "digest": "b4519204d2fe695cce42c2a26cd9c797e340710e397e68cecb62c25c05d4d859",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/nvidia-nodewright-v0-17-1.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nodewright:v0.17.1",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/nodewright:v0.17.1",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/nvidia-nodewright/v0.17.1/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/nodewright/v0.17.1.yaml"
           ]
         },
         "chart_analysis": {
@@ -8981,12 +9037,12 @@
       "aliases": [],
       "digest": "434308b69ec79d0070b9060179e824b443799af008441c7f58cae58e04c519c3",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/nvidia-nodewright-v0-19-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nodewright:v0.19.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/nodewright:v0.19.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/nvidia-nodewright/v0.19.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/nodewright/v0.19.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -9049,12 +9105,12 @@
       "aliases": [],
       "digest": "d0e7a8b2426c26b254b2cd100191a697b14a91f0a6e6aeea19f575dc0b32a73a",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/nvidia-nvidia-device-plugin-0-19-3.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvidia-device-plugin:0.19.3",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/nvidia-device-plugin:v0.19.3",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/nvidia-nvidia-device-plugin/0.19.3/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/nvidia-device-plugin/v0.19.3.yaml"
           ]
         },
         "chart_analysis": {
@@ -9119,12 +9175,12 @@
       "aliases": [],
       "digest": "26435988c6f62a7a84fc05ed4e97907489627a51469d638d0ed4c44fb9e0c277",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/nvidia-nvsentinel-v1-20-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvsentinel:v1.20.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/nvsentinel:v1.20.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/nvidia-nvsentinel/v1.20.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/nvsentinel/v1.20.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -9175,12 +9231,12 @@
       "aliases": [],
       "digest": "a4d42c70b701a4e089cde752d8f10d5eabdeee1a67caf6de03a4b42c9400687c",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/nvidia-nvsentinel-v1-25-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvsentinel:v1.25.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/nvsentinel:v1.25.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/nvidia-nvsentinel/v1.25.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/nvsentinel/v1.25.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -9231,12 +9287,12 @@
       "aliases": [],
       "digest": "0cd18b117a021659dd7203a1cb50e8c0a5aba1d1dde644225facd1a188fd6bff",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/nvidia-nvsentinel-v1-26-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvsentinel:v1.26.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/nvsentinel:v1.26.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/nvidia-nvsentinel/v1.26.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/nvsentinel/v1.26.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -9299,12 +9355,12 @@
       "aliases": [],
       "digest": "af32bf805d20de0b7f34a2ecd975c1518a8983f90d7cb2ec20e0006e111cc411",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/nvidia-nvsentinel-v1-9-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvsentinel:v1.9.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/nvsentinel:v1.9.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/nvidia-nvsentinel/v1.9.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/nvsentinel/v1.9.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -9355,12 +9411,12 @@
       "aliases": [],
       "digest": "90f72586f4e8c9c008f0b128d4d1b034abad7b87edf5252dcf1fc3e9a42af0fb",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/oauth2-proxy-oauth2-proxy-10-7-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/oauth2-proxy-oauth2-proxy:10.7.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/oauth2-proxy:v10.7.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/oauth2-proxy-oauth2-proxy/10.7.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/oauth2-proxy/v10.7.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -9411,12 +9467,12 @@
       "aliases": [],
       "digest": "f67492edf6f1b7906412374dd5897622b37569e016edb34b105f3e7cb3cf780e",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/open-telemetry-opentelemetry-operator-0-114-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/open-telemetry-opentelemetry-operator:0.114.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/opentelemetry-operator:v0.114.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/open-telemetry-opentelemetry-operator/0.114.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/opentelemetry-operator/v0.114.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -9489,12 +9545,12 @@
       "aliases": [],
       "digest": "174ec78cf025f8e9ef56468d2f90b94b876717d8bfff64674d733c0739a6d35a",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/opencost-opencost-2-5-21.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/opencost-opencost:2.5.21",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/opencost:v2.5.21",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/opencost-opencost/2.5.21/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/opencost/v2.5.21.yaml"
           ]
         },
         "chart_analysis": {
@@ -9557,12 +9613,12 @@
       "aliases": [],
       "digest": "0e426332f3d910fce042d96e7b46778dd57dc596ebf342de089dc1f23e66ce76",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/percona-pg-operator-3-0-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pg-operator:3.0.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/pg-operator:v3.0.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/percona-pg-operator/3.0.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/pg-operator/v3.0.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -9637,12 +9693,12 @@
       "aliases": [],
       "digest": "857aa79c0ec5e1f87f0dd94bda5290c4fe5c8c357577b802cda7343da4876ffe",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/percona-psmdb-operator-1-22-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.22.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/psmdb-operator:v1.22.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/percona-psmdb-operator/1.22.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/psmdb-operator/v1.22.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -9693,12 +9749,12 @@
       "aliases": [],
       "digest": "416c88cd00c7c5120f03f1459e98811731084782d98c79498c4cfdbdc5443d98",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/percona-psmdb-operator-1-23-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.23.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/psmdb-operator:v1.23.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/percona-psmdb-operator/1.23.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/psmdb-operator/v1.23.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -9759,12 +9815,12 @@
       "aliases": [],
       "digest": "858f3e304e9a7e2ca7c4a603e4a1b03729717d55fcb92a426f10c3edc28e6629",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/percona-pxc-operator-1-19-1.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pxc-operator:1.19.1",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/pxc-operator:v1.19.1",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/percona-pxc-operator/1.19.1/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/pxc-operator/v1.19.1.yaml"
           ]
         },
         "chart_analysis": {
@@ -9839,12 +9895,12 @@
       "aliases": [],
       "digest": "2ec8172dabe43abf71a2047984ead39dece640a2172bd02136e07d8e47c064e7",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/policy-reporter-policy-reporter-3-10-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/policy-reporter-policy-reporter:3.10.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/policy-reporter:v3.10.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/policy-reporter-policy-reporter/3.10.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/policy-reporter/v3.10.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -9905,12 +9961,12 @@
       "aliases": [],
       "digest": "aff830e50a145faa4ea322b6a938956cb096b6d2fdc94fc48d37086f0e0afd90",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/policy-reporter-policy-reporter-3-9-1.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/policy-reporter-policy-reporter:3.9.1",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/policy-reporter:v3.9.1",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/policy-reporter-policy-reporter/3.9.1/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/policy-reporter/v3.9.1.yaml"
           ]
         },
         "chart_analysis": {
@@ -9961,12 +10017,12 @@
       "aliases": [],
       "digest": "4dc00a5d37c824f654345c0a089c6b8fb55af33540d9be496aed9d47178e0797",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/projectcalico-tigera-operator-v3-32-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/projectcalico-tigera-operator:v3.32.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/tigera-operator:v3.32.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/projectcalico-tigera-operator/v3.32.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/tigera-operator/v3.32.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -10037,12 +10093,12 @@
       "aliases": [],
       "digest": "6f7e5817f60ede7b313f99b32f58026f2b9fd181404006d5ffcf2bcd06b0fec6",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/prometheus-community-alertmanager-1-37-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-alertmanager:1.37.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/alertmanager:v1.37.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/prometheus-community-alertmanager/1.37.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/alertmanager/v1.37.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -10117,12 +10173,12 @@
       "aliases": [],
       "digest": "1b53563ba1e4eda376ff8b49093d1fe49855d6f94c76b1c346636ad1abdaf2f4",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/prometheus-community-kube-prometheus-stack-84-4-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:84.4.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/kube-prometheus-stack:v84.4.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/prometheus-community-kube-prometheus-stack/84.4.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/kube-prometheus-stack/v84.4.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -10173,12 +10229,12 @@
       "aliases": [],
       "digest": "66d9cb2b416e82196b07c391aaca6b8d47a024bef269b2ca91852a0515fd11b1",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/prometheus-community-kube-prometheus-stack-85-3-3.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/kube-prometheus-stack:v85.3.3",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/prometheus-community-kube-prometheus-stack/85.3.3/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/kube-prometheus-stack/v85.3.3.yaml"
           ]
         },
         "chart_analysis": {
@@ -10254,12 +10310,12 @@
       "aliases": [],
       "digest": "144881d9fbbd61c4bd03427934b54051d19d8ce0dd392c1978b47b16feeccd5b",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/prometheus-community-kube-prometheus-stack-86-1-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:86.1.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/kube-prometheus-stack:v86.1.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/prometheus-community-kube-prometheus-stack/86.1.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/kube-prometheus-stack/v86.1.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -10310,12 +10366,12 @@
       "aliases": [],
       "digest": "f060afe9e2f732b885058cfd3b7bc6a41f150733d0c60a29dd228cda78db7d3d",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/prometheus-community-kube-prometheus-stack-87-15-1.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:87.15.1",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/kube-prometheus-stack:v87.15.1",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/prometheus-community-kube-prometheus-stack/87.15.1/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/kube-prometheus-stack/v87.15.1.yaml"
           ]
         },
         "chart_analysis": {
@@ -10366,12 +10422,12 @@
       "aliases": [],
       "digest": "677058d72313c3c124a4eea80a280d5a1f63145d09079f6f3a8565c9d9c33ca4",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/prometheus-community-kube-prometheus-stack-87-19-2.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:87.19.2",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/kube-prometheus-stack:v87.19.2",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/prometheus-community-kube-prometheus-stack/87.19.2/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/kube-prometheus-stack/v87.19.2.yaml"
           ]
         },
         "chart_analysis": {
@@ -10422,12 +10478,12 @@
       "aliases": [],
       "digest": "16780b39d9ab0ef5245d2ff6c18385de0c20d7a82ab7295bba4edd2670816fc2",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/prometheus-community-kube-prometheus-stack-88-6-3.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:88.6.3",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/kube-prometheus-stack:v88.6.3",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/prometheus-community-kube-prometheus-stack/88.6.3/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/kube-prometheus-stack/v88.6.3.yaml"
           ]
         },
         "chart_analysis": {
@@ -10478,12 +10534,12 @@
       "aliases": [],
       "digest": "f8dcdb550be7cc2b5d0c5088ff7e9a25cd04c2cb4c13c1d6a6013bc24ebe0562",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/prometheus-community-kube-state-metrics-7-4-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-state-metrics:7.4.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/kube-state-metrics:v7.4.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/prometheus-community-kube-state-metrics/7.4.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/kube-state-metrics/v7.4.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -10558,12 +10614,12 @@
       "aliases": [],
       "digest": "02502755be5d97b2340c7055d8330efdf6d3c0d2ba9bafe06c2ec3b760e792c7",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-29-8-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.8.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/prometheus:v29.8.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/prometheus-community-prometheus/29.8.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/prometheus/v29.8.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -10636,12 +10692,12 @@
       "aliases": [],
       "digest": "690fbb2d3037aa3226dad611d3aa314d90bf5998ff619b1c0b45ff4e5dfb2fe2",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-29-9-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.9.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/prometheus:v29.9.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/prometheus-community-prometheus/29.9.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/prometheus/v29.9.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -10692,12 +10748,12 @@
       "aliases": [],
       "digest": "dee364aa707febe158da1247fe8c3b65f00ecb7721ab266d8e94c12b1f0e9e2a",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-adapter-5-3-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-adapter:5.3.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/prometheus-adapter:v5.3.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/prometheus-community-prometheus-adapter/5.3.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/prometheus-adapter/v5.3.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -10776,12 +10832,12 @@
       "aliases": [],
       "digest": "8486fa9bd94ed03347f3369d5165868783910455d274fcea4f98bcb60a11a427",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-blackbox-exporter-11-10-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-blackbox-exporter:11.10.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/prometheus-blackbox-exporter:v11.10.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/prometheus-community-prometheus-blackbox-exporter/11.10.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/prometheus-blackbox-exporter/v11.10.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -10832,12 +10888,12 @@
       "aliases": [],
       "digest": "efd99d3e0c984d07c25a417b846c1cb1dba3c50d078fcedde2387d181c6ce427",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-blackbox-exporter-11-15-1.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-blackbox-exporter:11.15.1",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/prometheus-blackbox-exporter:v11.15.1",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/prometheus-community-prometheus-blackbox-exporter/11.15.1/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/prometheus-blackbox-exporter/v11.15.1.yaml"
           ]
         },
         "chart_analysis": {
@@ -10888,12 +10944,12 @@
       "aliases": [],
       "digest": "792f2b005525b2b81738b008a0238957254634679f12b0b2cd77607612ca623f",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-blackbox-exporter-11-18-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-blackbox-exporter:11.18.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/prometheus-blackbox-exporter:v11.18.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/prometheus-community-prometheus-blackbox-exporter/11.18.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/prometheus-blackbox-exporter/v11.18.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -10954,12 +11010,12 @@
       "aliases": [],
       "digest": "4e655f90c21d375c6bdfc72b5eca51e7850ef5cf11f948964719c37da53bb574",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-node-exporter-4-55-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-node-exporter:4.55.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/prometheus-node-exporter:v4.55.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/prometheus-community-prometheus-node-exporter/4.55.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/prometheus-node-exporter/v4.55.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -11034,12 +11090,12 @@
       "aliases": [],
       "digest": "6a601a0b29e812364d8840b2f8ea22e0e3ea66ce56e73c1038af150288257481",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-operator-crds-28-0-1.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-operator-crds:28.0.1",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/prometheus-operator-crds:v28.0.1",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/prometheus-community-prometheus-operator-crds/28.0.1/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/prometheus-operator-crds/v28.0.1.yaml"
           ]
         },
         "chart_analysis": {
@@ -11090,12 +11146,12 @@
       "aliases": [],
       "digest": "304b6c269645257cf613a009e59a7bbc08e3c0e0c323455bacbe9e426645ce94",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-operator-crds-29-0-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-operator-crds:29.0.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/prometheus-operator-crds:v29.0.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/prometheus-community-prometheus-operator-crds/29.0.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/prometheus-operator-crds/v29.0.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -11166,12 +11222,12 @@
       "aliases": [],
       "digest": "1c3f804faf1e041eca6690419ef6e8cf3fb2f9ad88535497ceb21f9cd0bef74c",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-pushgateway-3-6-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-pushgateway:3.6.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/prometheus-pushgateway:v3.6.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/prometheus-community-prometheus-pushgateway/3.6.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/prometheus-pushgateway/v3.6.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -11242,12 +11298,12 @@
       "aliases": [],
       "digest": "62e2fad07123cdd2621bf6d1d9289c925596deabdc76cd15904f0f37d90dea93",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/rook-release-rook-ceph-v1-19-5.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/rook-release-rook-ceph:v1.19.5",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/rook-ceph:v1.19.5",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/rook-release-rook-ceph/v1.19.5/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/rook-ceph/v1.19.5.yaml"
           ]
         },
         "chart_analysis": {
@@ -11318,12 +11374,12 @@
       "aliases": [],
       "digest": "f02e133d11d6aed5db38eb0d0189436859cc77c3abf85c9e54fbed2f594a07d5",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/rook-release-rook-ceph-cluster-v1-19-5.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/rook-release-rook-ceph-cluster:v1.19.5",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/rook-ceph-cluster:v1.19.5",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/rook-release-rook-ceph-cluster/v1.19.5/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/rook-ceph-cluster/v1.19.5.yaml"
           ]
         },
         "chart_analysis": {
@@ -11388,12 +11444,12 @@
       "aliases": [],
       "digest": "6ea89776cf25e0f984e93db656ec0aafde29b868a41a743c6a7881dda333c0d7",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/runix-pgadmin4-1-62-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/runix-pgadmin4:1.62.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/pgadmin4:v1.62.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/runix-pgadmin4/1.62.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/pgadmin4/v1.62.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -11464,12 +11520,12 @@
       "aliases": [],
       "digest": "9ec8c5da6afe140c13ec93689d1c8dcdadda5abfda16d572e593cf6bedceb7ec",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/sealed-secrets-sealed-secrets-2-18-6.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/sealed-secrets-sealed-secrets:2.18.6",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/sealed-secrets:v2.18.6",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/sealed-secrets-sealed-secrets/2.18.6/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/sealed-secrets/v2.18.6.yaml"
           ]
         },
         "chart_analysis": {
@@ -11544,12 +11600,12 @@
       "aliases": [],
       "digest": "4dccea39870a28820d34d59237c2cba25b1aefbe15650f5bd431e08d347e01d2",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/secrets-store-csi-driver-secrets-store-csi-driver-1-6-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/secrets-store-csi-driver-secrets-store-csi-driver:1.6.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/secrets-store-csi-driver:v1.6.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/secrets-store-csi-driver-secrets-store-csi-driver/1.6.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/secrets-store-csi-driver/v1.6.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -11624,12 +11680,12 @@
       "aliases": [],
       "digest": "0f786b820dba8e8efefbe1cacdeb154f7135d0e8d2282229d9311d759efd5720",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/stakater-reloader-2-2-12.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.12",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/reloader:v2.2.12",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/stakater-reloader/2.2.12/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/reloader/v2.2.12.yaml"
           ]
         },
         "chart_analysis": {
@@ -11680,12 +11736,12 @@
       "aliases": [],
       "digest": "3c3937720734200df4740f169b70b373507b1802dc4a8f204bd9444eb950769c",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/stakater-reloader-2-2-14.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.14",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/reloader:v2.2.14",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/stakater-reloader/2.2.14/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/reloader/v2.2.14.yaml"
           ]
         },
         "chart_analysis": {
@@ -11736,12 +11792,12 @@
       "aliases": [],
       "digest": "28712f18c2b91ad1eba75d16f09638d695ffac6cf681ff52b85f28a876d39e27",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/stakater-reloader-2-2-16.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.16",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/reloader:v2.2.16",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/stakater-reloader/2.2.16/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/reloader/v2.2.16.yaml"
           ]
         },
         "chart_analysis": {
@@ -11802,12 +11858,12 @@
       "aliases": [],
       "digest": "5a7fc089e0557c9fcebb59a24e107e1429a93940ab95d52c59a79bac9af12d49",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/strimzi-strimzi-kafka-operator-1-0-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/strimzi-strimzi-kafka-operator:1.0.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/strimzi-kafka-operator:v1.0.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/strimzi-strimzi-kafka-operator/1.0.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/strimzi-kafka-operator/v1.0.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -11882,12 +11938,12 @@
       "aliases": [],
       "digest": "04da2fe58c8614c22e53a59adf62a6580c58ae635bb141f6bb1616c1cfdcc7e9",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/traefik-traefik-40-2-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:40.2.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/traefik:v40.2.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/traefik-traefik/40.2.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/traefik/v40.2.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -11938,12 +11994,12 @@
       "aliases": [],
       "digest": "7e6a972b6c45aad5031fb6baf7173a8cd9bd5317ec7c704bfb44f8ab7033ac5b",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/traefik-traefik-41-0-2.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:41.0.2",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/traefik:v41.0.2",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/traefik-traefik/41.0.2/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/traefik/v41.0.2.yaml"
           ]
         },
         "chart_analysis": {
@@ -11994,12 +12050,12 @@
       "aliases": [],
       "digest": "9827186941fcb1d76fada2af581e770b68e7a41f50b4dac032d64fa51828bd12",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/traefik-traefik-41-4-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:41.4.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/traefik:v41.4.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/traefik-traefik/41.4.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/traefik/v41.4.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -12060,12 +12116,12 @@
       "aliases": [],
       "digest": "247804134318137febf31c337bd6ce03cbd44a8615e66ca4721a75d06de7386b",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/valkey-valkey-0-11-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/valkey-valkey:0.11.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/valkey:v0.11.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/valkey-valkey/0.11.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/valkey/v0.11.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -12126,12 +12182,12 @@
       "aliases": [],
       "digest": "c296184a8a84feae6194d7f2e1430b24af4f9f1de9cc65566046e9cb4f3ba5a4",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/velero-velero-12-0-1.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/velero-velero:12.0.1",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/velero:v12.0.1",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/velero-velero/12.0.1/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/velero/v12.0.1.yaml"
           ]
         },
         "chart_analysis": {
@@ -12197,12 +12253,12 @@
       "aliases": [],
       "digest": "b0a29b59046d0a424cb972a33c6bdfbedce977676222c1b9f99b8191fdaf760a",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/velero-velero-12-1-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/velero-velero:12.1.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/velero:v12.1.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/velero-velero/12.1.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/velero/v12.1.0.yaml"
           ]
         },
         "chart_analysis": {
@@ -12253,12 +12309,12 @@
       "aliases": [],
       "digest": "99f7b337f3f9de3cd06ea05c2df55b56aa9bd7855c041a3645dc1ce32f6d3219",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/vm-victoria-logs-single-0-12-5.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-logs-single:0.12.5",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/victoria-logs-single:v0.12.5",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/vm-victoria-logs-single/0.12.5/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/victoria-logs-single/v0.12.5.yaml"
           ]
         },
         "chart_analysis": {
@@ -12329,12 +12385,12 @@
       "aliases": [],
       "digest": "7294935240e2ff163885aea2397de334950f90124ec254fa3ab19bdb9491f1f4",
       "canonical_url": "https://confighub.github.io/helm-expt/site/charts/vm-victoria-metrics-single-0-39-0.html",
-      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-metrics-single:0.39.0",
+      "package_oci_ref": "oci://ghcr.io/confighub/packages/victoria-metrics-single:v0.39.0",
       "coverage": {
         "retained_package": {
           "status": "checked",
           "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/vm-victoria-metrics-single/0.39.0/installer-package-publication-receipt.yaml"
+            "https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/victoria-metrics-single/v0.39.0.yaml"
           ]
         },
         "chart_analysis": {

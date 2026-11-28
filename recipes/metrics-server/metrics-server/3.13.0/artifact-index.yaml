@@ -64,11 +64,18 @@ spec:
     nextAction: "image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes"
   installerPackage:
     path: "packages/metrics-server/metrics-server/3.13.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.13.0@sha256:682e4610d70e6ad31dfc87c1a04ec2172cd2e5446ae3ff1e2ecaa8c6c2356127"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.13.0"
-    manifestDigest: "sha256:682e4610d70e6ad31dfc87c1a04ec2172cd2e5446ae3ff1e2ecaa8c6c2356127"
-    layerDigest: "sha256:6c0e5cdf921eae97db433726305cbfe67d9c540cf8d8f792679b701fbd4b0089"
-    publicationReceipt: "runs/installer-oci/metrics-server-metrics-server/3.13.0/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/metrics-server:v3.13.0@sha256:147aad673532ea989d6e1a55e1e499236606cd0014c1f3eaf9f48eb154487e61"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/metrics-server:v3.13.0"
+    manifestDigest: "sha256:147aad673532ea989d6e1a55e1e499236606cd0014c1f3eaf9f48eb154487e61"
+    layerDigest: "sha256:bb51134c4ccb3ae3e6329ad0000d89db80df44a6e3e86b6f4bbf6bfa82c14aa8"
+    publicationReceipt: "runs/ghcr-packages/metrics-server/v3.13.0.yaml"
+    name: "metrics-server"
+    tag: "v3.13.0"
+    installCommand: "cub package install metrics-server:v3.13.0 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/metrics-server@sha256:147aad673532ea989d6e1a55e1e499236606cd0014c1f3eaf9f48eb154487e61"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.13.0@sha256:682e4610d70e6ad31dfc87c1a04ec2172cd2e5446ae3ff1e2ecaa8c6c2356127"
+      publicationReceipt: "runs/installer-oci/metrics-server-metrics-server/3.13.0/installer-package-publication-receipt.yaml"
     installer: "packages/metrics-server/metrics-server/3.13.0/installer.yaml"
     receipt: "recipes/metrics-server/metrics-server/3.13.0/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "6c0e5cdf921eae97db433726305cbfe67d9c540cf8d8f792679b701fbd4b0089"
@@ -105,7 +112,7 @@ spec:
         default: true
         description: "metrics-server default variant rendered from metrics-server/metrics-server@3.13.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.13.0@sha256:682e4610d70e6ad31dfc87c1a04ec2172cd2e5446ae3ff1e2ecaa8c6c2356127 --base default --work-dir <tmp> --non-interactive --namespace kube-system"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/metrics-server:v3.13.0@sha256:147aad673532ea989d6e1a55e1e499236606cd0014c1f3eaf9f48eb154487e61 --base default --work-dir <tmp> --non-interactive --namespace kube-system"
         helmReleaseObjectCount: 9
         cubInstallObjectCountIncludingSupport: 10
         semanticObjectMatches: "9/9"
@@ -183,7 +190,7 @@ spec:
         default: false
         description: "metrics-server external TLS with explicit CA variant rendered from metrics-server/metrics-server@3.13.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.13.0@sha256:682e4610d70e6ad31dfc87c1a04ec2172cd2e5446ae3ff1e2ecaa8c6c2356127 --base external-tls-ca --work-dir <tmp> --non-interactive --namespace kube-system"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/metrics-server:v3.13.0@sha256:147aad673532ea989d6e1a55e1e499236606cd0014c1f3eaf9f48eb154487e61 --base external-tls-ca --work-dir <tmp> --non-interactive --namespace kube-system"
         helmReleaseObjectCount: 9
         cubInstallObjectCountIncludingSupport: 10
         semanticObjectMatches: "9/9"

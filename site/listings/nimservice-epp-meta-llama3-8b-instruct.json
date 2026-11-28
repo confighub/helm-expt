@@ -5,7 +5,7 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:33e9d603109b517560aaa5e244acc3a825977fd5e417b436da07b63930ac2a78",
+      "sha256": "sha256:168547f46c3c4c20ef028a08b6d32d3ad3eef87df4443bb53c51310553722cc3",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
@@ -112,7 +112,9 @@
         "ghcr": {
           "reference": "oci://ghcr.io/confighub/configs/catalog/nimservice-epp-meta-llama3-8b-instruct:upstream-5d5f66ee0e2e-b16c81708918@sha256:b16c8170891815fed4b62e8750c7671232c83f3d1ce3e4d68599b39daf6737d0",
           "manifestDigest": "sha256:b16c8170891815fed4b62e8750c7671232c83f3d1ce3e4d68599b39daf6737d0",
-          "state": "awaits-workflow-publication",
+          "state": "published-signed",
+          "receipt": "runs/catalog-oci/nimservice-epp-meta-llama3-8b-instruct/upstream-5d5f66ee0e2e-b16c81708918.yaml",
+          "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/runs/catalog-oci/nimservice-epp-meta-llama3-8b-instruct/upstream-5d5f66ee0e2e-b16c81708918.yaml",
           "publisher": ".github/workflows/catalog-oci-publish.yml",
           "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/nimservice-epp-meta-llama3-8b-instruct@sha256:b16c8170891815fed4b62e8750c7671232c83f3d1ce3e4d68599b39daf6737d0"
         }

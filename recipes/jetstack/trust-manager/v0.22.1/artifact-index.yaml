@@ -66,11 +66,18 @@ spec:
     nextAction: "run catalog promotion review"
   installerPackage:
     path: "packages/jetstack/trust-manager/v0.22.1"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-trust-manager:v0.22.1@sha256:dbdd2e3fbce82f520467f23eb6e0f10d745fd608b3f3a1e117f3238ea41f104e"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-trust-manager:v0.22.1"
-    manifestDigest: "sha256:dbdd2e3fbce82f520467f23eb6e0f10d745fd608b3f3a1e117f3238ea41f104e"
-    layerDigest: "sha256:31b4af9a07fe7428bb037d9331b1209d1f5bd587e2149846ad80964f418c1c22"
-    publicationReceipt: "runs/installer-oci/jetstack-trust-manager/v0.22.1/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/trust-manager:v0.22.1@sha256:8cb701174ae0021f4a020f78ce1f0bb148e2da0d40f2a63f49b4adb1faf08983"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/trust-manager:v0.22.1"
+    manifestDigest: "sha256:8cb701174ae0021f4a020f78ce1f0bb148e2da0d40f2a63f49b4adb1faf08983"
+    layerDigest: "sha256:6696ac5f69f90748dcf8d098f5ffbc4394b262bfb8d333258a6c38a70f65119b"
+    publicationReceipt: "runs/ghcr-packages/trust-manager/v0.22.1.yaml"
+    name: "trust-manager"
+    tag: "v0.22.1"
+    installCommand: "cub package install trust-manager:v0.22.1 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/trust-manager@sha256:8cb701174ae0021f4a020f78ce1f0bb148e2da0d40f2a63f49b4adb1faf08983"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-trust-manager:v0.22.1@sha256:dbdd2e3fbce82f520467f23eb6e0f10d745fd608b3f3a1e117f3238ea41f104e"
+      publicationReceipt: "runs/installer-oci/jetstack-trust-manager/v0.22.1/installer-package-publication-receipt.yaml"
     installer: "packages/jetstack/trust-manager/v0.22.1/installer.yaml"
     receipt: "recipes/jetstack/trust-manager/v0.22.1/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "31b4af9a07fe7428bb037d9331b1209d1f5bd587e2149846ad80964f418c1c22"
@@ -149,7 +156,7 @@ spec:
         default: true
         description: "jetstack/trust-manager default variant rendered from jetstack/trust-manager@v0.22.1"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-trust-manager:v0.22.1@sha256:dbdd2e3fbce82f520467f23eb6e0f10d745fd608b3f3a1e117f3238ea41f104e --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/trust-manager:v0.22.1@sha256:8cb701174ae0021f4a020f78ce1f0bb148e2da0d40f2a63f49b4adb1faf08983 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 14
         cubInstallObjectCountIncludingSupport: 15
         semanticObjectMatches: "14/14"
@@ -262,7 +269,7 @@ spec:
         default: false
         description: "jetstack/trust-manager no-crds variant rendered from jetstack/trust-manager@v0.22.1"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-trust-manager:v0.22.1@sha256:dbdd2e3fbce82f520467f23eb6e0f10d745fd608b3f3a1e117f3238ea41f104e --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/trust-manager:v0.22.1@sha256:8cb701174ae0021f4a020f78ce1f0bb148e2da0d40f2a63f49b4adb1faf08983 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 13
         cubInstallObjectCountIncludingSupport: 14
         semanticObjectMatches: "13/13"

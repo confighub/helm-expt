@@ -13,7 +13,7 @@ spec:
     name: "bitnami/memcached"
     version: "8.5.5"
     record: "data/helm-render-intents/intents/bitnami-memcached-8-5-5-default.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-memcached:8.5.5@sha256:52e3841ddc88cb3b0577c50d7f87bb8b6727c3193d5da524472732df205476b4"
+    packageOciRef: "oci://ghcr.io/confighub/packages/memcached:v8.5.5@sha256:a84973a47bdff47c1ed09b350a3f44f5c2409d57d45e0750029ad2d3045a7157"
     selection:
       name: "default"
       kind: "catalog-preset"

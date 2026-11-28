@@ -61,11 +61,18 @@ spec:
     nextAction: "review chart analysis and create a recipe candidate"
   installerPackage:
     path: "packages/nvidia/nodewright/v0.19.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nodewright:v0.19.0@sha256:58195953ff73a8e8b55b92b44504655b0cbfcee1b1196ac7730776c244136358"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nodewright:v0.19.0"
-    manifestDigest: "sha256:58195953ff73a8e8b55b92b44504655b0cbfcee1b1196ac7730776c244136358"
-    layerDigest: "sha256:434308b69ec79d0070b9060179e824b443799af008441c7f58cae58e04c519c3"
-    publicationReceipt: "runs/installer-oci/nvidia-nodewright/v0.19.0/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/nodewright:v0.19.0@sha256:1fecb1c5a94f978ba896c6470b408c3ef6f38208b727848d3b6cb1a29409ec8e"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/nodewright:v0.19.0"
+    manifestDigest: "sha256:1fecb1c5a94f978ba896c6470b408c3ef6f38208b727848d3b6cb1a29409ec8e"
+    layerDigest: "sha256:3a412d6108d7a085df96933bd483a51441bb2087dcbed681e9233f777bf7fb2c"
+    publicationReceipt: "runs/ghcr-packages/nodewright/v0.19.0.yaml"
+    name: "nodewright"
+    tag: "v0.19.0"
+    installCommand: "cub package install nodewright:v0.19.0 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/nodewright@sha256:1fecb1c5a94f978ba896c6470b408c3ef6f38208b727848d3b6cb1a29409ec8e"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nodewright:v0.19.0@sha256:58195953ff73a8e8b55b92b44504655b0cbfcee1b1196ac7730776c244136358"
+      publicationReceipt: "runs/installer-oci/nvidia-nodewright/v0.19.0/installer-package-publication-receipt.yaml"
     installer: "packages/nvidia/nodewright/v0.19.0/installer.yaml"
     receipt: "recipes/nvidia/nodewright/v0.19.0/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "434308b69ec79d0070b9060179e824b443799af008441c7f58cae58e04c519c3"
@@ -142,7 +149,7 @@ spec:
         default: true
         description: "nodewright chart defaults variant rendered from nvidia/nodewright@v0.19.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nodewright:v0.19.0@sha256:58195953ff73a8e8b55b92b44504655b0cbfcee1b1196ac7730776c244136358 --base default --work-dir <tmp> --non-interactive --namespace nodewright"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/nodewright:v0.19.0@sha256:1fecb1c5a94f978ba896c6470b408c3ef6f38208b727848d3b6cb1a29409ec8e --base default --work-dir <tmp> --non-interactive --namespace nodewright"
         helmReleaseObjectCount: 20
         cubInstallObjectCountIncludingSupport: 21
         semanticObjectMatches: "20/20"
@@ -244,7 +251,7 @@ spec:
         default: false
         description: "nodewright AICR v1.0.0 EKS training values variant rendered from nvidia/nodewright@v0.19.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nodewright:v0.19.0@sha256:58195953ff73a8e8b55b92b44504655b0cbfcee1b1196ac7730776c244136358 --base aicr-eks-training --work-dir <tmp> --non-interactive --namespace nodewright"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/nodewright:v0.19.0@sha256:1fecb1c5a94f978ba896c6470b408c3ef6f38208b727848d3b6cb1a29409ec8e --base aicr-eks-training --work-dir <tmp> --non-interactive --namespace nodewright"
         helmReleaseObjectCount: 20
         cubInstallObjectCountIncludingSupport: 21
         semanticObjectMatches: "20/20"

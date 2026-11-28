@@ -62,11 +62,18 @@ spec:
     nextAction: "review chart analysis and create a recipe candidate"
   installerPackage:
     path: "packages/aws-controllers-k8s/iam-chart/1.7.3"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-iam-chart:1.7.3@sha256:bc64855b8024441acf8626c2d586f19661b8750db07eb69064cec52220907aac"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-iam-chart:1.7.3"
-    manifestDigest: "sha256:bc64855b8024441acf8626c2d586f19661b8750db07eb69064cec52220907aac"
-    layerDigest: "sha256:0eae749effdab92c360429845acef602b34b5100333bc07ccfa3d4fcebbc849f"
-    publicationReceipt: "runs/installer-oci/aws-controllers-k8s-iam-chart/1.7.3/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/ack-iam-controller:v1.7.3@sha256:08ebdbbe384f2aca21fc0bc6cefd42d5ec546f6bf696ebc33e58de2d50bfd243"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/ack-iam-controller:v1.7.3"
+    manifestDigest: "sha256:08ebdbbe384f2aca21fc0bc6cefd42d5ec546f6bf696ebc33e58de2d50bfd243"
+    layerDigest: "sha256:da90356895acc2ce3a2f84c882651ed7587f05108b9ae6c5a015564d53dd45b7"
+    publicationReceipt: "runs/ghcr-packages/ack-iam-controller/v1.7.3.yaml"
+    name: "ack-iam-controller"
+    tag: "v1.7.3"
+    installCommand: "cub package install ack-iam-controller:v1.7.3 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/ack-iam-controller@sha256:08ebdbbe384f2aca21fc0bc6cefd42d5ec546f6bf696ebc33e58de2d50bfd243"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-iam-chart:1.7.3@sha256:bc64855b8024441acf8626c2d586f19661b8750db07eb69064cec52220907aac"
+      publicationReceipt: "runs/installer-oci/aws-controllers-k8s-iam-chart/1.7.3/installer-package-publication-receipt.yaml"
     installer: "packages/aws-controllers-k8s/iam-chart/1.7.3/installer.yaml"
     receipt: "recipes/aws-controllers-k8s/iam-chart/1.7.3/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "0eae749effdab92c360429845acef602b34b5100333bc07ccfa3d4fcebbc849f"
@@ -103,7 +110,7 @@ spec:
         default: true
         description: "iam-chart default variant rendered from aws-controllers-k8s/iam-chart@1.7.3"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-iam-chart:1.7.3@sha256:bc64855b8024441acf8626c2d586f19661b8750db07eb69064cec52220907aac --base default --work-dir <tmp> --non-interactive --namespace ack-system"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/ack-iam-controller:v1.7.3@sha256:08ebdbbe384f2aca21fc0bc6cefd42d5ec546f6bf696ebc33e58de2d50bfd243 --base default --work-dir <tmp> --non-interactive --namespace ack-system"
         helmReleaseObjectCount: 19
         cubInstallObjectCountIncludingSupport: 20
         semanticObjectMatches: "19/19"
@@ -178,7 +185,7 @@ spec:
         default: false
         description: "iam-chart EKS inference (retained values) variant rendered from aws-controllers-k8s/iam-chart@1.7.3"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-iam-chart:1.7.3@sha256:bc64855b8024441acf8626c2d586f19661b8750db07eb69064cec52220907aac --base eks-inference --work-dir <tmp> --non-interactive --namespace ack-system"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/ack-iam-controller:v1.7.3@sha256:08ebdbbe384f2aca21fc0bc6cefd42d5ec546f6bf696ebc33e58de2d50bfd243 --base eks-inference --work-dir <tmp> --non-interactive --namespace ack-system"
         helmReleaseObjectCount: 19
         cubInstallObjectCountIncludingSupport: 20
         semanticObjectMatches: "19/19"

@@ -70,11 +70,18 @@ spec:
     nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:
     path: "packages/percona/psmdb-operator/1.23.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.23.0@sha256:d8d4593bcda2f395764b6108a564b87b5d5a336c551450df17f63d7d27b045b5"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.23.0"
-    manifestDigest: "sha256:d8d4593bcda2f395764b6108a564b87b5d5a336c551450df17f63d7d27b045b5"
-    layerDigest: "sha256:416c88cd00c7c5120f03f1459e98811731084782d98c79498c4cfdbdc5443d98"
-    publicationReceipt: "runs/installer-oci/percona-psmdb-operator/1.23.0/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/psmdb-operator:v1.23.0@sha256:e32fcfcf5d611c7307968ecbd0301ee0106ad2305e0010cf99c3328a2102b4f2"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/psmdb-operator:v1.23.0"
+    manifestDigest: "sha256:e32fcfcf5d611c7307968ecbd0301ee0106ad2305e0010cf99c3328a2102b4f2"
+    layerDigest: "sha256:a996cd82692ab8b64c786c2d6e5e7be17d1f6a0c2aeb09b0e1c2b8beb27acbf2"
+    publicationReceipt: "runs/ghcr-packages/psmdb-operator/v1.23.0.yaml"
+    name: "psmdb-operator"
+    tag: "v1.23.0"
+    installCommand: "cub package install psmdb-operator:v1.23.0 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/psmdb-operator@sha256:e32fcfcf5d611c7307968ecbd0301ee0106ad2305e0010cf99c3328a2102b4f2"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.23.0@sha256:d8d4593bcda2f395764b6108a564b87b5d5a336c551450df17f63d7d27b045b5"
+      publicationReceipt: "runs/installer-oci/percona-psmdb-operator/1.23.0/installer-package-publication-receipt.yaml"
     installer: "packages/percona/psmdb-operator/1.23.0/installer.yaml"
     receipt: "recipes/percona/psmdb-operator/1.23.0/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "416c88cd00c7c5120f03f1459e98811731084782d98c79498c4cfdbdc5443d98"
@@ -106,7 +113,7 @@ spec:
         default: true
         description: "percona/psmdb-operator default variant rendered from percona/psmdb-operator@1.23.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.23.0@sha256:d8d4593bcda2f395764b6108a564b87b5d5a336c551450df17f63d7d27b045b5 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/psmdb-operator:v1.23.0@sha256:e32fcfcf5d611c7307968ecbd0301ee0106ad2305e0010cf99c3328a2102b4f2 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 8
         cubInstallObjectCountIncludingSupport: 9
         semanticObjectMatches: "8/8"

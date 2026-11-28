@@ -50,7 +50,10 @@ for exact base-variant evidence.
 | Target topology | [recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/target-topology.yaml](target-topology.yaml) |
 | Catalog status | [recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-ebs-csi-driver-aws-ebs-csi-driver:2.60.1@sha256:aa07d92ad91345ba7401a70b82dfdf9d2c9ca22ade4de23db3b370c77a3b88a0` |
+| Install into a Space | `cub package install aws-ebs-csi-driver:v2.60.1 --space <space>` |
+| Installer package OCI | `oci://ghcr.io/confighub/packages/aws-ebs-csi-driver:v2.60.1@sha256:f73bc079d243a235e5b03ef0559a644c6080ca6ffb85a4452ee16f344b6ab24a` |
+| Installer package publication | [runs/ghcr-packages/aws-ebs-csi-driver/v2.60.1.yaml](../../../../runs/ghcr-packages/aws-ebs-csi-driver/v2.60.1.yaml) |
+| Earlier location | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-ebs-csi-driver-aws-ebs-csi-driver:2.60.1@sha256:aa07d92ad91345ba7401a70b82dfdf9d2c9ca22ade4de23db3b370c77a3b88a0` |
 | Installer package source | [packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1](../../../../packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1) |
 | Installer package receipt | [recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/artifact-index.yaml](artifact-index.yaml) |
@@ -78,12 +81,22 @@ for exact base-variant evidence.
 
 ## Current Install Shape
 
+Install the package into a ConfigHub Space, which renders it and uploads
+one Unit per resource:
+
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-ebs-csi-driver-aws-ebs-csi-driver:2.60.1@sha256:aa07d92ad91345ba7401a70b82dfdf9d2c9ca22ade4de23db3b370c77a3b88a0 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub package install aws-ebs-csi-driver:v2.60.1 --space aws-ebs-csi-driver --base <variant> --namespace <namespace>
+```
+
+Or render it locally from the exact package bytes, with no Space:
+
+```sh
+cub installer setup --pull oci://ghcr.io/confighub/packages/aws-ebs-csi-driver:v2.60.1@sha256:f73bc079d243a235e5b03ef0559a644c6080ca6ffb85a4452ee16f344b6ab24a --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is
-the public package users pull; the `packages/...` path is the repo source path
+the public package users pull, signed by the package publish workflow; check it with
+`cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/aws-ebs-csi-driver@sha256:f73bc079d243a235e5b03ef0559a644c6080ca6ffb85a4452ee16f344b6ab24a`. The `packages/...` path is the repo source path
 used by maintainers and proof scripts. The proof path compares regular Helm
 output with real `cub installer setup` output and explains every intentional
 difference, such as the Namespace support object or separated Secrets.

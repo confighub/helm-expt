@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:33e9d603109b517560aaa5e244acc3a825977fd5e417b436da07b63930ac2a78",
+      "sha256": "sha256:168547f46c3c4c20ef028a08b6d32d3ad3eef87df4443bb53c51310553722cc3",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/bitnami-elasticsearch-22-1-6-default.yaml",
-      "sha256": "sha256:8c98933d6dc08d5510132c860f08188f15a790b5639d478ff8e948c5a361796f",
+      "sha256": "sha256:5bcba5ec5e739d9bc4fc94b67ce39080896eb3bbc45d3ef9d686517b17a2a5e7",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/bitnami-elasticsearch-22-1-6-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -36,7 +36,7 @@
     "name": "bitnami/elasticsearch",
     "version": "22.1.6",
     "reference": "bitnami/elasticsearch@22.1.6",
-    "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-elasticsearch:22.1.6@sha256:8732b35275c000b5df0e1a57907a46ffa6c15c3ecbc081cdbc12e12d321e3719",
+    "ociRef": "oci://ghcr.io/confighub/packages/elasticsearch:v22.1.6@sha256:ca175b4de6df70d60d872913a15cfb4ab4eda96c44fd1d80a2f29376cba8a763",
     "record": "data/helm-render-intents/intents/bitnami-elasticsearch-22-1-6-default.yaml",
     "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/bitnami-elasticsearch-22-1-6-default.yaml",
     "selection": {
@@ -92,7 +92,7 @@
     }
   },
   "oci": {
-    "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-elasticsearch:22.1.6@sha256:8732b35275c000b5df0e1a57907a46ffa6c15c3ecbc081cdbc12e12d321e3719",
+    "sourcePackageRef": "oci://ghcr.io/confighub/packages/elasticsearch:v22.1.6@sha256:ca175b4de6df70d60d872913a15cfb4ab4eda96c44fd1d80a2f29376cba8a763",
     "bundles": [
       {
         "role": "source-package",
@@ -137,7 +137,9 @@
         "ghcr": {
           "reference": "oci://ghcr.io/confighub/configs/catalog/catalog-bitnami-elasticsearch-22-1-6-default:bundle-d241c2e048d1@sha256:d241c2e048d1ada5980125e27a608c45847cbac63117f38609a09e1322819648",
           "manifestDigest": "sha256:d241c2e048d1ada5980125e27a608c45847cbac63117f38609a09e1322819648",
-          "state": "awaits-workflow-publication",
+          "state": "published-signed",
+          "receipt": "runs/catalog-oci/catalog-bitnami-elasticsearch-22-1-6-default/bundle-d241c2e048d1.yaml",
+          "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/runs/catalog-oci/catalog-bitnami-elasticsearch-22-1-6-default/bundle-d241c2e048d1.yaml",
           "publisher": ".github/workflows/catalog-oci-publish.yml",
           "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/catalog-bitnami-elasticsearch-22-1-6-default@sha256:d241c2e048d1ada5980125e27a608c45847cbac63117f38609a09e1322819648",
           "sameDigestAsEarlier": true
@@ -545,12 +547,12 @@
         },
         {
           "comment": "preview the upload of the published bundle; nothing is written",
-          "command": "cub variant upload --dry-run --component bitnami-elasticsearch --variant default --space bitnami-elasticsearch-22-1-6-default --namespace default oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-bitnami-elasticsearch-22-1-6-default:latest@sha256:d241c2e048d1ada5980125e27a608c45847cbac63117f38609a09e1322819648",
+          "command": "cub variant upload --dry-run --component bitnami-elasticsearch --variant default --space bitnami-elasticsearch-22-1-6-default --namespace default oci://ghcr.io/confighub/configs/catalog/catalog-bitnami-elasticsearch-22-1-6-default:bundle-d241c2e048d1@sha256:d241c2e048d1ada5980125e27a608c45847cbac63117f38609a09e1322819648",
           "needsAccount": true
         },
         {
           "comment": "upload the bundle as a base Space of Units",
-          "command": "cub variant upload --component bitnami-elasticsearch --variant default --space bitnami-elasticsearch-22-1-6-default --namespace default oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-bitnami-elasticsearch-22-1-6-default:latest@sha256:d241c2e048d1ada5980125e27a608c45847cbac63117f38609a09e1322819648",
+          "command": "cub variant upload --component bitnami-elasticsearch --variant default --space bitnami-elasticsearch-22-1-6-default --namespace default oci://ghcr.io/confighub/configs/catalog/catalog-bitnami-elasticsearch-22-1-6-default:bundle-d241c2e048d1@sha256:d241c2e048d1ada5980125e27a608c45847cbac63117f38609a09e1322819648",
           "needsAccount": true,
           "writes": true
         }

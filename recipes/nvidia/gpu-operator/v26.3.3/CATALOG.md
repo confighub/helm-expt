@@ -49,7 +49,10 @@ for exact base-variant evidence.
 | Value model | [recipes/nvidia/gpu-operator/v26.3.3/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/nvidia/gpu-operator/v26.3.3/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/nvidia/gpu-operator/v26.3.3/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.3.3@sha256:abd8475d6bfeabe88acc2d6a319a04054a9e84046d69926dcee4717674329a8f` |
+| Install into a Space | `cub package install gpu-operator:v26.3.3 --space <space>` |
+| Installer package OCI | `oci://ghcr.io/confighub/packages/gpu-operator:v26.3.3@sha256:f9562ec32d98a81f28ba2bf5a38ce9c18f347af8809958b966c0f7081dfe7a6d` |
+| Installer package publication | [runs/ghcr-packages/gpu-operator/v26.3.3.yaml](../../../../runs/ghcr-packages/gpu-operator/v26.3.3.yaml) |
+| Earlier location | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.3.3@sha256:abd8475d6bfeabe88acc2d6a319a04054a9e84046d69926dcee4717674329a8f` |
 | Installer package source | [packages/nvidia/gpu-operator/v26.3.3](../../../../packages/nvidia/gpu-operator/v26.3.3) |
 | Installer package receipt | [recipes/nvidia/gpu-operator/v26.3.3/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/nvidia/gpu-operator/v26.3.3/artifact-index.yaml](artifact-index.yaml) |
@@ -113,12 +116,22 @@ for exact base-variant evidence.
 
 ## Current Install Shape
 
+Install the package into a ConfigHub Space, which renders it and uploads
+one Unit per resource:
+
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.3.3@sha256:abd8475d6bfeabe88acc2d6a319a04054a9e84046d69926dcee4717674329a8f --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub package install gpu-operator:v26.3.3 --space gpu-operator --base <variant> --namespace <namespace>
+```
+
+Or render it locally from the exact package bytes, with no Space:
+
+```sh
+cub installer setup --pull oci://ghcr.io/confighub/packages/gpu-operator:v26.3.3@sha256:f9562ec32d98a81f28ba2bf5a38ce9c18f347af8809958b966c0f7081dfe7a6d --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is
-the public package users pull; the `packages/...` path is the repo source path
+the public package users pull, signed by the package publish workflow; check it with
+`cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/gpu-operator@sha256:f9562ec32d98a81f28ba2bf5a38ce9c18f347af8809958b966c0f7081dfe7a6d`. The `packages/...` path is the repo source path
 used by maintainers and proof scripts. The proof path compares regular Helm
 output with real `cub installer setup` output and explains every intentional
 difference, such as the Namespace support object or separated Secrets.

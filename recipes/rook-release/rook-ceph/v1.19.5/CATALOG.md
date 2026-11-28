@@ -49,7 +49,10 @@ for exact base-variant evidence.
 | Value model | [recipes/rook-release/rook-ceph/v1.19.5/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/rook-release/rook-ceph/v1.19.5/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/rook-release/rook-ceph/v1.19.5/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/rook-release-rook-ceph:v1.19.5@sha256:b996f273c1777c2ac07fae823ad3932d8295072cd03e5384c0f1eb6afcaf32d7` |
+| Install into a Space | `cub package install rook-ceph:v1.19.5 --space <space>` |
+| Installer package OCI | `oci://ghcr.io/confighub/packages/rook-ceph:v1.19.5@sha256:802502192cb41a54abb5945298bdab5f0e4ceeaa480a8862341a2cb2df157436` |
+| Installer package publication | [runs/ghcr-packages/rook-ceph/v1.19.5.yaml](../../../../runs/ghcr-packages/rook-ceph/v1.19.5.yaml) |
+| Earlier location | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/rook-release-rook-ceph:v1.19.5@sha256:b996f273c1777c2ac07fae823ad3932d8295072cd03e5384c0f1eb6afcaf32d7` |
 | Installer package source | [packages/rook-release/rook-ceph/v1.19.5](../../../../packages/rook-release/rook-ceph/v1.19.5) |
 | Installer package receipt | [recipes/rook-release/rook-ceph/v1.19.5/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/rook-release/rook-ceph/v1.19.5/artifact-index.yaml](artifact-index.yaml) |
@@ -77,12 +80,22 @@ for exact base-variant evidence.
 
 ## Current Install Shape
 
+Install the package into a ConfigHub Space, which renders it and uploads
+one Unit per resource:
+
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/rook-release-rook-ceph:v1.19.5@sha256:b996f273c1777c2ac07fae823ad3932d8295072cd03e5384c0f1eb6afcaf32d7 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub package install rook-ceph:v1.19.5 --space rook-ceph --base <variant> --namespace <namespace>
+```
+
+Or render it locally from the exact package bytes, with no Space:
+
+```sh
+cub installer setup --pull oci://ghcr.io/confighub/packages/rook-ceph:v1.19.5@sha256:802502192cb41a54abb5945298bdab5f0e4ceeaa480a8862341a2cb2df157436 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is
-the public package users pull; the `packages/...` path is the repo source path
+the public package users pull, signed by the package publish workflow; check it with
+`cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/rook-ceph@sha256:802502192cb41a54abb5945298bdab5f0e4ceeaa480a8862341a2cb2df157436`. The `packages/...` path is the repo source path
 used by maintainers and proof scripts. The proof path compares regular Helm
 output with real `cub installer setup` output and explains every intentional
 difference, such as the Namespace support object or separated Secrets.

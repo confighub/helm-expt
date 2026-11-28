@@ -49,7 +49,10 @@ for exact base-variant evidence.
 | Value model | [recipes/nats/nats/2.14.0/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/nats/nats/2.14.0/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/nats/nats/2.14.0/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-nats:2.14.0@sha256:bf8546bb6289a3c325e6396b2da6c03f6cac3961652aefbed116063d588e745b` |
+| Install into a Space | `cub package install nats:v2.14.0 --space <space>` |
+| Installer package OCI | `oci://ghcr.io/confighub/packages/nats:v2.14.0@sha256:2df68d23252873e33c1481ab5ed25b88be1356bfd3b0549e5ece673a9c3ee144` |
+| Installer package publication | [runs/ghcr-packages/nats/v2.14.0.yaml](../../../../runs/ghcr-packages/nats/v2.14.0.yaml) |
+| Earlier location | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-nats:2.14.0@sha256:bf8546bb6289a3c325e6396b2da6c03f6cac3961652aefbed116063d588e745b` |
 | Installer package source | [packages/nats/nats/2.14.0](../../../../packages/nats/nats/2.14.0) |
 | Installer package receipt | [recipes/nats/nats/2.14.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/nats/nats/2.14.0/artifact-index.yaml](artifact-index.yaml) |
@@ -83,12 +86,22 @@ for exact base-variant evidence.
 
 ## Current Install Shape
 
+Install the package into a ConfigHub Space, which renders it and uploads
+one Unit per resource:
+
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-nats:2.14.0@sha256:bf8546bb6289a3c325e6396b2da6c03f6cac3961652aefbed116063d588e745b --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub package install nats:v2.14.0 --space nats --base <variant> --namespace <namespace>
+```
+
+Or render it locally from the exact package bytes, with no Space:
+
+```sh
+cub installer setup --pull oci://ghcr.io/confighub/packages/nats:v2.14.0@sha256:2df68d23252873e33c1481ab5ed25b88be1356bfd3b0549e5ece673a9c3ee144 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is
-the public package users pull; the `packages/...` path is the repo source path
+the public package users pull, signed by the package publish workflow; check it with
+`cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/nats@sha256:2df68d23252873e33c1481ab5ed25b88be1356bfd3b0549e5ece673a9c3ee144`. The `packages/...` path is the repo source path
 used by maintainers and proof scripts. The proof path compares regular Helm
 output with real `cub installer setup` output and explains every intentional
 difference, such as the Namespace support object or separated Secrets.

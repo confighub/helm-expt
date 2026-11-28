@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:33e9d603109b517560aaa5e244acc3a825977fd5e417b436da07b63930ac2a78",
+      "sha256": "sha256:168547f46c3c4c20ef028a08b6d32d3ad3eef87df4443bb53c51310553722cc3",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/bitnami-zookeeper-13-8-7-ha.yaml",
-      "sha256": "sha256:7888d02f95a45fa6e84c9cb6795e8ffd37a20e49e7b00dab494b06a307a0956e",
+      "sha256": "sha256:9922a5be1cf163b60d47468d565ae637a51bbe4cebd6b62662b8d297e72753a5",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/bitnami-zookeeper-13-8-7-ha.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -36,7 +36,7 @@
     "name": "bitnami/zookeeper",
     "version": "13.8.7",
     "reference": "bitnami/zookeeper@13.8.7",
-    "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-zookeeper:13.8.7@sha256:bdae202754e9af6bf276216c3002b4bae869988024ef8db33e792b90fa7bb5c0",
+    "ociRef": "oci://ghcr.io/confighub/packages/zookeeper:v13.8.7@sha256:951f5a82c20c8b4a644d3344c177c4468acd05bd0d91a62d644f6a723632190b",
     "record": "data/helm-render-intents/intents/bitnami-zookeeper-13-8-7-ha.yaml",
     "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/bitnami-zookeeper-13-8-7-ha.yaml",
     "selection": {
@@ -91,7 +91,7 @@
     }
   },
   "oci": {
-    "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-zookeeper:13.8.7@sha256:bdae202754e9af6bf276216c3002b4bae869988024ef8db33e792b90fa7bb5c0",
+    "sourcePackageRef": "oci://ghcr.io/confighub/packages/zookeeper:v13.8.7@sha256:951f5a82c20c8b4a644d3344c177c4468acd05bd0d91a62d644f6a723632190b",
     "bundles": [
       {
         "role": "source-package",
@@ -451,7 +451,7 @@
         },
         {
           "comment": "render this base from the signed package; step 3 can upload this directory",
-          "command": "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-zookeeper:13.8.7@sha256:bdae202754e9af6bf276216c3002b4bae869988024ef8db33e792b90fa7bb5c0 --base ha --work-dir ./bitnami-zookeeper-13-8-7-ha --non-interactive --namespace default"
+          "command": "cub installer setup --pull oci://ghcr.io/confighub/packages/zookeeper:v13.8.7@sha256:951f5a82c20c8b4a644d3344c177c4468acd05bd0d91a62d644f6a723632190b --base ha --work-dir ./bitnami-zookeeper-13-8-7-ha --non-interactive --namespace default"
         }
       ],
       "notes": [
@@ -515,7 +515,7 @@
         },
         {
           "comment": "put the signed package into a Space in one command: it pulls, renders and uploads",
-          "command": "cub package install oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-zookeeper:13.8.7@sha256:bdae202754e9af6bf276216c3002b4bae869988024ef8db33e792b90fa7bb5c0 --base ha --space <your-space> --namespace default --non-interactive",
+          "command": "cub package install oci://ghcr.io/confighub/packages/zookeeper:v13.8.7@sha256:951f5a82c20c8b4a644d3344c177c4468acd05bd0d91a62d644f6a723632190b --base ha --space <your-space> --namespace default --non-interactive",
           "needsAccount": true,
           "writes": true
         },

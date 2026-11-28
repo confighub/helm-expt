@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:33e9d603109b517560aaa5e244acc3a825977fd5e417b436da07b63930ac2a78",
+      "sha256": "sha256:168547f46c3c4c20ef028a08b6d32d3ad3eef87df4443bb53c51310553722cc3",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/jaegertracing-jaeger-operator-2-57-0-no-crds.yaml",
-      "sha256": "sha256:493bcc5890ef01a8a9bec641292e032f668e80afdd026399356b70571efee931",
+      "sha256": "sha256:0d5b771826e7ffad9a2ffa2597b7aa5091b41c69b295cd9ca91e33e3570c8b15",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/jaegertracing-jaeger-operator-2-57-0-no-crds.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -36,7 +36,7 @@
     "name": "jaegertracing/jaeger-operator",
     "version": "2.57.0",
     "reference": "jaegertracing/jaeger-operator@2.57.0",
-    "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jaegertracing-jaeger-operator:2.57.0@sha256:bb116910eabb89bdf97436c27d495e5dd80d36840847594b284e28a0fe36f3db",
+    "ociRef": "oci://ghcr.io/confighub/packages/jaeger-operator:v2.57.0@sha256:745fc9d4ed67cb2774bc045a9ee675bb09d715a76f4c112da73ae9e308c1fed7",
     "record": "data/helm-render-intents/intents/jaegertracing-jaeger-operator-2-57-0-no-crds.yaml",
     "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/jaegertracing-jaeger-operator-2-57-0-no-crds.yaml",
     "selection": {
@@ -91,7 +91,7 @@
     }
   },
   "oci": {
-    "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jaegertracing-jaeger-operator:2.57.0@sha256:bb116910eabb89bdf97436c27d495e5dd80d36840847594b284e28a0fe36f3db",
+    "sourcePackageRef": "oci://ghcr.io/confighub/packages/jaeger-operator:v2.57.0@sha256:745fc9d4ed67cb2774bc045a9ee675bb09d715a76f4c112da73ae9e308c1fed7",
     "bundles": [
       {
         "role": "source-package",
@@ -136,7 +136,9 @@
         "ghcr": {
           "reference": "oci://ghcr.io/confighub/configs/catalog/catalog-jaegertracing-jaeger-operator-2-57-0-no-crds:bundle-a21817c66cf5@sha256:a21817c66cf5ef5eb89ab40b7a3fd3028736f9700f7c7b0ab5b82b9b929b3487",
           "manifestDigest": "sha256:a21817c66cf5ef5eb89ab40b7a3fd3028736f9700f7c7b0ab5b82b9b929b3487",
-          "state": "awaits-workflow-publication",
+          "state": "published-signed",
+          "receipt": "runs/catalog-oci/catalog-jaegertracing-jaeger-operator-2-57-0-no-crds/bundle-a21817c66cf5.yaml",
+          "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/runs/catalog-oci/catalog-jaegertracing-jaeger-operator-2-57-0-no-crds/bundle-a21817c66cf5.yaml",
           "publisher": ".github/workflows/catalog-oci-publish.yml",
           "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/catalog-jaegertracing-jaeger-operator-2-57-0-no-crds@sha256:a21817c66cf5ef5eb89ab40b7a3fd3028736f9700f7c7b0ab5b82b9b929b3487",
           "sameDigestAsEarlier": true
@@ -593,12 +595,12 @@
         },
         {
           "comment": "preview the upload of the published bundle; nothing is written",
-          "command": "cub variant upload --dry-run --component jaegertracing-jaeger-operator --variant no-crds --space jaegertracing-jaeger-operator-2-57-0-no-crds --namespace default oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jaegertracing-jaeger-operator-2-57-0-no-crds:latest@sha256:a21817c66cf5ef5eb89ab40b7a3fd3028736f9700f7c7b0ab5b82b9b929b3487",
+          "command": "cub variant upload --dry-run --component jaegertracing-jaeger-operator --variant no-crds --space jaegertracing-jaeger-operator-2-57-0-no-crds --namespace default oci://ghcr.io/confighub/configs/catalog/catalog-jaegertracing-jaeger-operator-2-57-0-no-crds:bundle-a21817c66cf5@sha256:a21817c66cf5ef5eb89ab40b7a3fd3028736f9700f7c7b0ab5b82b9b929b3487",
           "needsAccount": true
         },
         {
           "comment": "upload the bundle as a base Space of Units",
-          "command": "cub variant upload --component jaegertracing-jaeger-operator --variant no-crds --space jaegertracing-jaeger-operator-2-57-0-no-crds --namespace default oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jaegertracing-jaeger-operator-2-57-0-no-crds:latest@sha256:a21817c66cf5ef5eb89ab40b7a3fd3028736f9700f7c7b0ab5b82b9b929b3487",
+          "command": "cub variant upload --component jaegertracing-jaeger-operator --variant no-crds --space jaegertracing-jaeger-operator-2-57-0-no-crds --namespace default oci://ghcr.io/confighub/configs/catalog/catalog-jaegertracing-jaeger-operator-2-57-0-no-crds:bundle-a21817c66cf5@sha256:a21817c66cf5ef5eb89ab40b7a3fd3028736f9700f7c7b0ab5b82b9b929b3487",
           "needsAccount": true,
           "writes": true
         }

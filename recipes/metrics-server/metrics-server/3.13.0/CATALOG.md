@@ -52,7 +52,10 @@ for exact base-variant evidence.
 | Weirdness and mitigations | [recipes/metrics-server/metrics-server/3.13.0/weirdness-and-mitigations.md](weirdness-and-mitigations.md) |
 | Catalog status | [recipes/metrics-server/metrics-server/3.13.0/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/metrics-server/metrics-server/3.13.0/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.13.0@sha256:682e4610d70e6ad31dfc87c1a04ec2172cd2e5446ae3ff1e2ecaa8c6c2356127` |
+| Install into a Space | `cub package install metrics-server:v3.13.0 --space <space>` |
+| Installer package OCI | `oci://ghcr.io/confighub/packages/metrics-server:v3.13.0@sha256:147aad673532ea989d6e1a55e1e499236606cd0014c1f3eaf9f48eb154487e61` |
+| Installer package publication | [runs/ghcr-packages/metrics-server/v3.13.0.yaml](../../../../runs/ghcr-packages/metrics-server/v3.13.0.yaml) |
+| Earlier location | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.13.0@sha256:682e4610d70e6ad31dfc87c1a04ec2172cd2e5446ae3ff1e2ecaa8c6c2356127` |
 | Installer package source | [packages/metrics-server/metrics-server/3.13.0](../../../../packages/metrics-server/metrics-server/3.13.0) |
 | Installer package receipt | [recipes/metrics-server/metrics-server/3.13.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/metrics-server/metrics-server/3.13.0/artifact-index.yaml](artifact-index.yaml) |
@@ -86,12 +89,22 @@ for exact base-variant evidence.
 
 ## Current Install Shape
 
+Install the package into a ConfigHub Space, which renders it and uploads
+one Unit per resource:
+
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.13.0@sha256:682e4610d70e6ad31dfc87c1a04ec2172cd2e5446ae3ff1e2ecaa8c6c2356127 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub package install metrics-server:v3.13.0 --space metrics-server --base <variant> --namespace <namespace>
+```
+
+Or render it locally from the exact package bytes, with no Space:
+
+```sh
+cub installer setup --pull oci://ghcr.io/confighub/packages/metrics-server:v3.13.0@sha256:147aad673532ea989d6e1a55e1e499236606cd0014c1f3eaf9f48eb154487e61 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is
-the public package users pull; the `packages/...` path is the repo source path
+the public package users pull, signed by the package publish workflow; check it with
+`cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/metrics-server@sha256:147aad673532ea989d6e1a55e1e499236606cd0014c1f3eaf9f48eb154487e61`. The `packages/...` path is the repo source path
 used by maintainers and proof scripts. The proof path compares regular Helm
 output with real `cub installer setup` output and explains every intentional
 difference, such as the Namespace support object or separated Secrets.

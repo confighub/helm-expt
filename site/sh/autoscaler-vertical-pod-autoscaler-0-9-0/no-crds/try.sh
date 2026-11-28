@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the no-crds base variant into ./autoscaler-vertical-pod-autoscaler-0-9-0-no-crds"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-vertical-pod-autoscaler:0.9.0@sha256:1ee72dbefe5df3af05372c9e565302b3dfbdd4f6e91e8f116b2b6042764267e7 --base no-crds --work-dir ./autoscaler-vertical-pod-autoscaler-0-9-0-no-crds --non-interactive --namespace default
+cub installer setup --pull oci://ghcr.io/confighub/packages/vertical-pod-autoscaler:v0.9.0@sha256:e16dcf411cf4ec428b98df74c123d0134277e9875e827bf2d72f2d9a3fd60454 --base no-crds --work-dir ./autoscaler-vertical-pod-autoscaler-0-9-0-no-crds --non-interactive --namespace default
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./autoscaler-vertical-pod-autoscaler-0-9-0-no-crds/out/manifests

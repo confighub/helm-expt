@@ -1084,14 +1084,14 @@ bash ./try.sh</code></pre>
       </style>
     <p>A verdict is decided per base, not per chart. The same chart with <code>auth.existingSecret</code> set is a different question from the same chart without it. The recorded scope says which values move the answer.</p>
     <h3 id="lane-counts">How many entries have each verdict</h3>
-    <p>Of 528 entries, 520 have a verdict. 314 come with a plan. 107 need Helm at install time, so they have an installer package and no bundle.</p>
+    <p>Of 530 entries, 520 have a verdict. 314 come with a plan. 107 need Helm at install time, so they have an installer package and no bundle.</p>
     <p>137 of those 314 verdicts cover only the Argo CD Application wrapper of an AICR recipe. They say nothing about the charts inside it.</p>
     <ul>
       <li><code>safe-to-flatten</code>: 96 entries.</li>
       <li><code>flatten-with-routes</code>: 314 entries.</li>
       <li><code>unsafe-to-flatten</code>: 107 entries.</li>
       <li><code>born-flattened</code>: 3 entries.</li>
-      <li>not assessed yet: 8 entries.</li>
+      <li>not assessed yet: 10 entries.</li>
     </ul>
     <p>Two plain examples of what a flattened render would lose:</p>
     <ul>

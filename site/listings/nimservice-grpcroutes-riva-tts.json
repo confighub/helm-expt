@@ -5,7 +5,7 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:33e9d603109b517560aaa5e244acc3a825977fd5e417b436da07b63930ac2a78",
+      "sha256": "sha256:168547f46c3c4c20ef028a08b6d32d3ad3eef87df4443bb53c51310553722cc3",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
@@ -132,7 +132,9 @@
         "ghcr": {
           "reference": "oci://ghcr.io/confighub/configs/catalog/nimservice-grpcroutes-riva-tts:upstream-5d5f66ee0e2e-2e93e0d8cf7c@sha256:2e93e0d8cf7c5a0f1c097c701255345d7c60b3e01ac46635d61f99767818dac9",
           "manifestDigest": "sha256:2e93e0d8cf7c5a0f1c097c701255345d7c60b3e01ac46635d61f99767818dac9",
-          "state": "awaits-workflow-publication",
+          "state": "published-signed",
+          "receipt": "runs/catalog-oci/nimservice-grpcroutes-riva-tts/upstream-5d5f66ee0e2e-2e93e0d8cf7c.yaml",
+          "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/runs/catalog-oci/nimservice-grpcroutes-riva-tts/upstream-5d5f66ee0e2e-2e93e0d8cf7c.yaml",
           "publisher": ".github/workflows/catalog-oci-publish.yml",
           "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/nimservice-grpcroutes-riva-tts@sha256:2e93e0d8cf7c5a0f1c097c701255345d7c60b3e01ac46635d61f99767818dac9",
           "sameDigestAsEarlier": true
@@ -1289,12 +1291,12 @@
         },
         {
           "comment": "preview the upload of the published bundle; nothing is written",
-          "command": "cub variant upload --dry-run --component nimservice --variant grpcroutes-riva-tts --space nimservice-grpcroutes-riva-tts oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-grpcroutes-riva-tts:upstream-5d5f66ee0e2e@sha256:2e93e0d8cf7c5a0f1c097c701255345d7c60b3e01ac46635d61f99767818dac9",
+          "command": "cub variant upload --dry-run --component nimservice --variant grpcroutes-riva-tts --space nimservice-grpcroutes-riva-tts oci://ghcr.io/confighub/configs/catalog/nimservice-grpcroutes-riva-tts:upstream-5d5f66ee0e2e-2e93e0d8cf7c@sha256:2e93e0d8cf7c5a0f1c097c701255345d7c60b3e01ac46635d61f99767818dac9",
           "needsAccount": true
         },
         {
           "comment": "upload the bundle as a base Space of Units",
-          "command": "cub variant upload --component nimservice --variant grpcroutes-riva-tts --space nimservice-grpcroutes-riva-tts oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-grpcroutes-riva-tts:upstream-5d5f66ee0e2e@sha256:2e93e0d8cf7c5a0f1c097c701255345d7c60b3e01ac46635d61f99767818dac9",
+          "command": "cub variant upload --component nimservice --variant grpcroutes-riva-tts --space nimservice-grpcroutes-riva-tts oci://ghcr.io/confighub/configs/catalog/nimservice-grpcroutes-riva-tts:upstream-5d5f66ee0e2e-2e93e0d8cf7c@sha256:2e93e0d8cf7c5a0f1c097c701255345d7c60b3e01ac46635d61f99767818dac9",
           "needsAccount": true,
           "writes": true
         }

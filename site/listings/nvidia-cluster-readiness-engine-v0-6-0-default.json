@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:33e9d603109b517560aaa5e244acc3a825977fd5e417b436da07b63930ac2a78",
+      "sha256": "sha256:168547f46c3c4c20ef028a08b6d32d3ad3eef87df4443bb53c51310553722cc3",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/nvidia-cluster-readiness-engine-v0-6-0-default.yaml",
-      "sha256": "sha256:9e3b076efc786c1d28092573df741ec483ef8186268be67af59113663e6833fe",
+      "sha256": "sha256:d6ffac1ec3dc175dc5fb3416295a362240e7882f1e4f50a11b699fa40693d246",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/nvidia-cluster-readiness-engine-v0-6-0-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -47,7 +47,7 @@
     "name": "nvidia/cluster-readiness-engine",
     "version": "v0.6.0",
     "reference": "nvidia/cluster-readiness-engine@v0.6.0",
-    "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-cluster-readiness-engine:v0.6.0@sha256:6a1a75b2d243ee4bd2cbea79a91052dfb36beb3e0bc4da0a03b2b589a4dab501",
+    "ociRef": "oci://ghcr.io/confighub/packages/cluster-readiness-engine:v0.6.0@sha256:443bf15c743552fe576cb7b981b058d5d7b08b984e0e7633e2156489ab72374a",
     "record": "data/helm-render-intents/intents/nvidia-cluster-readiness-engine-v0-6-0-default.yaml",
     "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-cluster-readiness-engine-v0-6-0-default.yaml",
     "selection": {
@@ -103,7 +103,7 @@
     }
   },
   "oci": {
-    "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-cluster-readiness-engine:v0.6.0@sha256:6a1a75b2d243ee4bd2cbea79a91052dfb36beb3e0bc4da0a03b2b589a4dab501",
+    "sourcePackageRef": "oci://ghcr.io/confighub/packages/cluster-readiness-engine:v0.6.0@sha256:443bf15c743552fe576cb7b981b058d5d7b08b984e0e7633e2156489ab72374a",
     "bundles": [
       {
         "role": "source-package",
@@ -144,7 +144,9 @@
         "ghcr": {
           "reference": "oci://ghcr.io/confighub/configs/catalog/catalog-nvidia-cluster-readiness-engine-v0-6-0-default:r001-895c73481b56@sha256:895c73481b565d3c05ad5be56feeb2a54452b9e0d781f7d379a154d7b9448f4d",
           "manifestDigest": "sha256:895c73481b565d3c05ad5be56feeb2a54452b9e0d781f7d379a154d7b9448f4d",
-          "state": "awaits-workflow-publication",
+          "state": "published-signed",
+          "receipt": "runs/catalog-oci/catalog-nvidia-cluster-readiness-engine-v0-6-0-default/r001-895c73481b56.yaml",
+          "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/runs/catalog-oci/catalog-nvidia-cluster-readiness-engine-v0-6-0-default/r001-895c73481b56.yaml",
           "publisher": ".github/workflows/catalog-oci-publish.yml",
           "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/catalog-nvidia-cluster-readiness-engine-v0-6-0-default@sha256:895c73481b565d3c05ad5be56feeb2a54452b9e0d781f7d379a154d7b9448f4d",
           "sameDigestAsEarlier": true
@@ -683,12 +685,12 @@
         },
         {
           "comment": "preview the upload of the published bundle; nothing is written",
-          "command": "cub variant upload --dry-run --component nvidia-cluster-readiness-engine --variant default --space nvidia-cluster-readiness-engine-v0-6-0-default --namespace nvcre --create-namespace oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-cluster-readiness-engine-v0-6-0-default:r001@sha256:895c73481b565d3c05ad5be56feeb2a54452b9e0d781f7d379a154d7b9448f4d",
+          "command": "cub variant upload --dry-run --component nvidia-cluster-readiness-engine --variant default --space nvidia-cluster-readiness-engine-v0-6-0-default --namespace nvcre --create-namespace oci://ghcr.io/confighub/configs/catalog/catalog-nvidia-cluster-readiness-engine-v0-6-0-default:r001-895c73481b56@sha256:895c73481b565d3c05ad5be56feeb2a54452b9e0d781f7d379a154d7b9448f4d",
           "needsAccount": true
         },
         {
           "comment": "upload the bundle as a base Space of Units",
-          "command": "cub variant upload --component nvidia-cluster-readiness-engine --variant default --space nvidia-cluster-readiness-engine-v0-6-0-default --namespace nvcre --create-namespace oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-cluster-readiness-engine-v0-6-0-default:r001@sha256:895c73481b565d3c05ad5be56feeb2a54452b9e0d781f7d379a154d7b9448f4d",
+          "command": "cub variant upload --component nvidia-cluster-readiness-engine --variant default --space nvidia-cluster-readiness-engine-v0-6-0-default --namespace nvcre --create-namespace oci://ghcr.io/confighub/configs/catalog/catalog-nvidia-cluster-readiness-engine-v0-6-0-default:r001-895c73481b56@sha256:895c73481b565d3c05ad5be56feeb2a54452b9e0d781f7d379a154d7b9448f4d",
           "needsAccount": true,
           "writes": true
         }

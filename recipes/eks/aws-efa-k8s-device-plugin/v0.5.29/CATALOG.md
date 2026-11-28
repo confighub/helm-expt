@@ -49,7 +49,10 @@ for exact base-variant evidence.
 | Value model | [recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/eks-aws-efa-k8s-device-plugin:v0.5.29@sha256:5ae84f9bb5ee745360393d7b9b3f4955f37ec75503f5f7b26ae0bc2c287ce24c` |
+| Install into a Space | `cub package install aws-efa-k8s-device-plugin:v0.5.29 --space <space>` |
+| Installer package OCI | `oci://ghcr.io/confighub/packages/aws-efa-k8s-device-plugin:v0.5.29@sha256:fae58dd06ae5ba3f35ceb776658367d9753f2f59488e085e0bfa62b7b4295c14` |
+| Installer package publication | [runs/ghcr-packages/aws-efa-k8s-device-plugin/v0.5.29.yaml](../../../../runs/ghcr-packages/aws-efa-k8s-device-plugin/v0.5.29.yaml) |
+| Earlier location | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/eks-aws-efa-k8s-device-plugin:v0.5.29@sha256:5ae84f9bb5ee745360393d7b9b3f4955f37ec75503f5f7b26ae0bc2c287ce24c` |
 | Installer package source | [packages/eks/aws-efa-k8s-device-plugin/v0.5.29](../../../../packages/eks/aws-efa-k8s-device-plugin/v0.5.29) |
 | Installer package receipt | [recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/artifact-index.yaml](artifact-index.yaml) |
@@ -83,12 +86,22 @@ for exact base-variant evidence.
 
 ## Current Install Shape
 
+Install the package into a ConfigHub Space, which renders it and uploads
+one Unit per resource:
+
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/eks-aws-efa-k8s-device-plugin:v0.5.29@sha256:5ae84f9bb5ee745360393d7b9b3f4955f37ec75503f5f7b26ae0bc2c287ce24c --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub package install aws-efa-k8s-device-plugin:v0.5.29 --space aws-efa-k8s-device-plugin --base <variant> --namespace <namespace>
+```
+
+Or render it locally from the exact package bytes, with no Space:
+
+```sh
+cub installer setup --pull oci://ghcr.io/confighub/packages/aws-efa-k8s-device-plugin:v0.5.29@sha256:fae58dd06ae5ba3f35ceb776658367d9753f2f59488e085e0bfa62b7b4295c14 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is
-the public package users pull; the `packages/...` path is the repo source path
+the public package users pull, signed by the package publish workflow; check it with
+`cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/aws-efa-k8s-device-plugin@sha256:fae58dd06ae5ba3f35ceb776658367d9753f2f59488e085e0bfa62b7b4295c14`. The `packages/...` path is the repo source path
 used by maintainers and proof scripts. The proof path compares regular Helm
 output with real `cub installer setup` output and explains every intentional
 difference, such as the Namespace support object or separated Secrets.

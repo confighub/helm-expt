@@ -19,7 +19,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gitlab-gitlab-runner:0.89.0@sha256:859e448412141120ea26e90c4d80fb772755dd6bc5f579a70ddd3c321da5fa7a"
+        "ociRef": "oci://ghcr.io/confighub/packages/gitlab-runner:v0.89.0@sha256:c7e2dd82b911ec8f3510b0b179835df8cf196a5d809ce25b1ef0333d54863d4a",
+        "installCommand": "cub package install gitlab-runner:v0.89.0 --space <space>"
       },
       "bases": [
         {

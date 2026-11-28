@@ -61,11 +61,18 @@ spec:
     nextAction: "review chart analysis and create a recipe candidate"
   installerPackage:
     path: "packages/kai-scheduler/kai-scheduler/v0.16.9"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kai-scheduler-kai-scheduler:v0.16.9@sha256:7d360f97ada7c492e506acdd433c9212d21f5a6d26d8d8cbf1f0b68a268e94ab"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kai-scheduler-kai-scheduler:v0.16.9"
-    manifestDigest: "sha256:7d360f97ada7c492e506acdd433c9212d21f5a6d26d8d8cbf1f0b68a268e94ab"
-    layerDigest: "sha256:3cf5a5c7f75cd08a373e4d8ea934687744fa34a703e4338401f18ffff6ae93e6"
-    publicationReceipt: "runs/installer-oci/kai-scheduler-kai-scheduler/v0.16.9/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/kai-scheduler:v0.16.9@sha256:2a1a31d900f268647c9efc9e0b691df4a5247cb7ebfb393e6a6d16d63d9b6259"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/kai-scheduler:v0.16.9"
+    manifestDigest: "sha256:2a1a31d900f268647c9efc9e0b691df4a5247cb7ebfb393e6a6d16d63d9b6259"
+    layerDigest: "sha256:549fed7d08b23a11f73e153c2812a23ac7dc73b3397714ae100894ee3a719258"
+    publicationReceipt: "runs/ghcr-packages/kai-scheduler/v0.16.9.yaml"
+    name: "kai-scheduler"
+    tag: "v0.16.9"
+    installCommand: "cub package install kai-scheduler:v0.16.9 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/kai-scheduler@sha256:2a1a31d900f268647c9efc9e0b691df4a5247cb7ebfb393e6a6d16d63d9b6259"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kai-scheduler-kai-scheduler:v0.16.9@sha256:7d360f97ada7c492e506acdd433c9212d21f5a6d26d8d8cbf1f0b68a268e94ab"
+      publicationReceipt: "runs/installer-oci/kai-scheduler-kai-scheduler/v0.16.9/installer-package-publication-receipt.yaml"
     installer: "packages/kai-scheduler/kai-scheduler/v0.16.9/installer.yaml"
     receipt: "recipes/kai-scheduler/kai-scheduler/v0.16.9/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "3cf5a5c7f75cd08a373e4d8ea934687744fa34a703e4338401f18ffff6ae93e6"
@@ -162,7 +169,7 @@ spec:
         default: true
         description: "kai-scheduler chart defaults variant rendered from kai-scheduler/kai-scheduler@v0.16.9"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kai-scheduler-kai-scheduler:v0.16.9@sha256:7d360f97ada7c492e506acdd433c9212d21f5a6d26d8d8cbf1f0b68a268e94ab --base default --work-dir <tmp> --non-interactive --namespace kai-scheduler"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/kai-scheduler:v0.16.9@sha256:2a1a31d900f268647c9efc9e0b691df4a5247cb7ebfb393e6a6d16d63d9b6259 --base default --work-dir <tmp> --non-interactive --namespace kai-scheduler"
         helmReleaseObjectCount: 37
         cubInstallObjectCountIncludingSupport: 37
         semanticObjectMatches: "37/37"
@@ -284,7 +291,7 @@ spec:
         default: false
         description: "kai-scheduler AICR v1.0.0 EKS training values variant rendered from kai-scheduler/kai-scheduler@v0.16.9"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kai-scheduler-kai-scheduler:v0.16.9@sha256:7d360f97ada7c492e506acdd433c9212d21f5a6d26d8d8cbf1f0b68a268e94ab --base aicr-eks-training --work-dir <tmp> --non-interactive --namespace kai-scheduler"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/kai-scheduler:v0.16.9@sha256:2a1a31d900f268647c9efc9e0b691df4a5247cb7ebfb393e6a6d16d63d9b6259 --base aicr-eks-training --work-dir <tmp> --non-interactive --namespace kai-scheduler"
         helmReleaseObjectCount: 37
         cubInstallObjectCountIncludingSupport: 37
         semanticObjectMatches: "37/37"

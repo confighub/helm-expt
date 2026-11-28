@@ -19,7 +19,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-goldilocks:10.3.0@sha256:b16c4fca4bf8fa04db89891d03a0e4122715e3cfdc9356ef4bed6cd191199852"
+        "ociRef": "oci://ghcr.io/confighub/packages/goldilocks:v10.3.0@sha256:66273e31b41a69d4b6d7c132a5083bfcae0d9bf4dbda45353b5aaebc844909ed",
+        "installCommand": "cub package install goldilocks:v10.3.0 --space <space>"
       },
       "bases": [
         {

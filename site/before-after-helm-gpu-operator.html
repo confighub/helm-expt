@@ -945,7 +945,7 @@ Schema
       <h3 id="live-own-account">With your own account</h3>
       <p class="install-cub-note installer-command-note"><strong>Here is what the command does.</strong> cub installer is an open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally, leaving delivery to kubectl, Argo CD or Flux. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
   <pre class="terminal-body"><code><span class="term-comment"># render the base from the signed package</span>
-<span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.3.3@sha256:abd8475d6bfeabe88acc2d6a319a04054a9e84046d69926dcee4717674329a8f --base default --work-dir ./nvidia-gpu-operator-v26-3-3-default --non-interactive --namespace gpu-operator
+<span class="term-prompt">$</span> cub installer setup --pull oci://ghcr.io/confighub/packages/gpu-operator:v26.3.3@sha256:f9562ec32d98a81f28ba2bf5a38ce9c18f347af8809958b966c0f7081dfe7a6d --base default --work-dir ./nvidia-gpu-operator-v26-3-3-default --non-interactive --namespace gpu-operator
 
 <span class="term-comment"># sign in to your organization</span>
 <span class="term-prompt">$</span> cub auth login

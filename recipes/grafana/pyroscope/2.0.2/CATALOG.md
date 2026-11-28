@@ -50,7 +50,10 @@ for exact base-variant evidence.
 | Runtime review | [recipes/grafana/pyroscope/2.0.2/runtime-review.yaml](runtime-review.yaml) |
 | Catalog status | [recipes/grafana/pyroscope/2.0.2/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/grafana/pyroscope/2.0.2/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-pyroscope:2.0.2@sha256:e62d4337c210afe39b013694e528b68cc15b98e9cd3735dbcf40535b11874fab` |
+| Install into a Space | `cub package install pyroscope:v2.0.2 --space <space>` |
+| Installer package OCI | `oci://ghcr.io/confighub/packages/pyroscope:v2.0.2@sha256:56e56426ee1f2d649bdf08991da65fa80f7969786fb91fe1753e991599ec7e66` |
+| Installer package publication | [runs/ghcr-packages/pyroscope/v2.0.2.yaml](../../../../runs/ghcr-packages/pyroscope/v2.0.2.yaml) |
+| Earlier location | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-pyroscope:2.0.2@sha256:e62d4337c210afe39b013694e528b68cc15b98e9cd3735dbcf40535b11874fab` |
 | Installer package source | [packages/grafana/pyroscope/2.0.2](../../../../packages/grafana/pyroscope/2.0.2) |
 | Installer package receipt | [recipes/grafana/pyroscope/2.0.2/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/grafana/pyroscope/2.0.2/artifact-index.yaml](artifact-index.yaml) |
@@ -90,12 +93,22 @@ for exact base-variant evidence.
 
 ## Current Install Shape
 
+Install the package into a ConfigHub Space, which renders it and uploads
+one Unit per resource:
+
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-pyroscope:2.0.2@sha256:e62d4337c210afe39b013694e528b68cc15b98e9cd3735dbcf40535b11874fab --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub package install pyroscope:v2.0.2 --space pyroscope --base <variant> --namespace <namespace>
+```
+
+Or render it locally from the exact package bytes, with no Space:
+
+```sh
+cub installer setup --pull oci://ghcr.io/confighub/packages/pyroscope:v2.0.2@sha256:56e56426ee1f2d649bdf08991da65fa80f7969786fb91fe1753e991599ec7e66 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is
-the public package users pull; the `packages/...` path is the repo source path
+the public package users pull, signed by the package publish workflow; check it with
+`cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/pyroscope@sha256:56e56426ee1f2d649bdf08991da65fa80f7969786fb91fe1753e991599ec7e66`. The `packages/...` path is the repo source path
 used by maintainers and proof scripts. The proof path compares regular Helm
 output with real `cub installer setup` output and explains every intentional
 difference, such as the Namespace support object or separated Secrets.

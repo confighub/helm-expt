@@ -1010,7 +1010,7 @@ Schema
           <p class="installer-command-note">If you want to try linked environment copies and approvals in hosted ConfigHub, sign in and paste the commands below. In your workspace, this creates the base folder <code>redis-example</code> and two copies, <code>redis-example-dev</code> and <code>redis-example-prod</code>. That base folder holds all 13 Kubernetes objects and a record of the install. Dev runs one read replica, and prod gives the Redis master its own requests and limits. It touches no cluster.</p>
           <pre class="terminal-body"><code><span class="term-prompt">$</span> cub auth login
 
-<span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:a216ce212424e05b341ef5000f1798e6014b72b8bc3dce9f315285871037af2a --base reuse-existing-secret --work-dir ./redis-example --non-interactive --namespace redis &amp;&amp; cub installer upload --work-dir ./redis-example --space redis-example &amp;&amp; cub component create redis-example &amp;&amp; cub space update --patch redis-example --component redis-example
+<span class="term-prompt">$</span> cub installer setup --pull oci://ghcr.io/confighub/packages/bitnami-redis:v25.5.3@sha256:f5e5253f42772718b159244b55ec68ba6526484fea540224f1a110aa6e763a8f --base reuse-existing-secret --work-dir ./redis-example --non-interactive --namespace redis &amp;&amp; cub installer upload --work-dir ./redis-example --space redis-example &amp;&amp; cub component create redis-example &amp;&amp; cub space update --patch redis-example --component redis-example
 
 <span class="term-prompt">$</span> cub variant create dev redis-example --change-desc &quot;Clone the Redis base as dev&quot;
 

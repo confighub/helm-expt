@@ -13,7 +13,7 @@ spec:
     name: "prometheus-community/kube-prometheus-stack"
     version: "84.4.0"
     record: "data/helm-render-intents/intents/prometheus-community-kube-prometheus-stack-84-4-0-aicr-eks-training-v1-0-0.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:84.4.0@sha256:e466955464cf236106ed17b445bc7e918386b508ab3a5bd9bfa578e5546468c8"
+    packageOciRef: "oci://ghcr.io/confighub/packages/kube-prometheus-stack:v84.4.0@sha256:fd62d9f200df2a8a10494301ef27c766c17f09b4ff9fe2791305164b71016b65"
     selection:
       name: "aicr-eks-training-v1-0-0"
       kind: "catalog-preset"

@@ -5,7 +5,7 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:33e9d603109b517560aaa5e244acc3a825977fd5e417b436da07b63930ac2a78",
+      "sha256": "sha256:168547f46c3c4c20ef028a08b6d32d3ad3eef87df4443bb53c51310553722cc3",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
@@ -132,7 +132,9 @@
         "ghcr": {
           "reference": "oci://ghcr.io/confighub/configs/catalog/nimservice-standard-nim-service-model-free:upstream-5d5f66ee0e2e-e3f7332ae8d0@sha256:e3f7332ae8d0ef8e5c6f30b5c1049423100e4cb8a1acb5a70f50872395bd5a44",
           "manifestDigest": "sha256:e3f7332ae8d0ef8e5c6f30b5c1049423100e4cb8a1acb5a70f50872395bd5a44",
-          "state": "awaits-workflow-publication",
+          "state": "published-signed",
+          "receipt": "runs/catalog-oci/nimservice-standard-nim-service-model-free/upstream-5d5f66ee0e2e-e3f7332ae8d0.yaml",
+          "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/runs/catalog-oci/nimservice-standard-nim-service-model-free/upstream-5d5f66ee0e2e-e3f7332ae8d0.yaml",
           "publisher": ".github/workflows/catalog-oci-publish.yml",
           "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/nimservice-standard-nim-service-model-free@sha256:e3f7332ae8d0ef8e5c6f30b5c1049423100e4cb8a1acb5a70f50872395bd5a44",
           "sameDigestAsEarlier": true
@@ -1289,12 +1291,12 @@
         },
         {
           "comment": "preview the upload of the published bundle; nothing is written",
-          "command": "cub variant upload --dry-run --component nimservice --variant standard-nim-service-model-free --space nimservice-standard-nim-service-model-free oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-standard-nim-service-model-free:upstream-5d5f66ee0e2e@sha256:e3f7332ae8d0ef8e5c6f30b5c1049423100e4cb8a1acb5a70f50872395bd5a44",
+          "command": "cub variant upload --dry-run --component nimservice --variant standard-nim-service-model-free --space nimservice-standard-nim-service-model-free oci://ghcr.io/confighub/configs/catalog/nimservice-standard-nim-service-model-free:upstream-5d5f66ee0e2e-e3f7332ae8d0@sha256:e3f7332ae8d0ef8e5c6f30b5c1049423100e4cb8a1acb5a70f50872395bd5a44",
           "needsAccount": true
         },
         {
           "comment": "upload the bundle as a base Space of Units",
-          "command": "cub variant upload --component nimservice --variant standard-nim-service-model-free --space nimservice-standard-nim-service-model-free oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-standard-nim-service-model-free:upstream-5d5f66ee0e2e@sha256:e3f7332ae8d0ef8e5c6f30b5c1049423100e4cb8a1acb5a70f50872395bd5a44",
+          "command": "cub variant upload --component nimservice --variant standard-nim-service-model-free --space nimservice-standard-nim-service-model-free oci://ghcr.io/confighub/configs/catalog/nimservice-standard-nim-service-model-free:upstream-5d5f66ee0e2e-e3f7332ae8d0@sha256:e3f7332ae8d0ef8e5c6f30b5c1049423100e4cb8a1acb5a70f50872395bd5a44",
           "needsAccount": true,
           "writes": true
         }

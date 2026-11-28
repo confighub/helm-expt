@@ -52,7 +52,10 @@ for exact base-variant evidence.
 | Weirdness and mitigations | [recipes/hashicorp/vault/0.32.0/weirdness-and-mitigations.md](weirdness-and-mitigations.md) |
 | Catalog status | [recipes/hashicorp/vault/0.32.0/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/hashicorp/vault/0.32.0/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0@sha256:7216f8cbbb3e2dafe3ed987f1e4b6fa962de60b2bf5ba7d2d0b7eb45eb138292` |
+| Install into a Space | `cub package install vault:v0.32.0 --space <space>` |
+| Installer package OCI | `oci://ghcr.io/confighub/packages/vault:v0.32.0@sha256:92ff740422b96797f9258841952df40f8627517f2a07ac0ca6669e7fc206c45a` |
+| Installer package publication | [runs/ghcr-packages/vault/v0.32.0.yaml](../../../../runs/ghcr-packages/vault/v0.32.0.yaml) |
+| Earlier location | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0@sha256:7216f8cbbb3e2dafe3ed987f1e4b6fa962de60b2bf5ba7d2d0b7eb45eb138292` |
 | Installer package source | [packages/hashicorp/vault/0.32.0](../../../../packages/hashicorp/vault/0.32.0) |
 | Installer package receipt | [recipes/hashicorp/vault/0.32.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/hashicorp/vault/0.32.0/artifact-index.yaml](artifact-index.yaml) |
@@ -92,12 +95,22 @@ for exact base-variant evidence.
 
 ## Current Install Shape
 
+Install the package into a ConfigHub Space, which renders it and uploads
+one Unit per resource:
+
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0@sha256:7216f8cbbb3e2dafe3ed987f1e4b6fa962de60b2bf5ba7d2d0b7eb45eb138292 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub package install vault:v0.32.0 --space vault --base <variant> --namespace <namespace>
+```
+
+Or render it locally from the exact package bytes, with no Space:
+
+```sh
+cub installer setup --pull oci://ghcr.io/confighub/packages/vault:v0.32.0@sha256:92ff740422b96797f9258841952df40f8627517f2a07ac0ca6669e7fc206c45a --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is
-the public package users pull; the `packages/...` path is the repo source path
+the public package users pull, signed by the package publish workflow; check it with
+`cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/vault@sha256:92ff740422b96797f9258841952df40f8627517f2a07ac0ca6669e7fc206c45a`. The `packages/...` path is the repo source path
 used by maintainers and proof scripts. The proof path compares regular Helm
 output with real `cub installer setup` output and explains every intentional
 difference, such as the Namespace support object or separated Secrets.

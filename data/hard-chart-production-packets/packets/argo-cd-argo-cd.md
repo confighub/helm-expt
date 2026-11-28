@@ -32,8 +32,8 @@ Keep the target-scoped evidence fresh before using this supported scope as a pro
 
 | Base | User readiness | Lane summary | Target facts | Command |
 | --- | --- | --- | --- | --- |
-| `default` | start-here | render=pass; confighub=pass; local=pass; gitops=pass; live-parity=pass; two-cluster=pass | required Secret argocd/argocd-redis keys auth | `cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.15@sha256:9ec6bd1950e4b8b300ac61a62b85943a462dd7fc80d64e5bc79995f054c2ce4d --base default --work-dir <tmp> --non-interactive --namespace argocd` |
-| `no-crds` | render-only | render=pass; confighub=pass; local=blocked; gitops=pass; live-parity=pass; two-cluster=missing | required Secret argocd/argocd-redis keys auth; required CRD applications.argoproj.io; required CRD applicationsets.argoproj.io; required CRD appprojects.argoproj.io | `cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.15@sha256:9ec6bd1950e4b8b300ac61a62b85943a462dd7fc80d64e5bc79995f054c2ce4d --base no-crds --work-dir <tmp> --non-interactive --namespace argocd` |
+| `default` | start-here | render=pass; confighub=pass; local=pass; gitops=pass; live-parity=pass; two-cluster=pass | required Secret argocd/argocd-redis keys auth | `cub installer setup --pull oci://ghcr.io/confighub/packages/argo-cd-helm:v9.5.15@sha256:99905bdd2e18e2a2dd221b57a9ced594e610b7db551ae5667e935be17f5b798e --base default --work-dir <tmp> --non-interactive --namespace argocd` |
+| `no-crds` | render-only | render=pass; confighub=pass; local=blocked; gitops=pass; live-parity=pass; two-cluster=missing | required Secret argocd/argocd-redis keys auth; required CRD applications.argoproj.io; required CRD applicationsets.argoproj.io; required CRD appprojects.argoproj.io | `cub installer setup --pull oci://ghcr.io/confighub/packages/argo-cd-helm:v9.5.15@sha256:99905bdd2e18e2a2dd221b57a9ced594e610b7db551ae5667e935be17f5b798e --base no-crds --work-dir <tmp> --non-interactive --namespace argocd` |
 
 ## Quirks And Inputs
 

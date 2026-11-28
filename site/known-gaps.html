@@ -843,7 +843,7 @@
 <p><strong><code>cub installer push</code> publishes the multi-preset source package.</strong> Users pull that package with <code>cub installer setup --pull</code>. <a href="./oci.html">See every OCI shape and which consumer needs which layout</a>.</p>
       <p>A chart with hooks, admission webhooks, or its own CRDs needs more than a render. Its chart page says which lifecycle steps apply.</p>
       <p>Plain <code>kubectl apply</code> does not infer CRD order or wait for CRDs to become established. <a href="./handle-hooks-and-crds.html#crd-menu">See who owns each CRD and how the order is proved</a>, and <a href="#gaps">read the first-install CRD known gap</a> before using a direct apply path.</p>
-      <p>Public catalog package refs are published in Google Artifact Registry with anonymous read access. No ConfigHub account or Google registry login is needed for the local setup path.</p>
+      <p>Catalog packages are published on GitHub's registry, ghcr.io/confighub/packages, with anonymous read access. Installing one into a Space needs a ConfigHub sign-in; the local setup path needs no account and no registry login.</p>
       <p><a href="./try.html">Open Get Started</a> · <a href="d/docs/user/serverless-mode.html">Read the source guide</a></p>
     </section>
 

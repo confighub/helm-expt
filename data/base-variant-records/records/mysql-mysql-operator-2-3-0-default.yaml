@@ -13,7 +13,7 @@ spec:
     name: "mysql/mysql-operator"
     version: "2.3.0"
     record: "data/helm-render-intents/intents/mysql-mysql-operator-2-3-0-default.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/mysql-mysql-operator:2.3.0@sha256:59116d8ebabcf485c7d0f38b659c3ec93e8aacb0a35db02a4f2e3226c7c8a6c5"
+    packageOciRef: "oci://ghcr.io/confighub/packages/mysql-operator:v2.3.0@sha256:1b5b4cd74ac616c2b8e60f6e95fd439294ebc0898f027c5ec451f55162e93aa6"
     selection:
       name: "default"
       kind: "catalog-preset"

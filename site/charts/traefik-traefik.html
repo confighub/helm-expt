@@ -766,11 +766,14 @@
   <main>
     <section class="at-a-glance" aria-label="At a glance">
       <p><strong>What it is.</strong> <code>traefik/traefik</code> 41.4.0, pre-rendered as 31 Kubernetes objects in its <code>default</code> preset.</p>
+      <p><strong>Install traefik into ConfigHub.</strong> <code>cub package install traefik:v41.4.0 --space traefik --namespace traefik</code></p>
+      <p>Needs a ConfigHub sign-in (<code>cub auth login</code>). Nothing reaches a cluster until you <a href="../packages.html#run-it">release it</a>. <a href="../packages.html">How packages work</a>.</p>
       <p><strong>Inspect YAML.</strong> <a href="https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/traefik/traefik/41.4.0/revisions/default/r001/rendered/release-objects.yaml">Read rendered YAML on GitHub</a> (zero install).</p>
       <p><strong>Needs first.</strong> Nothing. Standard Kubernetes objects apply directly.</p>
-      <p><strong>Install it.</strong> Download YAML and dry-run locally: <code>curl -fsSLO https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/traefik/traefik/41.4.0/revisions/default/r001/rendered/release-objects.yaml &amp;&amp; kubectl apply --dry-run=client -f release-objects.yaml</code> (<a href="https://confighub.github.io/helm-expt/site/sh/traefik-traefik-41-4-0/default/try-objects.sh">cluster test script</a>)</p>
-      <p><strong>OCI bundle.</strong> <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-traefik-traefik-41-4-0-default:latest@sha256:e0a31249abd66ae5059e31abbef63e4285e5b64afd4b28fb008374f20c6e5573</code></p>
-      <p><strong>GitHub registry copy.</strong> The <a href="https://github.com/confighub/helm-expt/blob/main/.github/workflows/catalog-oci-publish.yml">catalog OCI workflow</a> publishes this bundle as <code>oci://ghcr.io/confighub/configs/catalog/catalog-traefik-traefik-41-4-0-default:bundle-e0a31249abd6@sha256:e0a31249abd66ae5059e31abbef63e4285e5b64afd4b28fb008374f20c6e5573</code> and signs it after a merge. No receipt records that copy yet, so use the reference above.</p>
+      <p><strong>Check it locally (no account, nothing is installed).</strong> <code>curl -fsSLO https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/traefik/traefik/41.4.0/revisions/default/r001/rendered/release-objects.yaml &amp;&amp; kubectl apply --dry-run=client -f release-objects.yaml</code> (<a href="https://confighub.github.io/helm-expt/site/sh/traefik-traefik-41-4-0/default/try-objects.sh">cluster test script</a>)</p>
+      <p><strong>OCI bundle.</strong> <code>oci://ghcr.io/confighub/configs/catalog/catalog-traefik-traefik-41-4-0-default:bundle-e0a31249abd6@sha256:e0a31249abd66ae5059e31abbef63e4285e5b64afd4b28fb008374f20c6e5573</code>, signed by the <a href="https://github.com/confighub/helm-expt/blob/main/.github/workflows/catalog-oci-publish.yml">catalog OCI workflow</a>: <code>cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/catalog-traefik-traefik-41-4-0-default@sha256:e0a31249abd66ae5059e31abbef63e4285e5b64afd4b28fb008374f20c6e5573</code></p>
+      <p><strong>Earlier location.</strong> <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-traefik-traefik-41-4-0-default@sha256:e0a31249abd66ae5059e31abbef63e4285e5b64afd4b28fb008374f20c6e5573</code></p>
+      <p><strong>Which to use.</strong> Package to install into ConfigHub; bundle for <code>cub variant upload</code>, Argo CD or Flux; YAML to read or apply by hand.</p>
       <p><strong>Docs.</strong> <a href="../d/docs/user/model-and-vocabulary.html">Model</a> · <a href="../config.html">Helm in the Catalog</a>.</p>
     </section>
     <section aria-labelledby="versions">
@@ -873,7 +876,7 @@
     <section class="entry-steps" aria-labelledby="use-in-confighub">
       <h2 id="use-in-confighub">Use this entry in ConfigHub</h2>
       <p>Every Catalog entry follows the same five-step model across Helm, NVIDIA AICR, Timoni, and YAML, whether run by you or your agent. Steps 1 and 2 inspect and diff rendered objects locally with no account; steps 3 to 5 load a ConfigHub base, customize variants, and deliver via OCI.</p>
-      <p><a href="../try.html#install-cub">Install the cub CLI</a> before running <code>cub</code> commands. Step 2 uses <code>cub config diff</code> from <code>cub plugin install confighub/cub-workshop@v0.6.61</code>. Command syntax for steps 3 to 5 comes from a <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">recorded CLI walkthrough (2026-10-08)</a>, and applies to this entry only where a step badge says Run. These are the steps for 41.4.0, the newest version, on its default base.</p>
+      <p><a href="../try.html#install-cub">Install the cub CLI</a> before running <code>cub</code> commands. Only step 2 needs a plugin: <code>cub config diff</code> comes from <code>cub plugin install confighub/cub-workshop@v0.6.61</code>. Command syntax for steps 3 to 5 comes from a <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">recorded CLI walkthrough (2026-10-08)</a>, and applies to this entry only where a step badge says Run. These are the steps for 41.4.0, the newest version, on its default base.</p>
       <div data-entry-steps="traefik-traefik-41-4-0-default">
         <details class="entry-inputs" data-entry-inputs="traefik-traefik-41-4-0-default" open>
         <summary>What is fixed, and what you supply</summary>
@@ -918,10 +921,10 @@
 <span class="term-prompt">$</span> cub auth login
 
 <span class="term-comment"># preview the upload of the published bundle; nothing is written</span>
-<span class="term-prompt">$</span> cub variant upload --dry-run --component traefik-traefik --variant default --space traefik-traefik-41-4-0-default --namespace traefik --create-namespace oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-traefik-traefik-41-4-0-default:latest@sha256:e0a31249abd66ae5059e31abbef63e4285e5b64afd4b28fb008374f20c6e5573
+<span class="term-prompt">$</span> cub variant upload --dry-run --component traefik-traefik --variant default --space traefik-traefik-41-4-0-default --namespace traefik --create-namespace oci://ghcr.io/confighub/configs/catalog/catalog-traefik-traefik-41-4-0-default:bundle-e0a31249abd6@sha256:e0a31249abd66ae5059e31abbef63e4285e5b64afd4b28fb008374f20c6e5573
 
 <span class="term-comment"># upload the bundle as a base Space of Units</span>
-<span class="term-prompt">$</span> cub variant upload --component traefik-traefik --variant default --space traefik-traefik-41-4-0-default --namespace traefik --create-namespace oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-traefik-traefik-41-4-0-default:latest@sha256:e0a31249abd66ae5059e31abbef63e4285e5b64afd4b28fb008374f20c6e5573</code></pre>
+<span class="term-prompt">$</span> cub variant upload --component traefik-traefik --variant default --space traefik-traefik-41-4-0-default --namespace traefik --create-namespace oci://ghcr.io/confighub/configs/catalog/catalog-traefik-traefik-41-4-0-default:bundle-e0a31249abd6@sha256:e0a31249abd66ae5059e31abbef63e4285e5b64afd4b28fb008374f20c6e5573</code></pre>
         </div>
         <div class="entry-step" data-step="deploy" data-state="not-run-for-this-entry">
           <h3>4. Deploy it <span class="status open">Not run for this entry</span></h3>

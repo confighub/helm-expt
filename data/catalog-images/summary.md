@@ -1,10 +1,10 @@
 # Container images in the catalog
 
-Read from the committed rendered objects of 389 of 528 entries. 139 entry(s) retain no single object file to read.
+Read from the committed rendered objects of 391 of 530 entries. 139 entry(s) retain no single object file to read.
 
-- 309 distinct images across 734 references.
+- 311 distinct images across 740 references.
 - 50 references are pinned by digest.
-- 684 are named by a tag, which can answer to different bytes later.
+- 690 are named by a tag, which can answer to different bytes later.
 
 This index says what the objects name. It resolves nothing: `cub config check <file> --images` asks the registry what a tag answers to now.
 

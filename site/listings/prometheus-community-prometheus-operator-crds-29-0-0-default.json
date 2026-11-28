@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:33e9d603109b517560aaa5e244acc3a825977fd5e417b436da07b63930ac2a78",
+      "sha256": "sha256:168547f46c3c4c20ef028a08b6d32d3ad3eef87df4443bb53c51310553722cc3",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/prometheus-community-prometheus-operator-crds-29-0-0-default.yaml",
-      "sha256": "sha256:c5534127025c298f071da71a68b709ef4850a41a4ca15d8bf6242115d6706d56",
+      "sha256": "sha256:9439c598dfb5cc45171a8e6d84d58d6b0eaf4686330253f58d395785dcf3f594",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/prometheus-community-prometheus-operator-crds-29-0-0-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -36,7 +36,7 @@
     "name": "prometheus-community/prometheus-operator-crds",
     "version": "29.0.0",
     "reference": "prometheus-community/prometheus-operator-crds@29.0.0",
-    "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-operator-crds:29.0.0@sha256:923b79c94ab4d966ae66cc7b6e2ddc199d042ebe5ea16942d197dc2a12fdec42",
+    "ociRef": "oci://ghcr.io/confighub/packages/prometheus-operator-crds:v29.0.0@sha256:2d19b5fa9d5085952ddda6abf6387e6edca4c1fce88ef21ef733d6f7d9c50cbd",
     "record": "data/helm-render-intents/intents/prometheus-community-prometheus-operator-crds-29-0-0-default.yaml",
     "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/prometheus-community-prometheus-operator-crds-29-0-0-default.yaml",
     "selection": {
@@ -92,7 +92,7 @@
     }
   },
   "oci": {
-    "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-operator-crds:29.0.0@sha256:923b79c94ab4d966ae66cc7b6e2ddc199d042ebe5ea16942d197dc2a12fdec42",
+    "sourcePackageRef": "oci://ghcr.io/confighub/packages/prometheus-operator-crds:v29.0.0@sha256:2d19b5fa9d5085952ddda6abf6387e6edca4c1fce88ef21ef733d6f7d9c50cbd",
     "bundles": [
       {
         "role": "source-package",
@@ -137,7 +137,9 @@
         "ghcr": {
           "reference": "oci://ghcr.io/confighub/configs/catalog/catalog-prometheus-community-prometheus-operator-crds-29-0-0-default:bundle-fa3cfa355125@sha256:fa3cfa355125f3ade0acd148e5951f463378543fe4bdf87729bffc50205ea7f9",
           "manifestDigest": "sha256:fa3cfa355125f3ade0acd148e5951f463378543fe4bdf87729bffc50205ea7f9",
-          "state": "awaits-workflow-publication",
+          "state": "published-signed",
+          "receipt": "runs/catalog-oci/catalog-prometheus-community-prometheus-operator-crds-29-0-0-default/bundle-fa3cfa355125.yaml",
+          "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/runs/catalog-oci/catalog-prometheus-community-prometheus-operator-crds-29-0-0-default/bundle-fa3cfa355125.yaml",
           "publisher": ".github/workflows/catalog-oci-publish.yml",
           "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/catalog-prometheus-community-prometheus-operator-crds-29-0-0-default@sha256:fa3cfa355125f3ade0acd148e5951f463378543fe4bdf87729bffc50205ea7f9",
           "sameDigestAsEarlier": true
@@ -552,12 +554,12 @@
         },
         {
           "comment": "preview the upload of the published bundle; nothing is written",
-          "command": "cub variant upload --dry-run --component prometheus-community-prometheus-operator-crds --variant default --space prometheus-community-prometheus-operator-crds-29-0-0-default --namespace default oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-operator-crds-29-0-0-default:latest@sha256:fa3cfa355125f3ade0acd148e5951f463378543fe4bdf87729bffc50205ea7f9",
+          "command": "cub variant upload --dry-run --component prometheus-community-prometheus-operator-crds --variant default --space prometheus-community-prometheus-operator-crds-29-0-0-default --namespace default oci://ghcr.io/confighub/configs/catalog/catalog-prometheus-community-prometheus-operator-crds-29-0-0-default:bundle-fa3cfa355125@sha256:fa3cfa355125f3ade0acd148e5951f463378543fe4bdf87729bffc50205ea7f9",
           "needsAccount": true
         },
         {
           "comment": "upload the bundle as a base Space of Units",
-          "command": "cub variant upload --component prometheus-community-prometheus-operator-crds --variant default --space prometheus-community-prometheus-operator-crds-29-0-0-default --namespace default oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-operator-crds-29-0-0-default:latest@sha256:fa3cfa355125f3ade0acd148e5951f463378543fe4bdf87729bffc50205ea7f9",
+          "command": "cub variant upload --component prometheus-community-prometheus-operator-crds --variant default --space prometheus-community-prometheus-operator-crds-29-0-0-default --namespace default oci://ghcr.io/confighub/configs/catalog/catalog-prometheus-community-prometheus-operator-crds-29-0-0-default:bundle-fa3cfa355125@sha256:fa3cfa355125f3ade0acd148e5951f463378543fe4bdf87729bffc50205ea7f9",
           "needsAccount": true,
           "writes": true
         }

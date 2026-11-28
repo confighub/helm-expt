@@ -13,7 +13,7 @@ spec:
     name: "grafana/loki"
     version: "7.3.0"
     record: "data/helm-render-intents/intents/grafana-loki-7-3-0-default.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.3.0@sha256:4f07ad7b36c9d4b8cf3ced158c24d031684279800889766941afbd33c46e799b"
+    packageOciRef: "oci://ghcr.io/confighub/packages/loki:v7.3.0@sha256:429c098f35e16a0a1851f38e2dd4d204e91028921aa37c52dbb0b232fd5cc2c4"
     selection:
       name: "default"
       kind: "catalog-preset"

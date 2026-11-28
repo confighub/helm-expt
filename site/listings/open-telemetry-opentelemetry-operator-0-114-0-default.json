@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:33e9d603109b517560aaa5e244acc3a825977fd5e417b436da07b63930ac2a78",
+      "sha256": "sha256:168547f46c3c4c20ef028a08b6d32d3ad3eef87df4443bb53c51310553722cc3",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/open-telemetry-opentelemetry-operator-0-114-0-default.yaml",
-      "sha256": "sha256:6b70d1b0a21b32210bf34ab9cd9df96ff5721fed1515093c92080be7b4263198",
+      "sha256": "sha256:b5491f43c6a490ea2f61718f05152fdb2356359a658d60816644ac8cb786879f",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/open-telemetry-opentelemetry-operator-0-114-0-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -36,7 +36,7 @@
     "name": "open-telemetry/opentelemetry-operator",
     "version": "0.114.0",
     "reference": "open-telemetry/opentelemetry-operator@0.114.0",
-    "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/open-telemetry-opentelemetry-operator:0.114.0@sha256:b6e1298c04526648e5e182fffb70d7fefe40d7809dc400699acb3e3f73abaa24",
+    "ociRef": "oci://ghcr.io/confighub/packages/opentelemetry-operator:v0.114.0@sha256:10b8c19c061ecd12604a36af141d00d41c99c872aa5c6b4411d1456c1ab24e25",
     "record": "data/helm-render-intents/intents/open-telemetry-opentelemetry-operator-0-114-0-default.yaml",
     "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/open-telemetry-opentelemetry-operator-0-114-0-default.yaml",
     "selection": {
@@ -92,7 +92,7 @@
     }
   },
   "oci": {
-    "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/open-telemetry-opentelemetry-operator:0.114.0@sha256:b6e1298c04526648e5e182fffb70d7fefe40d7809dc400699acb3e3f73abaa24",
+    "sourcePackageRef": "oci://ghcr.io/confighub/packages/opentelemetry-operator:v0.114.0@sha256:10b8c19c061ecd12604a36af141d00d41c99c872aa5c6b4411d1456c1ab24e25",
     "bundles": [
       {
         "role": "source-package",
@@ -487,7 +487,7 @@
         },
         {
           "comment": "render this base from the signed package; step 3 can upload this directory",
-          "command": "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/open-telemetry-opentelemetry-operator:0.114.0@sha256:b6e1298c04526648e5e182fffb70d7fefe40d7809dc400699acb3e3f73abaa24 --base default --work-dir ./open-telemetry-opentelemetry-operator-0-114-0-default --non-interactive --namespace default"
+          "command": "cub installer setup --pull oci://ghcr.io/confighub/packages/opentelemetry-operator:v0.114.0@sha256:10b8c19c061ecd12604a36af141d00d41c99c872aa5c6b4411d1456c1ab24e25 --base default --work-dir ./open-telemetry-opentelemetry-operator-0-114-0-default --non-interactive --namespace default"
         }
       ],
       "notes": [
@@ -544,7 +544,7 @@
         },
         {
           "comment": "put the signed package into a Space in one command: it pulls, renders and uploads",
-          "command": "cub package install oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/open-telemetry-opentelemetry-operator:0.114.0@sha256:b6e1298c04526648e5e182fffb70d7fefe40d7809dc400699acb3e3f73abaa24 --base default --space <your-space> --namespace default --non-interactive",
+          "command": "cub package install oci://ghcr.io/confighub/packages/opentelemetry-operator:v0.114.0@sha256:10b8c19c061ecd12604a36af141d00d41c99c872aa5c6b4411d1456c1ab24e25 --base default --space <your-space> --namespace default --non-interactive",
           "needsAccount": true,
           "writes": true
         },

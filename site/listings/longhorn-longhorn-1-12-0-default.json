@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:33e9d603109b517560aaa5e244acc3a825977fd5e417b436da07b63930ac2a78",
+      "sha256": "sha256:168547f46c3c4c20ef028a08b6d32d3ad3eef87df4443bb53c51310553722cc3",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/longhorn-longhorn-1-12-0-default.yaml",
-      "sha256": "sha256:2cbce287de2c867c51997c456192bb0c4e6a68c457d6ff058c01788abfe2552a",
+      "sha256": "sha256:ebb43d37aa639f68f47ad8e3a65d838e1db4d5a40c305d11ac17dcf5ce254fb0",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/longhorn-longhorn-1-12-0-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -36,7 +36,7 @@
     "name": "longhorn/longhorn",
     "version": "1.12.0",
     "reference": "longhorn/longhorn@1.12.0",
-    "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.12.0@sha256:f0ca4ef7a625739a763933ede5edd882e26c9ff6ebb0dd0ef6e500adfd4ed717",
+    "ociRef": "oci://ghcr.io/confighub/packages/longhorn:v1.12.0@sha256:d9e3f68993dfdb7d0f23cef168135633a63302ce0624153d5fcebe18ac34443c",
     "record": "data/helm-render-intents/intents/longhorn-longhorn-1-12-0-default.yaml",
     "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/longhorn-longhorn-1-12-0-default.yaml",
     "selection": {
@@ -92,7 +92,7 @@
     }
   },
   "oci": {
-    "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.12.0@sha256:f0ca4ef7a625739a763933ede5edd882e26c9ff6ebb0dd0ef6e500adfd4ed717",
+    "sourcePackageRef": "oci://ghcr.io/confighub/packages/longhorn:v1.12.0@sha256:d9e3f68993dfdb7d0f23cef168135633a63302ce0624153d5fcebe18ac34443c",
     "bundles": [
       {
         "role": "source-package",
@@ -446,7 +446,7 @@
         },
         {
           "comment": "render this base from the signed package; step 3 can upload this directory",
-          "command": "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.12.0@sha256:f0ca4ef7a625739a763933ede5edd882e26c9ff6ebb0dd0ef6e500adfd4ed717 --base default --work-dir ./longhorn-longhorn-1-12-0-default --non-interactive --namespace longhorn-system"
+          "command": "cub installer setup --pull oci://ghcr.io/confighub/packages/longhorn:v1.12.0@sha256:d9e3f68993dfdb7d0f23cef168135633a63302ce0624153d5fcebe18ac34443c --base default --work-dir ./longhorn-longhorn-1-12-0-default --non-interactive --namespace longhorn-system"
         }
       ],
       "notes": [
@@ -517,7 +517,7 @@
         },
         {
           "comment": "put the signed package into a Space in one command: it pulls, renders and uploads",
-          "command": "cub package install oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.12.0@sha256:f0ca4ef7a625739a763933ede5edd882e26c9ff6ebb0dd0ef6e500adfd4ed717 --base default --space <your-space> --namespace longhorn-system --non-interactive",
+          "command": "cub package install oci://ghcr.io/confighub/packages/longhorn:v1.12.0@sha256:d9e3f68993dfdb7d0f23cef168135633a63302ce0624153d5fcebe18ac34443c --base default --space <your-space> --namespace longhorn-system --non-interactive",
           "needsAccount": true,
           "writes": true
         },

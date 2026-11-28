@@ -13,7 +13,7 @@ spec:
     name: "nats/nack"
     version: "0.34.0"
     record: "data/helm-render-intents/intents/nats-nack-0-34-0-no-crds.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-nack:0.34.0@sha256:0deaa253cfd253e37f1611bceb58425c20ec02f374ea285736b3d31be394028a"
+    packageOciRef: "oci://ghcr.io/confighub/packages/nack:v0.34.0@sha256:9a15421b580106dadf497e3983ff747fcf398545706c73477e4d52fefa472da0"
     selection:
       name: "no-crds"
       kind: "catalog-preset"

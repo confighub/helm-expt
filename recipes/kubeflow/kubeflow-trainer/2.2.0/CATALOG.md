@@ -49,7 +49,10 @@ for exact base-variant evidence.
 | Value model | [recipes/kubeflow/kubeflow-trainer/2.2.0/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/kubeflow/kubeflow-trainer/2.2.0/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/kubeflow/kubeflow-trainer/2.2.0/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kubeflow-kubeflow-trainer:2.2.0@sha256:5bfc86cf6c84e972ffdf41aab3b6c467d6cc0be157066e70bc0440f43dc08df6` |
+| Install into a Space | `cub package install kubeflow-trainer:v2.2.0 --space <space>` |
+| Installer package OCI | `oci://ghcr.io/confighub/packages/kubeflow-trainer:v2.2.0@sha256:d230d833dddfd6f821b99e6d3fef3b8baa3a10bcd906c6fdc4eb222252f926b7` |
+| Installer package publication | [runs/ghcr-packages/kubeflow-trainer/v2.2.0.yaml](../../../../runs/ghcr-packages/kubeflow-trainer/v2.2.0.yaml) |
+| Earlier location | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kubeflow-kubeflow-trainer:2.2.0@sha256:5bfc86cf6c84e972ffdf41aab3b6c467d6cc0be157066e70bc0440f43dc08df6` |
 | Installer package source | [packages/kubeflow/kubeflow-trainer/2.2.0](../../../../packages/kubeflow/kubeflow-trainer/2.2.0) |
 | Installer package receipt | [recipes/kubeflow/kubeflow-trainer/2.2.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/kubeflow/kubeflow-trainer/2.2.0/artifact-index.yaml](artifact-index.yaml) |
@@ -89,12 +92,22 @@ for exact base-variant evidence.
 
 ## Current Install Shape
 
+Install the package into a ConfigHub Space, which renders it and uploads
+one Unit per resource:
+
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kubeflow-kubeflow-trainer:2.2.0@sha256:5bfc86cf6c84e972ffdf41aab3b6c467d6cc0be157066e70bc0440f43dc08df6 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub package install kubeflow-trainer:v2.2.0 --space kubeflow-trainer --base <variant> --namespace <namespace>
+```
+
+Or render it locally from the exact package bytes, with no Space:
+
+```sh
+cub installer setup --pull oci://ghcr.io/confighub/packages/kubeflow-trainer:v2.2.0@sha256:d230d833dddfd6f821b99e6d3fef3b8baa3a10bcd906c6fdc4eb222252f926b7 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is
-the public package users pull; the `packages/...` path is the repo source path
+the public package users pull, signed by the package publish workflow; check it with
+`cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/kubeflow-trainer@sha256:d230d833dddfd6f821b99e6d3fef3b8baa3a10bcd906c6fdc4eb222252f926b7`. The `packages/...` path is the repo source path
 used by maintainers and proof scripts. The proof path compares regular Helm
 output with real `cub installer setup` output and explains every intentional
 difference, such as the Namespace support object or separated Secrets.

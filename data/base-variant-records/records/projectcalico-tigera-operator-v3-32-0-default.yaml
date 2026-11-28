@@ -13,7 +13,7 @@ spec:
     name: "projectcalico/tigera-operator"
     version: "v3.32.0"
     record: "data/helm-render-intents/intents/projectcalico-tigera-operator-v3-32-0-default.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/projectcalico-tigera-operator:v3.32.0@sha256:c349b9f235ee64ae4743b81d2cb2d01eb5a36e765d3c634b912323ce6c7a135a"
+    packageOciRef: "oci://ghcr.io/confighub/packages/tigera-operator:v3.32.0@sha256:d3e129a914498070c0792d7ac804edf48dff3a4464eb961677af1a9805d90ab2"
     selection:
       name: "default"
       kind: "catalog-preset"

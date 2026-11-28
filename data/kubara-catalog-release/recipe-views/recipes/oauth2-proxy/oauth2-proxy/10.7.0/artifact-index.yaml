@@ -58,11 +58,18 @@ spec:
     nextAction: ""
   installerPackage:
     path: "packages/oauth2-proxy/oauth2-proxy/10.7.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/oauth2-proxy-oauth2-proxy:10.7.0@sha256:92ea38dd0996d278b9d403259d5690c567c3fd9c374214544ad6b6159b2b9384"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/oauth2-proxy-oauth2-proxy:10.7.0"
-    manifestDigest: "sha256:92ea38dd0996d278b9d403259d5690c567c3fd9c374214544ad6b6159b2b9384"
-    layerDigest: "sha256:90f72586f4e8c9c008f0b128d4d1b034abad7b87edf5252dcf1fc3e9a42af0fb"
-    publicationReceipt: "runs/installer-oci/oauth2-proxy-oauth2-proxy/10.7.0/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/oauth2-proxy:v10.7.0@sha256:bb1d413df85d11af6e663eb555d3c787b68302327a5a8e63e4d3bf82c32ae560"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/oauth2-proxy:v10.7.0"
+    manifestDigest: "sha256:bb1d413df85d11af6e663eb555d3c787b68302327a5a8e63e4d3bf82c32ae560"
+    layerDigest: "sha256:a72093cdb19fdf883bfa5b353bc8899b2d2c382a312df1ae231ac7397827cdc6"
+    publicationReceipt: "runs/ghcr-packages/oauth2-proxy/v10.7.0.yaml"
+    name: "oauth2-proxy"
+    tag: "v10.7.0"
+    installCommand: "cub package install oauth2-proxy:v10.7.0 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/oauth2-proxy@sha256:bb1d413df85d11af6e663eb555d3c787b68302327a5a8e63e4d3bf82c32ae560"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/oauth2-proxy-oauth2-proxy:10.7.0@sha256:92ea38dd0996d278b9d403259d5690c567c3fd9c374214544ad6b6159b2b9384"
+      publicationReceipt: "runs/installer-oci/oauth2-proxy-oauth2-proxy/10.7.0/installer-package-publication-receipt.yaml"
     installer: "packages/oauth2-proxy/oauth2-proxy/10.7.0/installer.yaml"
     receipt: "recipes/oauth2-proxy/oauth2-proxy/10.7.0/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "90f72586f4e8c9c008f0b128d4d1b034abad7b87edf5252dcf1fc3e9a42af0fb"
@@ -94,7 +101,7 @@ spec:
         default: true
         description: "oauth2-proxy chart defaults variant rendered from oauth2-proxy/oauth2-proxy@10.7.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/oauth2-proxy-oauth2-proxy:10.7.0@sha256:92ea38dd0996d278b9d403259d5690c567c3fd9c374214544ad6b6159b2b9384 --base default --work-dir <tmp> --non-interactive --namespace oauth2-proxy"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/oauth2-proxy:v10.7.0@sha256:bb1d413df85d11af6e663eb555d3c787b68302327a5a8e63e4d3bf82c32ae560 --base default --work-dir <tmp> --non-interactive --namespace oauth2-proxy"
         helmReleaseObjectCount: 5
         cubInstallObjectCountIncludingSupport: 6
         semanticObjectMatches: "5/5"

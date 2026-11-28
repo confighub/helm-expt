@@ -52,7 +52,10 @@ for exact base-variant evidence.
 | Weirdness and mitigations | [recipes/grafana/tempo/1.24.4/weirdness-and-mitigations.md](weirdness-and-mitigations.md) |
 | Catalog status | [recipes/grafana/tempo/1.24.4/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/grafana/tempo/1.24.4/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-tempo:1.24.4@sha256:bdeba9d642d10538e41f72eb96bd59f62428a6d0bc395111c74a7bcb8c1e7e12` |
+| Install into a Space | `cub package install tempo:v1.24.4 --space <space>` |
+| Installer package OCI | `oci://ghcr.io/confighub/packages/tempo:v1.24.4@sha256:5c5e9597520f79c574b455cd79e70c87d23fb3fd087a5aa14f8df43932f1f707` |
+| Installer package publication | [runs/ghcr-packages/tempo/v1.24.4.yaml](../../../../runs/ghcr-packages/tempo/v1.24.4.yaml) |
+| Earlier location | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-tempo:1.24.4@sha256:bdeba9d642d10538e41f72eb96bd59f62428a6d0bc395111c74a7bcb8c1e7e12` |
 | Installer package source | [packages/grafana/tempo/1.24.4](../../../../packages/grafana/tempo/1.24.4) |
 | Installer package receipt | [recipes/grafana/tempo/1.24.4/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/grafana/tempo/1.24.4/artifact-index.yaml](artifact-index.yaml) |
@@ -86,12 +89,22 @@ for exact base-variant evidence.
 
 ## Current Install Shape
 
+Install the package into a ConfigHub Space, which renders it and uploads
+one Unit per resource:
+
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-tempo:1.24.4@sha256:bdeba9d642d10538e41f72eb96bd59f62428a6d0bc395111c74a7bcb8c1e7e12 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub package install tempo:v1.24.4 --space tempo --base <variant> --namespace <namespace>
+```
+
+Or render it locally from the exact package bytes, with no Space:
+
+```sh
+cub installer setup --pull oci://ghcr.io/confighub/packages/tempo:v1.24.4@sha256:5c5e9597520f79c574b455cd79e70c87d23fb3fd087a5aa14f8df43932f1f707 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is
-the public package users pull; the `packages/...` path is the repo source path
+the public package users pull, signed by the package publish workflow; check it with
+`cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/tempo@sha256:5c5e9597520f79c574b455cd79e70c87d23fb3fd087a5aa14f8df43932f1f707`. The `packages/...` path is the repo source path
 used by maintainers and proof scripts. The proof path compares regular Helm
 output with real `cub installer setup` output and explains every intentional
 difference, such as the Namespace support object or separated Secrets.

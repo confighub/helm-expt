@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the default base variant into ./linkerd-linkerd-crds-1-8-0-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/linkerd-linkerd-crds:1.8.0@sha256:344c86888edbd4ef9b4dba594415ed4210a52fd69cdb33efef2f302d1129989c --base default --work-dir ./linkerd-linkerd-crds-1-8-0-default --non-interactive --namespace default
+cub installer setup --pull oci://ghcr.io/confighub/packages/linkerd-crds:v1.8.0@sha256:76dd64d6357398e12ca939982fe6ff7d54b3fa99d64e3fc09b42811977b330d8 --base default --work-dir ./linkerd-linkerd-crds-1-8-0-default --non-interactive --namespace default
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./linkerd-linkerd-crds-1-8-0-default/out/manifests

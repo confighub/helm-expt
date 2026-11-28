@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the node-or-cluster-collector base variant into ./elastic-filebeat-8-5-1-node-or-cluster-collector"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-filebeat:8.5.1@sha256:16db362566c51934e9807a7f2f2f57dfc20df88318658f5e7106d0f45bca2e47 --base node-or-cluster-collector --work-dir ./elastic-filebeat-8-5-1-node-or-cluster-collector --non-interactive --namespace default
+cub installer setup --pull oci://ghcr.io/confighub/packages/filebeat:v8.5.1@sha256:8d07c3cc6d0d78ad22681505d6c2c55633d74473282b511ef490307c776da9be --base node-or-cluster-collector --work-dir ./elastic-filebeat-8-5-1-node-or-cluster-collector --non-interactive --namespace default
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./elastic-filebeat-8-5-1-node-or-cluster-collector --space "${SPACE}"

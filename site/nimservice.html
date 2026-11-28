@@ -871,7 +871,7 @@
     <section class="entry-steps" aria-labelledby="use-in-confighub">
       <h2 id="use-in-confighub">Use this entry in ConfigHub</h2>
       <p>Every Catalog entry follows the same five-step model across Helm, NVIDIA AICR, Timoni, and YAML, whether run by you or your agent. Steps 1 and 2 inspect and diff rendered objects locally with no account; steps 3 to 5 load a ConfigHub base, customize variants, and deliver via OCI.</p>
-      <p><a href="./try.html#install-cub">Install the cub CLI</a> before running <code>cub</code> commands. Step 2 uses <code>cub config diff</code> from <code>cub plugin install confighub/cub-workshop@v0.6.61</code>. Expand any of the 38 entries below. Command syntax for <code>cub variant</code> comes from a <a href="./d/docs/user/live-run-log-2026-10-08.html">recorded CLI log (2026-10-08)</a>, not a live run of this entry. The table above says what each one runs and needs.</p>
+      <p><a href="./try.html#install-cub">Install the cub CLI</a> before running <code>cub</code> commands. Only step 2 needs a plugin: <code>cub config diff</code> comes from <code>cub plugin install confighub/cub-workshop@v0.6.61</code>. Expand any of the 38 entries below. Command syntax for <code>cub variant</code> comes from a <a href="./d/docs/user/live-run-log-2026-10-08.html">recorded CLI log (2026-10-08)</a>, not a live run of this entry. The table above says what each one runs and needs.</p>
       <details class="entry-steps-base" data-entry-steps="nimservice-autoscaling-meta-llama-3-2-1b-instruct-llm" open>
         <summary>Plain Kubernetes YAML, base <strong>autoscaling-meta-llama-3-2-1b-instruct-llm</strong>, version 5d5f66ee0e2e</summary>
         <details class="entry-inputs" data-entry-inputs="nimservice-autoscaling-meta-llama-3-2-1b-instruct-llm" open>
@@ -919,10 +919,10 @@ d078fa423dbb9be6197e33568c0e222e8aa46039e18ee2f470901ba01b00a2fa  nimservice-aut
 <span class="term-prompt">$</span> cub auth login
 
 <span class="term-comment"># preview the upload of the published bundle; nothing is written</span>
-<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant autoscaling-meta-llama-3-2-1b-instruct-llm --space nimservice-autoscaling-meta-llama-3-2-1b-instruct-llm oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-autoscaling-meta-llama-3-2-1b-instruct-llm:upstream-5d5f66ee0e2e@sha256:4c153c809f382cf873252cba7f58f8b0729e8484d07b6507ca503f98314402ab
+<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant autoscaling-meta-llama-3-2-1b-instruct-llm --space nimservice-autoscaling-meta-llama-3-2-1b-instruct-llm oci://ghcr.io/confighub/configs/catalog/nimservice-autoscaling-meta-llama-3-2-1b-instruct-llm:upstream-5d5f66ee0e2e-4c153c809f38@sha256:4c153c809f382cf873252cba7f58f8b0729e8484d07b6507ca503f98314402ab
 
 <span class="term-comment"># upload the bundle as a base Space of Units</span>
-<span class="term-prompt">$</span> cub variant upload --component nimservice --variant autoscaling-meta-llama-3-2-1b-instruct-llm --space nimservice-autoscaling-meta-llama-3-2-1b-instruct-llm oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-autoscaling-meta-llama-3-2-1b-instruct-llm:upstream-5d5f66ee0e2e@sha256:4c153c809f382cf873252cba7f58f8b0729e8484d07b6507ca503f98314402ab</code></pre>
+<span class="term-prompt">$</span> cub variant upload --component nimservice --variant autoscaling-meta-llama-3-2-1b-instruct-llm --space nimservice-autoscaling-meta-llama-3-2-1b-instruct-llm oci://ghcr.io/confighub/configs/catalog/nimservice-autoscaling-meta-llama-3-2-1b-instruct-llm:upstream-5d5f66ee0e2e-4c153c809f38@sha256:4c153c809f382cf873252cba7f58f8b0729e8484d07b6507ca503f98314402ab</code></pre>
         </div>
         <div class="entry-step" data-step="deploy" data-state="not-run-for-this-entry">
           <h3>4. Deploy it <span class="status open">Not run for this entry</span></h3>
@@ -1005,10 +1005,10 @@ d078fa423dbb9be6197e33568c0e222e8aa46039e18ee2f470901ba01b00a2fa  nimservice-aut
 <span class="term-prompt">$</span> cub auth login
 
 <span class="term-comment"># preview the upload of the published bundle; nothing is written</span>
-<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant autoscaling-meta-llama-3-2-1b-instruct-multi-llm --space nimservice-autoscaling-meta-llama-3-2-1b-instruct-multi-llm oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-autoscaling-meta-llama-3-2-1b-instruct-multi-llm:upstream-5d5f66ee0e2e@sha256:9fb50465a3a976158ee69dadb22c2b4d5932741eec8f35341ef874e86ff59d3e
+<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant autoscaling-meta-llama-3-2-1b-instruct-multi-llm --space nimservice-autoscaling-meta-llama-3-2-1b-instruct-multi-llm oci://ghcr.io/confighub/configs/catalog/nimservice-autoscaling-meta-llama-3-2-1b-instruct-multi-llm:upstream-5d5f66ee0e2e-9fb50465a3a9@sha256:9fb50465a3a976158ee69dadb22c2b4d5932741eec8f35341ef874e86ff59d3e
 
 <span class="term-comment"># upload the bundle as a base Space of Units</span>
-<span class="term-prompt">$</span> cub variant upload --component nimservice --variant autoscaling-meta-llama-3-2-1b-instruct-multi-llm --space nimservice-autoscaling-meta-llama-3-2-1b-instruct-multi-llm oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-autoscaling-meta-llama-3-2-1b-instruct-multi-llm:upstream-5d5f66ee0e2e@sha256:9fb50465a3a976158ee69dadb22c2b4d5932741eec8f35341ef874e86ff59d3e</code></pre>
+<span class="term-prompt">$</span> cub variant upload --component nimservice --variant autoscaling-meta-llama-3-2-1b-instruct-multi-llm --space nimservice-autoscaling-meta-llama-3-2-1b-instruct-multi-llm oci://ghcr.io/confighub/configs/catalog/nimservice-autoscaling-meta-llama-3-2-1b-instruct-multi-llm:upstream-5d5f66ee0e2e-9fb50465a3a9@sha256:9fb50465a3a976158ee69dadb22c2b4d5932741eec8f35341ef874e86ff59d3e</code></pre>
         </div>
         <div class="entry-step" data-step="deploy" data-state="not-run-for-this-entry">
           <h3>4. Deploy it <span class="status open">Not run for this entry</span></h3>
@@ -1091,10 +1091,10 @@ d078fa423dbb9be6197e33568c0e222e8aa46039e18ee2f470901ba01b00a2fa  nimservice-aut
 <span class="term-prompt">$</span> cub auth login
 
 <span class="term-comment"># preview the upload of the published bundle; nothing is written</span>
-<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant basic-meta-llama-3-2-1b-instruct-llm --space nimservice-basic-meta-llama-3-2-1b-instruct-llm oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-basic-meta-llama-3-2-1b-instruct-llm:upstream-5d5f66ee0e2e@sha256:c7ac7f7b13a3950a4c8f3ef52c4592fec4fd5a32bcd5e2e8bbf8e044e43c1f09
+<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant basic-meta-llama-3-2-1b-instruct-llm --space nimservice-basic-meta-llama-3-2-1b-instruct-llm oci://ghcr.io/confighub/configs/catalog/nimservice-basic-meta-llama-3-2-1b-instruct-llm:upstream-5d5f66ee0e2e-c7ac7f7b13a3@sha256:c7ac7f7b13a3950a4c8f3ef52c4592fec4fd5a32bcd5e2e8bbf8e044e43c1f09
 
 <span class="term-comment"># upload the bundle as a base Space of Units</span>
-<span class="term-prompt">$</span> cub variant upload --component nimservice --variant basic-meta-llama-3-2-1b-instruct-llm --space nimservice-basic-meta-llama-3-2-1b-instruct-llm oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-basic-meta-llama-3-2-1b-instruct-llm:upstream-5d5f66ee0e2e@sha256:c7ac7f7b13a3950a4c8f3ef52c4592fec4fd5a32bcd5e2e8bbf8e044e43c1f09</code></pre>
+<span class="term-prompt">$</span> cub variant upload --component nimservice --variant basic-meta-llama-3-2-1b-instruct-llm --space nimservice-basic-meta-llama-3-2-1b-instruct-llm oci://ghcr.io/confighub/configs/catalog/nimservice-basic-meta-llama-3-2-1b-instruct-llm:upstream-5d5f66ee0e2e-c7ac7f7b13a3@sha256:c7ac7f7b13a3950a4c8f3ef52c4592fec4fd5a32bcd5e2e8bbf8e044e43c1f09</code></pre>
         </div>
         <div class="entry-step" data-step="deploy" data-state="not-run-for-this-entry">
           <h3>4. Deploy it <span class="status open">Not run for this entry</span></h3>
@@ -1177,10 +1177,10 @@ ce7c2a54d6cf71c90ca9947697ad3565289b6811660b33ca0722a8dd1ba31e7c  nimservice-bas
 <span class="term-prompt">$</span> cub auth login
 
 <span class="term-comment"># preview the upload of the published bundle; nothing is written</span>
-<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant basic-meta-llama-3-2-1b-instruct-multi-llm --space nimservice-basic-meta-llama-3-2-1b-instruct-multi-llm oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-basic-meta-llama-3-2-1b-instruct-multi-llm:upstream-5d5f66ee0e2e@sha256:b56046d5518c443284a858363b9cb83a1f30f59dfe35dacfc2bc58c9f8c8f1d2
+<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant basic-meta-llama-3-2-1b-instruct-multi-llm --space nimservice-basic-meta-llama-3-2-1b-instruct-multi-llm oci://ghcr.io/confighub/configs/catalog/nimservice-basic-meta-llama-3-2-1b-instruct-multi-llm:upstream-5d5f66ee0e2e-b56046d5518c@sha256:b56046d5518c443284a858363b9cb83a1f30f59dfe35dacfc2bc58c9f8c8f1d2
 
 <span class="term-comment"># upload the bundle as a base Space of Units</span>
-<span class="term-prompt">$</span> cub variant upload --component nimservice --variant basic-meta-llama-3-2-1b-instruct-multi-llm --space nimservice-basic-meta-llama-3-2-1b-instruct-multi-llm oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-basic-meta-llama-3-2-1b-instruct-multi-llm:upstream-5d5f66ee0e2e@sha256:b56046d5518c443284a858363b9cb83a1f30f59dfe35dacfc2bc58c9f8c8f1d2</code></pre>
+<span class="term-prompt">$</span> cub variant upload --component nimservice --variant basic-meta-llama-3-2-1b-instruct-multi-llm --space nimservice-basic-meta-llama-3-2-1b-instruct-multi-llm oci://ghcr.io/confighub/configs/catalog/nimservice-basic-meta-llama-3-2-1b-instruct-multi-llm:upstream-5d5f66ee0e2e-b56046d5518c@sha256:b56046d5518c443284a858363b9cb83a1f30f59dfe35dacfc2bc58c9f8c8f1d2</code></pre>
         </div>
         <div class="entry-step" data-step="deploy" data-state="not-run-for-this-entry">
           <h3>4. Deploy it <span class="status open">Not run for this entry</span></h3>
@@ -1263,10 +1263,10 @@ ce7c2a54d6cf71c90ca9947697ad3565289b6811660b33ca0722a8dd1ba31e7c  nimservice-bas
 <span class="term-prompt">$</span> cub auth login
 
 <span class="term-comment"># preview the upload of the published bundle; nothing is written</span>
-<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant basic-model-free-llama-3-2-1b-instruct --space nimservice-basic-model-free-llama-3-2-1b-instruct oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-basic-model-free-llama-3-2-1b-instruct:upstream-5d5f66ee0e2e@sha256:43287b316a33582900d24ee32d470be5859c36423fe3a23ce5849a1998b54e4f
+<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant basic-model-free-llama-3-2-1b-instruct --space nimservice-basic-model-free-llama-3-2-1b-instruct oci://ghcr.io/confighub/configs/catalog/nimservice-basic-model-free-llama-3-2-1b-instruct:upstream-5d5f66ee0e2e-43287b316a33@sha256:43287b316a33582900d24ee32d470be5859c36423fe3a23ce5849a1998b54e4f
 
 <span class="term-comment"># upload the bundle as a base Space of Units</span>
-<span class="term-prompt">$</span> cub variant upload --component nimservice --variant basic-model-free-llama-3-2-1b-instruct --space nimservice-basic-model-free-llama-3-2-1b-instruct oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-basic-model-free-llama-3-2-1b-instruct:upstream-5d5f66ee0e2e@sha256:43287b316a33582900d24ee32d470be5859c36423fe3a23ce5849a1998b54e4f</code></pre>
+<span class="term-prompt">$</span> cub variant upload --component nimservice --variant basic-model-free-llama-3-2-1b-instruct --space nimservice-basic-model-free-llama-3-2-1b-instruct oci://ghcr.io/confighub/configs/catalog/nimservice-basic-model-free-llama-3-2-1b-instruct:upstream-5d5f66ee0e2e-43287b316a33@sha256:43287b316a33582900d24ee32d470be5859c36423fe3a23ce5849a1998b54e4f</code></pre>
         </div>
         <div class="entry-step" data-step="deploy" data-state="not-run-for-this-entry">
           <h3>4. Deploy it <span class="status open">Not run for this entry</span></h3>
@@ -1349,10 +1349,10 @@ b47f6df0183fb5ceefea7f9751adbe4952f3fc64287a1627050c023825a9f462  nimservice-con
 <span class="term-prompt">$</span> cub auth login
 
 <span class="term-comment"># preview the upload of the published bundle; nothing is written</span>
-<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox --space nimservice-confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox:upstream-5d5f66ee0e2e@sha256:8d2a87632008cd4b8844d4856e9aeb85631aef78d806a977ea3eeb4bf2b03cf4
+<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox --space nimservice-confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox oci://ghcr.io/confighub/configs/catalog/nimservice-confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox:upstream-5d5f66ee0e2e-8d2a87632008@sha256:8d2a87632008cd4b8844d4856e9aeb85631aef78d806a977ea3eeb4bf2b03cf4
 
 <span class="term-comment"># upload the bundle as a base Space of Units</span>
-<span class="term-prompt">$</span> cub variant upload --component nimservice --variant confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox --space nimservice-confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox:upstream-5d5f66ee0e2e@sha256:8d2a87632008cd4b8844d4856e9aeb85631aef78d806a977ea3eeb4bf2b03cf4</code></pre>
+<span class="term-prompt">$</span> cub variant upload --component nimservice --variant confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox --space nimservice-confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox oci://ghcr.io/confighub/configs/catalog/nimservice-confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox:upstream-5d5f66ee0e2e-8d2a87632008@sha256:8d2a87632008cd4b8844d4856e9aeb85631aef78d806a977ea3eeb4bf2b03cf4</code></pre>
         </div>
         <div class="entry-step" data-step="deploy" data-state="not-run-for-this-entry">
           <h3>4. Deploy it <span class="status open">Not run for this entry</span></h3>
@@ -1489,10 +1489,10 @@ eb3952f4209f4b63a9cce3e232b28c01016c55fe28e3128ae0cbda3559382668  nimservice-epp
 <span class="term-prompt">$</span> cub auth login
 
 <span class="term-comment"># preview the upload of the published bundle; nothing is written</span>
-<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant example0-meta-llama3-2-1b-instruct --space nimservice-example0-meta-llama3-2-1b-instruct oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-example0-meta-llama3-2-1b-instruct:upstream-5d5f66ee0e2e@sha256:42fdbde73d794ed567d19ad22aa46dd1afde557f3145e474c65d4d36c26dd7c5
+<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant example0-meta-llama3-2-1b-instruct --space nimservice-example0-meta-llama3-2-1b-instruct oci://ghcr.io/confighub/configs/catalog/nimservice-example0-meta-llama3-2-1b-instruct:upstream-5d5f66ee0e2e-42fdbde73d79@sha256:42fdbde73d794ed567d19ad22aa46dd1afde557f3145e474c65d4d36c26dd7c5
 
 <span class="term-comment"># upload the bundle as a base Space of Units</span>
-<span class="term-prompt">$</span> cub variant upload --component nimservice --variant example0-meta-llama3-2-1b-instruct --space nimservice-example0-meta-llama3-2-1b-instruct oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-example0-meta-llama3-2-1b-instruct:upstream-5d5f66ee0e2e@sha256:42fdbde73d794ed567d19ad22aa46dd1afde557f3145e474c65d4d36c26dd7c5</code></pre>
+<span class="term-prompt">$</span> cub variant upload --component nimservice --variant example0-meta-llama3-2-1b-instruct --space nimservice-example0-meta-llama3-2-1b-instruct oci://ghcr.io/confighub/configs/catalog/nimservice-example0-meta-llama3-2-1b-instruct:upstream-5d5f66ee0e2e-42fdbde73d79@sha256:42fdbde73d794ed567d19ad22aa46dd1afde557f3145e474c65d4d36c26dd7c5</code></pre>
         </div>
         <div class="entry-step" data-step="deploy" data-state="not-run-for-this-entry">
           <h3>4. Deploy it <span class="status open">Not run for this entry</span></h3>
@@ -1575,10 +1575,10 @@ eb3952f4209f4b63a9cce3e232b28c01016c55fe28e3128ae0cbda3559382668  nimservice-epp
 <span class="term-prompt">$</span> cub auth login
 
 <span class="term-comment"># preview the upload of the published bundle; nothing is written</span>
-<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant example1-meta-llama3-2-1b-instruct --space nimservice-example1-meta-llama3-2-1b-instruct oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-example1-meta-llama3-2-1b-instruct:upstream-5d5f66ee0e2e@sha256:c3eddfb7edfff84131c09179685ceed3238fa5dacb70df98ae4b79fc52fcb666
+<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant example1-meta-llama3-2-1b-instruct --space nimservice-example1-meta-llama3-2-1b-instruct oci://ghcr.io/confighub/configs/catalog/nimservice-example1-meta-llama3-2-1b-instruct:upstream-5d5f66ee0e2e-c3eddfb7edff@sha256:c3eddfb7edfff84131c09179685ceed3238fa5dacb70df98ae4b79fc52fcb666
 
 <span class="term-comment"># upload the bundle as a base Space of Units</span>
-<span class="term-prompt">$</span> cub variant upload --component nimservice --variant example1-meta-llama3-2-1b-instruct --space nimservice-example1-meta-llama3-2-1b-instruct oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-example1-meta-llama3-2-1b-instruct:upstream-5d5f66ee0e2e@sha256:c3eddfb7edfff84131c09179685ceed3238fa5dacb70df98ae4b79fc52fcb666</code></pre>
+<span class="term-prompt">$</span> cub variant upload --component nimservice --variant example1-meta-llama3-2-1b-instruct --space nimservice-example1-meta-llama3-2-1b-instruct oci://ghcr.io/confighub/configs/catalog/nimservice-example1-meta-llama3-2-1b-instruct:upstream-5d5f66ee0e2e-c3eddfb7edff@sha256:c3eddfb7edfff84131c09179685ceed3238fa5dacb70df98ae4b79fc52fcb666</code></pre>
         </div>
         <div class="entry-step" data-step="deploy" data-state="not-run-for-this-entry">
           <h3>4. Deploy it <span class="status open">Not run for this entry</span></h3>
@@ -1661,10 +1661,10 @@ eb3952f4209f4b63a9cce3e232b28c01016c55fe28e3128ae0cbda3559382668  nimservice-epp
 <span class="term-prompt">$</span> cub auth login
 
 <span class="term-comment"># preview the upload of the published bundle; nothing is written</span>
-<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant example2-meta-llama3-2-1b-instruct --space nimservice-example2-meta-llama3-2-1b-instruct oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-example2-meta-llama3-2-1b-instruct:upstream-5d5f66ee0e2e@sha256:ecbf1815fff42af67f7fe9327ef74fc5fd4e958ba8aaacd340a71008e4858ff6
+<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant example2-meta-llama3-2-1b-instruct --space nimservice-example2-meta-llama3-2-1b-instruct oci://ghcr.io/confighub/configs/catalog/nimservice-example2-meta-llama3-2-1b-instruct:upstream-5d5f66ee0e2e-ecbf1815fff4@sha256:ecbf1815fff42af67f7fe9327ef74fc5fd4e958ba8aaacd340a71008e4858ff6
 
 <span class="term-comment"># upload the bundle as a base Space of Units</span>
-<span class="term-prompt">$</span> cub variant upload --component nimservice --variant example2-meta-llama3-2-1b-instruct --space nimservice-example2-meta-llama3-2-1b-instruct oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-example2-meta-llama3-2-1b-instruct:upstream-5d5f66ee0e2e@sha256:ecbf1815fff42af67f7fe9327ef74fc5fd4e958ba8aaacd340a71008e4858ff6</code></pre>
+<span class="term-prompt">$</span> cub variant upload --component nimservice --variant example2-meta-llama3-2-1b-instruct --space nimservice-example2-meta-llama3-2-1b-instruct oci://ghcr.io/confighub/configs/catalog/nimservice-example2-meta-llama3-2-1b-instruct:upstream-5d5f66ee0e2e-ecbf1815fff4@sha256:ecbf1815fff42af67f7fe9327ef74fc5fd4e958ba8aaacd340a71008e4858ff6</code></pre>
         </div>
         <div class="entry-step" data-step="deploy" data-state="not-run-for-this-entry">
           <h3>4. Deploy it <span class="status open">Not run for this entry</span></h3>
@@ -1747,10 +1747,10 @@ eb3952f4209f4b63a9cce3e232b28c01016c55fe28e3128ae0cbda3559382668  nimservice-epp
 <span class="term-prompt">$</span> cub auth login
 
 <span class="term-comment"># preview the upload of the published bundle; nothing is written</span>
-<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant full-meta-llama-3-2-1b-instruct-llm --space nimservice-full-meta-llama-3-2-1b-instruct-llm oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-full-meta-llama-3-2-1b-instruct-llm:upstream-5d5f66ee0e2e@sha256:cfe1ea2ff03c372af8bb5e0cabd63653f0169f01b5abd9a96572ba65641f51a0
+<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant full-meta-llama-3-2-1b-instruct-llm --space nimservice-full-meta-llama-3-2-1b-instruct-llm oci://ghcr.io/confighub/configs/catalog/nimservice-full-meta-llama-3-2-1b-instruct-llm:upstream-5d5f66ee0e2e-cfe1ea2ff03c@sha256:cfe1ea2ff03c372af8bb5e0cabd63653f0169f01b5abd9a96572ba65641f51a0
 
 <span class="term-comment"># upload the bundle as a base Space of Units</span>
-<span class="term-prompt">$</span> cub variant upload --component nimservice --variant full-meta-llama-3-2-1b-instruct-llm --space nimservice-full-meta-llama-3-2-1b-instruct-llm oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-full-meta-llama-3-2-1b-instruct-llm:upstream-5d5f66ee0e2e@sha256:cfe1ea2ff03c372af8bb5e0cabd63653f0169f01b5abd9a96572ba65641f51a0</code></pre>
+<span class="term-prompt">$</span> cub variant upload --component nimservice --variant full-meta-llama-3-2-1b-instruct-llm --space nimservice-full-meta-llama-3-2-1b-instruct-llm oci://ghcr.io/confighub/configs/catalog/nimservice-full-meta-llama-3-2-1b-instruct-llm:upstream-5d5f66ee0e2e-cfe1ea2ff03c@sha256:cfe1ea2ff03c372af8bb5e0cabd63653f0169f01b5abd9a96572ba65641f51a0</code></pre>
         </div>
         <div class="entry-step" data-step="deploy" data-state="not-run-for-this-entry">
           <h3>4. Deploy it <span class="status open">Not run for this entry</span></h3>
@@ -1833,10 +1833,10 @@ cf2fcef92859da8db83cd4f529d7a44c8b13afcb43af9ad221e11d23a929ab21  nimservice-ful
 <span class="term-prompt">$</span> cub auth login
 
 <span class="term-comment"># preview the upload of the published bundle; nothing is written</span>
-<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant full-meta-llama-3-2-1b-instruct-multi-llm --space nimservice-full-meta-llama-3-2-1b-instruct-multi-llm oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-full-meta-llama-3-2-1b-instruct-multi-llm:upstream-5d5f66ee0e2e@sha256:9642803429cd24685a8c22c78ecfc7fbb37394935514cb4e58b641f634a507ca
+<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant full-meta-llama-3-2-1b-instruct-multi-llm --space nimservice-full-meta-llama-3-2-1b-instruct-multi-llm oci://ghcr.io/confighub/configs/catalog/nimservice-full-meta-llama-3-2-1b-instruct-multi-llm:upstream-5d5f66ee0e2e-9642803429cd@sha256:9642803429cd24685a8c22c78ecfc7fbb37394935514cb4e58b641f634a507ca
 
 <span class="term-comment"># upload the bundle as a base Space of Units</span>
-<span class="term-prompt">$</span> cub variant upload --component nimservice --variant full-meta-llama-3-2-1b-instruct-multi-llm --space nimservice-full-meta-llama-3-2-1b-instruct-multi-llm oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-full-meta-llama-3-2-1b-instruct-multi-llm:upstream-5d5f66ee0e2e@sha256:9642803429cd24685a8c22c78ecfc7fbb37394935514cb4e58b641f634a507ca</code></pre>
+<span class="term-prompt">$</span> cub variant upload --component nimservice --variant full-meta-llama-3-2-1b-instruct-multi-llm --space nimservice-full-meta-llama-3-2-1b-instruct-multi-llm oci://ghcr.io/confighub/configs/catalog/nimservice-full-meta-llama-3-2-1b-instruct-multi-llm:upstream-5d5f66ee0e2e-9642803429cd@sha256:9642803429cd24685a8c22c78ecfc7fbb37394935514cb4e58b641f634a507ca</code></pre>
         </div>
         <div class="entry-step" data-step="deploy" data-state="not-run-for-this-entry">
           <h3>4. Deploy it <span class="status open">Not run for this entry</span></h3>
@@ -1919,10 +1919,10 @@ daa8e038c7e4a6cb6c540094e607da9066fd23356a72c2e1d9d3a57302d281a9  nimservice-grp
 <span class="term-prompt">$</span> cub auth login
 
 <span class="term-comment"># preview the upload of the published bundle; nothing is written</span>
-<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant grpcroutes-riva-tts --space nimservice-grpcroutes-riva-tts oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-grpcroutes-riva-tts:upstream-5d5f66ee0e2e@sha256:2e93e0d8cf7c5a0f1c097c701255345d7c60b3e01ac46635d61f99767818dac9
+<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant grpcroutes-riva-tts --space nimservice-grpcroutes-riva-tts oci://ghcr.io/confighub/configs/catalog/nimservice-grpcroutes-riva-tts:upstream-5d5f66ee0e2e-2e93e0d8cf7c@sha256:2e93e0d8cf7c5a0f1c097c701255345d7c60b3e01ac46635d61f99767818dac9
 
 <span class="term-comment"># upload the bundle as a base Space of Units</span>
-<span class="term-prompt">$</span> cub variant upload --component nimservice --variant grpcroutes-riva-tts --space nimservice-grpcroutes-riva-tts oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-grpcroutes-riva-tts:upstream-5d5f66ee0e2e@sha256:2e93e0d8cf7c5a0f1c097c701255345d7c60b3e01ac46635d61f99767818dac9</code></pre>
+<span class="term-prompt">$</span> cub variant upload --component nimservice --variant grpcroutes-riva-tts --space nimservice-grpcroutes-riva-tts oci://ghcr.io/confighub/configs/catalog/nimservice-grpcroutes-riva-tts:upstream-5d5f66ee0e2e-2e93e0d8cf7c@sha256:2e93e0d8cf7c5a0f1c097c701255345d7c60b3e01ac46635d61f99767818dac9</code></pre>
         </div>
         <div class="entry-step" data-step="deploy" data-state="not-run-for-this-entry">
           <h3>4. Deploy it <span class="status open">Not run for this entry</span></h3>
@@ -2005,10 +2005,10 @@ cfcb9c6cd91e8c90f4146de2f642c41890cff6075f0b6619b60333a0bc0539b9  nimservice-htt
 <span class="term-prompt">$</span> cub auth login
 
 <span class="term-comment"># preview the upload of the published bundle; nothing is written</span>
-<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant httproutes-meta-llama-3-2-1b-instruct-llm --space nimservice-httproutes-meta-llama-3-2-1b-instruct-llm oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-httproutes-meta-llama-3-2-1b-instruct-llm:upstream-5d5f66ee0e2e@sha256:8b0deb570588e5d37f2bce6358272662a23acf56caf427ee5d4f7238800e01f5
+<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant httproutes-meta-llama-3-2-1b-instruct-llm --space nimservice-httproutes-meta-llama-3-2-1b-instruct-llm oci://ghcr.io/confighub/configs/catalog/nimservice-httproutes-meta-llama-3-2-1b-instruct-llm:upstream-5d5f66ee0e2e-8b0deb570588@sha256:8b0deb570588e5d37f2bce6358272662a23acf56caf427ee5d4f7238800e01f5
 
 <span class="term-comment"># upload the bundle as a base Space of Units</span>
-<span class="term-prompt">$</span> cub variant upload --component nimservice --variant httproutes-meta-llama-3-2-1b-instruct-llm --space nimservice-httproutes-meta-llama-3-2-1b-instruct-llm oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-httproutes-meta-llama-3-2-1b-instruct-llm:upstream-5d5f66ee0e2e@sha256:8b0deb570588e5d37f2bce6358272662a23acf56caf427ee5d4f7238800e01f5</code></pre>
+<span class="term-prompt">$</span> cub variant upload --component nimservice --variant httproutes-meta-llama-3-2-1b-instruct-llm --space nimservice-httproutes-meta-llama-3-2-1b-instruct-llm oci://ghcr.io/confighub/configs/catalog/nimservice-httproutes-meta-llama-3-2-1b-instruct-llm:upstream-5d5f66ee0e2e-8b0deb570588@sha256:8b0deb570588e5d37f2bce6358272662a23acf56caf427ee5d4f7238800e01f5</code></pre>
         </div>
         <div class="entry-step" data-step="deploy" data-state="not-run-for-this-entry">
           <h3>4. Deploy it <span class="status open">Not run for this entry</span></h3>
@@ -2091,10 +2091,10 @@ cfcb9c6cd91e8c90f4146de2f642c41890cff6075f0b6619b60333a0bc0539b9  nimservice-htt
 <span class="term-prompt">$</span> cub auth login
 
 <span class="term-comment"># preview the upload of the published bundle; nothing is written</span>
-<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant httproutes-meta-llama-3-2-1b-instruct-multi-llm --space nimservice-httproutes-meta-llama-3-2-1b-instruct-multi-llm oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-httproutes-meta-llama-3-2-1b-instruct-multi-llm:upstream-5d5f66ee0e2e@sha256:7059b4a001e82fc6cbc3a153a4cfd3480082b819c957a97c7e6ecda1831a829f
+<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant httproutes-meta-llama-3-2-1b-instruct-multi-llm --space nimservice-httproutes-meta-llama-3-2-1b-instruct-multi-llm oci://ghcr.io/confighub/configs/catalog/nimservice-httproutes-meta-llama-3-2-1b-instruct-multi-llm:upstream-5d5f66ee0e2e-7059b4a001e8@sha256:7059b4a001e82fc6cbc3a153a4cfd3480082b819c957a97c7e6ecda1831a829f
 
 <span class="term-comment"># upload the bundle as a base Space of Units</span>
-<span class="term-prompt">$</span> cub variant upload --component nimservice --variant httproutes-meta-llama-3-2-1b-instruct-multi-llm --space nimservice-httproutes-meta-llama-3-2-1b-instruct-multi-llm oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-httproutes-meta-llama-3-2-1b-instruct-multi-llm:upstream-5d5f66ee0e2e@sha256:7059b4a001e82fc6cbc3a153a4cfd3480082b819c957a97c7e6ecda1831a829f</code></pre>
+<span class="term-prompt">$</span> cub variant upload --component nimservice --variant httproutes-meta-llama-3-2-1b-instruct-multi-llm --space nimservice-httproutes-meta-llama-3-2-1b-instruct-multi-llm oci://ghcr.io/confighub/configs/catalog/nimservice-httproutes-meta-llama-3-2-1b-instruct-multi-llm:upstream-5d5f66ee0e2e-7059b4a001e8@sha256:7059b4a001e82fc6cbc3a153a4cfd3480082b819c957a97c7e6ecda1831a829f</code></pre>
         </div>
         <div class="entry-step" data-step="deploy" data-state="not-run-for-this-entry">
           <h3>4. Deploy it <span class="status open">Not run for this entry</span></h3>
@@ -2178,10 +2178,10 @@ cfcb9c6cd91e8c90f4146de2f642c41890cff6075f0b6619b60333a0bc0539b9  nimservice-htt
 <span class="term-prompt">$</span> cub auth login
 
 <span class="term-comment"># preview the upload of the published bundle; nothing is written</span>
-<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant ingress-meta-llama-3-2-1b-instruct-llm --space nimservice-ingress-meta-llama-3-2-1b-instruct-llm oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-ingress-meta-llama-3-2-1b-instruct-llm:upstream-5d5f66ee0e2e@sha256:4eb91b4d4c0f8d2cf517a01425ca6d0b3a416f5ca9bd7956c931aeb9b80b7a32
+<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant ingress-meta-llama-3-2-1b-instruct-llm --space nimservice-ingress-meta-llama-3-2-1b-instruct-llm oci://ghcr.io/confighub/configs/catalog/nimservice-ingress-meta-llama-3-2-1b-instruct-llm:upstream-5d5f66ee0e2e-4eb91b4d4c0f@sha256:4eb91b4d4c0f8d2cf517a01425ca6d0b3a416f5ca9bd7956c931aeb9b80b7a32
 
 <span class="term-comment"># upload the bundle as a base Space of Units</span>
-<span class="term-prompt">$</span> cub variant upload --component nimservice --variant ingress-meta-llama-3-2-1b-instruct-llm --space nimservice-ingress-meta-llama-3-2-1b-instruct-llm oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-ingress-meta-llama-3-2-1b-instruct-llm:upstream-5d5f66ee0e2e@sha256:4eb91b4d4c0f8d2cf517a01425ca6d0b3a416f5ca9bd7956c931aeb9b80b7a32</code></pre>
+<span class="term-prompt">$</span> cub variant upload --component nimservice --variant ingress-meta-llama-3-2-1b-instruct-llm --space nimservice-ingress-meta-llama-3-2-1b-instruct-llm oci://ghcr.io/confighub/configs/catalog/nimservice-ingress-meta-llama-3-2-1b-instruct-llm:upstream-5d5f66ee0e2e-4eb91b4d4c0f@sha256:4eb91b4d4c0f8d2cf517a01425ca6d0b3a416f5ca9bd7956c931aeb9b80b7a32</code></pre>
         </div>
         <div class="entry-step" data-step="deploy" data-state="not-run-for-this-entry">
           <h3>4. Deploy it <span class="status open">Not run for this entry</span></h3>
@@ -2264,10 +2264,10 @@ baa21918b9ff3d9d54713c6dfa8b8207b8189840b9c28a24247da8cae762a905  nimservice-ing
 <span class="term-prompt">$</span> cub auth login
 
 <span class="term-comment"># preview the upload of the published bundle; nothing is written</span>
-<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant ingress-meta-llama-3-2-1b-instruct-multi-llm --space nimservice-ingress-meta-llama-3-2-1b-instruct-multi-llm oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-ingress-meta-llama-3-2-1b-instruct-multi-llm:upstream-5d5f66ee0e2e@sha256:833da78d85d7ee65f857f5b949fd5f69d42036232aae1e2bc20862aa696836fe
+<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant ingress-meta-llama-3-2-1b-instruct-multi-llm --space nimservice-ingress-meta-llama-3-2-1b-instruct-multi-llm oci://ghcr.io/confighub/configs/catalog/nimservice-ingress-meta-llama-3-2-1b-instruct-multi-llm:upstream-5d5f66ee0e2e-833da78d85d7@sha256:833da78d85d7ee65f857f5b949fd5f69d42036232aae1e2bc20862aa696836fe
 
 <span class="term-comment"># upload the bundle as a base Space of Units</span>
-<span class="term-prompt">$</span> cub variant upload --component nimservice --variant ingress-meta-llama-3-2-1b-instruct-multi-llm --space nimservice-ingress-meta-llama-3-2-1b-instruct-multi-llm oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-ingress-meta-llama-3-2-1b-instruct-multi-llm:upstream-5d5f66ee0e2e@sha256:833da78d85d7ee65f857f5b949fd5f69d42036232aae1e2bc20862aa696836fe</code></pre>
+<span class="term-prompt">$</span> cub variant upload --component nimservice --variant ingress-meta-llama-3-2-1b-instruct-multi-llm --space nimservice-ingress-meta-llama-3-2-1b-instruct-multi-llm oci://ghcr.io/confighub/configs/catalog/nimservice-ingress-meta-llama-3-2-1b-instruct-multi-llm:upstream-5d5f66ee0e2e-833da78d85d7@sha256:833da78d85d7ee65f857f5b949fd5f69d42036232aae1e2bc20862aa696836fe</code></pre>
         </div>
         <div class="entry-step" data-step="deploy" data-state="not-run-for-this-entry">
           <h3>4. Deploy it <span class="status open">Not run for this entry</span></h3>
@@ -2350,10 +2350,10 @@ e260f8b3941ea74d3611923473d9c76da0d073b8faffa83fd8c04a381778d90b  nimservice-kna
 <span class="term-prompt">$</span> cub auth login
 
 <span class="term-comment"># preview the upload of the published bundle; nothing is written</span>
-<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant knative-meta-llama-3-2-1b-instruct-llm --space nimservice-knative-meta-llama-3-2-1b-instruct-llm oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-knative-meta-llama-3-2-1b-instruct-llm:upstream-5d5f66ee0e2e@sha256:84f9cc2f3864594dc048355f60800e5df66d55f852130f295797f8e18a6cb31e
+<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant knative-meta-llama-3-2-1b-instruct-llm --space nimservice-knative-meta-llama-3-2-1b-instruct-llm oci://ghcr.io/confighub/configs/catalog/nimservice-knative-meta-llama-3-2-1b-instruct-llm:upstream-5d5f66ee0e2e-84f9cc2f3864@sha256:84f9cc2f3864594dc048355f60800e5df66d55f852130f295797f8e18a6cb31e
 
 <span class="term-comment"># upload the bundle as a base Space of Units</span>
-<span class="term-prompt">$</span> cub variant upload --component nimservice --variant knative-meta-llama-3-2-1b-instruct-llm --space nimservice-knative-meta-llama-3-2-1b-instruct-llm oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-knative-meta-llama-3-2-1b-instruct-llm:upstream-5d5f66ee0e2e@sha256:84f9cc2f3864594dc048355f60800e5df66d55f852130f295797f8e18a6cb31e</code></pre>
+<span class="term-prompt">$</span> cub variant upload --component nimservice --variant knative-meta-llama-3-2-1b-instruct-llm --space nimservice-knative-meta-llama-3-2-1b-instruct-llm oci://ghcr.io/confighub/configs/catalog/nimservice-knative-meta-llama-3-2-1b-instruct-llm:upstream-5d5f66ee0e2e-84f9cc2f3864@sha256:84f9cc2f3864594dc048355f60800e5df66d55f852130f295797f8e18a6cb31e</code></pre>
         </div>
         <div class="entry-step" data-step="deploy" data-state="not-run-for-this-entry">
           <h3>4. Deploy it <span class="status open">Not run for this entry</span></h3>
@@ -2436,10 +2436,10 @@ e260f8b3941ea74d3611923473d9c76da0d073b8faffa83fd8c04a381778d90b  nimservice-kna
 <span class="term-prompt">$</span> cub auth login
 
 <span class="term-comment"># preview the upload of the published bundle; nothing is written</span>
-<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant knative-meta-llama-3-2-1b-instruct-multi-llm --space nimservice-knative-meta-llama-3-2-1b-instruct-multi-llm oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-knative-meta-llama-3-2-1b-instruct-multi-llm:upstream-5d5f66ee0e2e@sha256:fdd734abbade3c9cba0d52b80bb458d4097d643f045a70cd1df767dc8a538a65
+<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant knative-meta-llama-3-2-1b-instruct-multi-llm --space nimservice-knative-meta-llama-3-2-1b-instruct-multi-llm oci://ghcr.io/confighub/configs/catalog/nimservice-knative-meta-llama-3-2-1b-instruct-multi-llm:upstream-5d5f66ee0e2e-fdd734abbade@sha256:fdd734abbade3c9cba0d52b80bb458d4097d643f045a70cd1df767dc8a538a65
 
 <span class="term-comment"># upload the bundle as a base Space of Units</span>
-<span class="term-prompt">$</span> cub variant upload --component nimservice --variant knative-meta-llama-3-2-1b-instruct-multi-llm --space nimservice-knative-meta-llama-3-2-1b-instruct-multi-llm oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-knative-meta-llama-3-2-1b-instruct-multi-llm:upstream-5d5f66ee0e2e@sha256:fdd734abbade3c9cba0d52b80bb458d4097d643f045a70cd1df767dc8a538a65</code></pre>
+<span class="term-prompt">$</span> cub variant upload --component nimservice --variant knative-meta-llama-3-2-1b-instruct-multi-llm --space nimservice-knative-meta-llama-3-2-1b-instruct-multi-llm oci://ghcr.io/confighub/configs/catalog/nimservice-knative-meta-llama-3-2-1b-instruct-multi-llm:upstream-5d5f66ee0e2e-fdd734abbade@sha256:fdd734abbade3c9cba0d52b80bb458d4097d643f045a70cd1df767dc8a538a65</code></pre>
         </div>
         <div class="entry-step" data-step="deploy" data-state="not-run-for-this-entry">
           <h3>4. Deploy it <span class="status open">Not run for this entry</span></h3>
@@ -2523,10 +2523,10 @@ a4afe2337f856a22fb4837b9b24931044f60a64c0d89fd5f77776eac92cd170a  nimservice-lor
 <span class="term-prompt">$</span> cub auth login
 
 <span class="term-comment"># preview the upload of the published bundle; nothing is written</span>
-<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant lora-meta-llama-3-2-1b-instruct-llm --space nimservice-lora-meta-llama-3-2-1b-instruct-llm oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-lora-meta-llama-3-2-1b-instruct-llm:upstream-5d5f66ee0e2e@sha256:865c27dafbcbae5abecf7e2d119be6521206fda0d997b6f516d554607192b531
+<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant lora-meta-llama-3-2-1b-instruct-llm --space nimservice-lora-meta-llama-3-2-1b-instruct-llm oci://ghcr.io/confighub/configs/catalog/nimservice-lora-meta-llama-3-2-1b-instruct-llm:upstream-5d5f66ee0e2e-865c27dafbcb@sha256:865c27dafbcbae5abecf7e2d119be6521206fda0d997b6f516d554607192b531
 
 <span class="term-comment"># upload the bundle as a base Space of Units</span>
-<span class="term-prompt">$</span> cub variant upload --component nimservice --variant lora-meta-llama-3-2-1b-instruct-llm --space nimservice-lora-meta-llama-3-2-1b-instruct-llm oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-lora-meta-llama-3-2-1b-instruct-llm:upstream-5d5f66ee0e2e@sha256:865c27dafbcbae5abecf7e2d119be6521206fda0d997b6f516d554607192b531</code></pre>
+<span class="term-prompt">$</span> cub variant upload --component nimservice --variant lora-meta-llama-3-2-1b-instruct-llm --space nimservice-lora-meta-llama-3-2-1b-instruct-llm oci://ghcr.io/confighub/configs/catalog/nimservice-lora-meta-llama-3-2-1b-instruct-llm:upstream-5d5f66ee0e2e-865c27dafbcb@sha256:865c27dafbcbae5abecf7e2d119be6521206fda0d997b6f516d554607192b531</code></pre>
         </div>
         <div class="entry-step" data-step="deploy" data-state="not-run-for-this-entry">
           <h3>4. Deploy it <span class="status open">Not run for this entry</span></h3>
@@ -2610,10 +2610,10 @@ a4afe2337f856a22fb4837b9b24931044f60a64c0d89fd5f77776eac92cd170a  nimservice-lor
 <span class="term-prompt">$</span> cub auth login
 
 <span class="term-comment"># preview the upload of the published bundle; nothing is written</span>
-<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant lora-meta-llama-3-2-1b-instruct-multi-llm --space nimservice-lora-meta-llama-3-2-1b-instruct-multi-llm oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-lora-meta-llama-3-2-1b-instruct-multi-llm:upstream-5d5f66ee0e2e@sha256:7b43d3ae752ed81e87299040260331bcde1ea4e20db9e213de16130b1990e5d2
+<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant lora-meta-llama-3-2-1b-instruct-multi-llm --space nimservice-lora-meta-llama-3-2-1b-instruct-multi-llm oci://ghcr.io/confighub/configs/catalog/nimservice-lora-meta-llama-3-2-1b-instruct-multi-llm:upstream-5d5f66ee0e2e-7b43d3ae752e@sha256:7b43d3ae752ed81e87299040260331bcde1ea4e20db9e213de16130b1990e5d2
 
 <span class="term-comment"># upload the bundle as a base Space of Units</span>
-<span class="term-prompt">$</span> cub variant upload --component nimservice --variant lora-meta-llama-3-2-1b-instruct-multi-llm --space nimservice-lora-meta-llama-3-2-1b-instruct-multi-llm oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-lora-meta-llama-3-2-1b-instruct-multi-llm:upstream-5d5f66ee0e2e@sha256:7b43d3ae752ed81e87299040260331bcde1ea4e20db9e213de16130b1990e5d2</code></pre>
+<span class="term-prompt">$</span> cub variant upload --component nimservice --variant lora-meta-llama-3-2-1b-instruct-multi-llm --space nimservice-lora-meta-llama-3-2-1b-instruct-multi-llm oci://ghcr.io/confighub/configs/catalog/nimservice-lora-meta-llama-3-2-1b-instruct-multi-llm:upstream-5d5f66ee0e2e-7b43d3ae752e@sha256:7b43d3ae752ed81e87299040260331bcde1ea4e20db9e213de16130b1990e5d2</code></pre>
         </div>
         <div class="entry-step" data-step="deploy" data-state="not-run-for-this-entry">
           <h3>4. Deploy it <span class="status open">Not run for this entry</span></h3>
@@ -2696,10 +2696,10 @@ a4afe2337f856a22fb4837b9b24931044f60a64c0d89fd5f77776eac92cd170a  nimservice-lor
 <span class="term-prompt">$</span> cub auth login
 
 <span class="term-comment"># preview the upload of the published bundle; nothing is written</span>
-<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant manual-meta-llama3-2-1b-instruct --space nimservice-manual-meta-llama3-2-1b-instruct oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-manual-meta-llama3-2-1b-instruct:upstream-5d5f66ee0e2e@sha256:a1e3643c1215cfb3e58d6aaf7dba2ebdedf809d6fa701aa55ffa29cec284ec13
+<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant manual-meta-llama3-2-1b-instruct --space nimservice-manual-meta-llama3-2-1b-instruct oci://ghcr.io/confighub/configs/catalog/nimservice-manual-meta-llama3-2-1b-instruct:upstream-5d5f66ee0e2e-a1e3643c1215@sha256:a1e3643c1215cfb3e58d6aaf7dba2ebdedf809d6fa701aa55ffa29cec284ec13
 
 <span class="term-comment"># upload the bundle as a base Space of Units</span>
-<span class="term-prompt">$</span> cub variant upload --component nimservice --variant manual-meta-llama3-2-1b-instruct --space nimservice-manual-meta-llama3-2-1b-instruct oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-manual-meta-llama3-2-1b-instruct:upstream-5d5f66ee0e2e@sha256:a1e3643c1215cfb3e58d6aaf7dba2ebdedf809d6fa701aa55ffa29cec284ec13</code></pre>
+<span class="term-prompt">$</span> cub variant upload --component nimservice --variant manual-meta-llama3-2-1b-instruct --space nimservice-manual-meta-llama3-2-1b-instruct oci://ghcr.io/confighub/configs/catalog/nimservice-manual-meta-llama3-2-1b-instruct:upstream-5d5f66ee0e2e-a1e3643c1215@sha256:a1e3643c1215cfb3e58d6aaf7dba2ebdedf809d6fa701aa55ffa29cec284ec13</code></pre>
         </div>
         <div class="entry-step" data-step="deploy" data-state="not-run-for-this-entry">
           <h3>4. Deploy it <span class="status open">Not run for this entry</span></h3>
@@ -2782,10 +2782,10 @@ a4afe2337f856a22fb4837b9b24931044f60a64c0d89fd5f77776eac92cd170a  nimservice-lor
 <span class="term-prompt">$</span> cub auth login
 
 <span class="term-comment"># preview the upload of the published bundle; nothing is written</span>
-<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant multi-node-deepseek-r1-multi-node-nimservice --space nimservice-multi-node-deepseek-r1-multi-node-nimservice oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-multi-node-deepseek-r1-multi-node-nimservice:upstream-5d5f66ee0e2e@sha256:29ffffbb5fa5f61e5827003437a2221e17ec245916f74702310633b4792e39a0
+<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant multi-node-deepseek-r1-multi-node-nimservice --space nimservice-multi-node-deepseek-r1-multi-node-nimservice oci://ghcr.io/confighub/configs/catalog/nimservice-multi-node-deepseek-r1-multi-node-nimservice:upstream-5d5f66ee0e2e-29ffffbb5fa5@sha256:29ffffbb5fa5f61e5827003437a2221e17ec245916f74702310633b4792e39a0
 
 <span class="term-comment"># upload the bundle as a base Space of Units</span>
-<span class="term-prompt">$</span> cub variant upload --component nimservice --variant multi-node-deepseek-r1-multi-node-nimservice --space nimservice-multi-node-deepseek-r1-multi-node-nimservice oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-multi-node-deepseek-r1-multi-node-nimservice:upstream-5d5f66ee0e2e@sha256:29ffffbb5fa5f61e5827003437a2221e17ec245916f74702310633b4792e39a0</code></pre>
+<span class="term-prompt">$</span> cub variant upload --component nimservice --variant multi-node-deepseek-r1-multi-node-nimservice --space nimservice-multi-node-deepseek-r1-multi-node-nimservice oci://ghcr.io/confighub/configs/catalog/nimservice-multi-node-deepseek-r1-multi-node-nimservice:upstream-5d5f66ee0e2e-29ffffbb5fa5@sha256:29ffffbb5fa5f61e5827003437a2221e17ec245916f74702310633b4792e39a0</code></pre>
         </div>
         <div class="entry-step" data-step="deploy" data-state="not-run-for-this-entry">
           <h3>4. Deploy it <span class="status open">Not run for this entry</span></h3>
@@ -2868,10 +2868,10 @@ f0672c0b775a61b57f937e73f57e55f1f10e70cc047730733e49710d6707aedc  nimservice-mul
 <span class="term-prompt">$</span> cub auth login
 
 <span class="term-comment"># preview the upload of the published bundle; nothing is written</span>
-<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant multi-node-deepseek-r1-multi-node-nimservice-rdma --space nimservice-multi-node-deepseek-r1-multi-node-nimservice-rdma oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-multi-node-deepseek-r1-multi-node-nimservice-rdma:upstream-5d5f66ee0e2e@sha256:57cc38f80a5146da018f56b23b647f44bc26c8fe2824cd3f056949c4661035e3
+<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant multi-node-deepseek-r1-multi-node-nimservice-rdma --space nimservice-multi-node-deepseek-r1-multi-node-nimservice-rdma oci://ghcr.io/confighub/configs/catalog/nimservice-multi-node-deepseek-r1-multi-node-nimservice-rdma:upstream-5d5f66ee0e2e-57cc38f80a51@sha256:57cc38f80a5146da018f56b23b647f44bc26c8fe2824cd3f056949c4661035e3
 
 <span class="term-comment"># upload the bundle as a base Space of Units</span>
-<span class="term-prompt">$</span> cub variant upload --component nimservice --variant multi-node-deepseek-r1-multi-node-nimservice-rdma --space nimservice-multi-node-deepseek-r1-multi-node-nimservice-rdma oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-multi-node-deepseek-r1-multi-node-nimservice-rdma:upstream-5d5f66ee0e2e@sha256:57cc38f80a5146da018f56b23b647f44bc26c8fe2824cd3f056949c4661035e3</code></pre>
+<span class="term-prompt">$</span> cub variant upload --component nimservice --variant multi-node-deepseek-r1-multi-node-nimservice-rdma --space nimservice-multi-node-deepseek-r1-multi-node-nimservice-rdma oci://ghcr.io/confighub/configs/catalog/nimservice-multi-node-deepseek-r1-multi-node-nimservice-rdma:upstream-5d5f66ee0e2e-57cc38f80a51@sha256:57cc38f80a5146da018f56b23b647f44bc26c8fe2824cd3f056949c4661035e3</code></pre>
         </div>
         <div class="entry-step" data-step="deploy" data-state="not-run-for-this-entry">
           <h3>4. Deploy it <span class="status open">Not run for this entry</span></h3>
@@ -2955,10 +2955,10 @@ f0672c0b775a61b57f937e73f57e55f1f10e70cc047730733e49710d6707aedc  nimservice-mul
 <span class="term-prompt">$</span> cub auth login
 
 <span class="term-comment"># preview the upload of the published bundle; nothing is written</span>
-<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant multi-node-llama-3-1-8b-instruct-multinode --space nimservice-multi-node-llama-3-1-8b-instruct-multinode oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-multi-node-llama-3-1-8b-instruct-multinode:upstream-5d5f66ee0e2e@sha256:190bb827784681fe8f25d694f46af66ca8f0322f0fd2a24e922fd60ab5054ebd
+<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant multi-node-llama-3-1-8b-instruct-multinode --space nimservice-multi-node-llama-3-1-8b-instruct-multinode oci://ghcr.io/confighub/configs/catalog/nimservice-multi-node-llama-3-1-8b-instruct-multinode:upstream-5d5f66ee0e2e-190bb8277846@sha256:190bb827784681fe8f25d694f46af66ca8f0322f0fd2a24e922fd60ab5054ebd
 
 <span class="term-comment"># upload the bundle as a base Space of Units</span>
-<span class="term-prompt">$</span> cub variant upload --component nimservice --variant multi-node-llama-3-1-8b-instruct-multinode --space nimservice-multi-node-llama-3-1-8b-instruct-multinode oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-multi-node-llama-3-1-8b-instruct-multinode:upstream-5d5f66ee0e2e@sha256:190bb827784681fe8f25d694f46af66ca8f0322f0fd2a24e922fd60ab5054ebd</code></pre>
+<span class="term-prompt">$</span> cub variant upload --component nimservice --variant multi-node-llama-3-1-8b-instruct-multinode --space nimservice-multi-node-llama-3-1-8b-instruct-multinode oci://ghcr.io/confighub/configs/catalog/nimservice-multi-node-llama-3-1-8b-instruct-multinode:upstream-5d5f66ee0e2e-190bb8277846@sha256:190bb827784681fe8f25d694f46af66ca8f0322f0fd2a24e922fd60ab5054ebd</code></pre>
         </div>
         <div class="entry-step" data-step="deploy" data-state="not-run-for-this-entry">
           <h3>4. Deploy it <span class="status open">Not run for this entry</span></h3>
@@ -3041,10 +3041,10 @@ f0672c0b775a61b57f937e73f57e55f1f10e70cc047730733e49710d6707aedc  nimservice-mul
 <span class="term-prompt">$</span> cub auth login
 
 <span class="term-comment"># preview the upload of the published bundle; nothing is written</span>
-<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant nim-3-nemotron-3-super-120b-a12b --space nimservice-nim-3-nemotron-3-super-120b-a12b oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-nim-3-nemotron-3-super-120b-a12b:upstream-5d5f66ee0e2e@sha256:d5b2a7b48b8fcb7bcd9848fb73b7979eb5a317a4b31f030ee757f313e044cd35
+<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant nim-3-nemotron-3-super-120b-a12b --space nimservice-nim-3-nemotron-3-super-120b-a12b oci://ghcr.io/confighub/configs/catalog/nimservice-nim-3-nemotron-3-super-120b-a12b:upstream-5d5f66ee0e2e-d5b2a7b48b8f@sha256:d5b2a7b48b8fcb7bcd9848fb73b7979eb5a317a4b31f030ee757f313e044cd35
 
 <span class="term-comment"># upload the bundle as a base Space of Units</span>
-<span class="term-prompt">$</span> cub variant upload --component nimservice --variant nim-3-nemotron-3-super-120b-a12b --space nimservice-nim-3-nemotron-3-super-120b-a12b oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-nim-3-nemotron-3-super-120b-a12b:upstream-5d5f66ee0e2e@sha256:d5b2a7b48b8fcb7bcd9848fb73b7979eb5a317a4b31f030ee757f313e044cd35</code></pre>
+<span class="term-prompt">$</span> cub variant upload --component nimservice --variant nim-3-nemotron-3-super-120b-a12b --space nimservice-nim-3-nemotron-3-super-120b-a12b oci://ghcr.io/confighub/configs/catalog/nimservice-nim-3-nemotron-3-super-120b-a12b:upstream-5d5f66ee0e2e-d5b2a7b48b8f@sha256:d5b2a7b48b8fcb7bcd9848fb73b7979eb5a317a4b31f030ee757f313e044cd35</code></pre>
         </div>
         <div class="entry-step" data-step="deploy" data-state="not-run-for-this-entry">
           <h3>4. Deploy it <span class="status open">Not run for this entry</span></h3>
@@ -3127,10 +3127,10 @@ f0672c0b775a61b57f937e73f57e55f1f10e70cc047730733e49710d6707aedc  nimservice-mul
 <span class="term-prompt">$</span> cub auth login
 
 <span class="term-comment"># preview the upload of the published bundle; nothing is written</span>
-<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant no-precaching-meta-llama-3-2-1b-instruct-emptydir --space nimservice-no-precaching-meta-llama-3-2-1b-instruct-emptydir oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-no-precaching-meta-llama-3-2-1b-instruct-emptydir:upstream-5d5f66ee0e2e@sha256:68d1509fb263acd24111396efa39b50b1c827698a4798727760d635629774eea
+<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant no-precaching-meta-llama-3-2-1b-instruct-emptydir --space nimservice-no-precaching-meta-llama-3-2-1b-instruct-emptydir oci://ghcr.io/confighub/configs/catalog/nimservice-no-precaching-meta-llama-3-2-1b-instruct-emptydir:upstream-5d5f66ee0e2e-68d1509fb263@sha256:68d1509fb263acd24111396efa39b50b1c827698a4798727760d635629774eea
 
 <span class="term-comment"># upload the bundle as a base Space of Units</span>
-<span class="term-prompt">$</span> cub variant upload --component nimservice --variant no-precaching-meta-llama-3-2-1b-instruct-emptydir --space nimservice-no-precaching-meta-llama-3-2-1b-instruct-emptydir oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-no-precaching-meta-llama-3-2-1b-instruct-emptydir:upstream-5d5f66ee0e2e@sha256:68d1509fb263acd24111396efa39b50b1c827698a4798727760d635629774eea</code></pre>
+<span class="term-prompt">$</span> cub variant upload --component nimservice --variant no-precaching-meta-llama-3-2-1b-instruct-emptydir --space nimservice-no-precaching-meta-llama-3-2-1b-instruct-emptydir oci://ghcr.io/confighub/configs/catalog/nimservice-no-precaching-meta-llama-3-2-1b-instruct-emptydir:upstream-5d5f66ee0e2e-68d1509fb263@sha256:68d1509fb263acd24111396efa39b50b1c827698a4798727760d635629774eea</code></pre>
         </div>
         <div class="entry-step" data-step="deploy" data-state="not-run-for-this-entry">
           <h3>4. Deploy it <span class="status open">Not run for this entry</span></h3>
@@ -3213,10 +3213,10 @@ da0727a0adbe8f036fca448fee699e2d6b25a48398b940ee7b66bda955e0ec1e  nimservice-no-
 <span class="term-prompt">$</span> cub auth login
 
 <span class="term-comment"># preview the upload of the published bundle; nothing is written</span>
-<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant no-precaching-meta-llama-3-2-1b-instruct-hostpath --space nimservice-no-precaching-meta-llama-3-2-1b-instruct-hostpath oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-no-precaching-meta-llama-3-2-1b-instruct-hostpath:upstream-5d5f66ee0e2e@sha256:029449ff21c36c0248ffb89b6f7dbead136f3e7ff8c3a0db7c3314ce178087cb
+<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant no-precaching-meta-llama-3-2-1b-instruct-hostpath --space nimservice-no-precaching-meta-llama-3-2-1b-instruct-hostpath oci://ghcr.io/confighub/configs/catalog/nimservice-no-precaching-meta-llama-3-2-1b-instruct-hostpath:upstream-5d5f66ee0e2e-029449ff21c3@sha256:029449ff21c36c0248ffb89b6f7dbead136f3e7ff8c3a0db7c3314ce178087cb
 
 <span class="term-comment"># upload the bundle as a base Space of Units</span>
-<span class="term-prompt">$</span> cub variant upload --component nimservice --variant no-precaching-meta-llama-3-2-1b-instruct-hostpath --space nimservice-no-precaching-meta-llama-3-2-1b-instruct-hostpath oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-no-precaching-meta-llama-3-2-1b-instruct-hostpath:upstream-5d5f66ee0e2e@sha256:029449ff21c36c0248ffb89b6f7dbead136f3e7ff8c3a0db7c3314ce178087cb</code></pre>
+<span class="term-prompt">$</span> cub variant upload --component nimservice --variant no-precaching-meta-llama-3-2-1b-instruct-hostpath --space nimservice-no-precaching-meta-llama-3-2-1b-instruct-hostpath oci://ghcr.io/confighub/configs/catalog/nimservice-no-precaching-meta-llama-3-2-1b-instruct-hostpath:upstream-5d5f66ee0e2e-029449ff21c3@sha256:029449ff21c36c0248ffb89b6f7dbead136f3e7ff8c3a0db7c3314ce178087cb</code></pre>
         </div>
         <div class="entry-step" data-step="deploy" data-state="not-run-for-this-entry">
           <h3>4. Deploy it <span class="status open">Not run for this entry</span></h3>
@@ -3299,10 +3299,10 @@ da0727a0adbe8f036fca448fee699e2d6b25a48398b940ee7b66bda955e0ec1e  nimservice-no-
 <span class="term-prompt">$</span> cub auth login
 
 <span class="term-comment"># preview the upload of the published bundle; nothing is written</span>
-<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant no-precaching-meta-llama-3-2-1b-instruct-llm --space nimservice-no-precaching-meta-llama-3-2-1b-instruct-llm oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-no-precaching-meta-llama-3-2-1b-instruct-llm:upstream-5d5f66ee0e2e@sha256:79eee7093a87cba6806b32fd45f4a2cee4c49f249f2db91c64965609aa6e0327
+<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant no-precaching-meta-llama-3-2-1b-instruct-llm --space nimservice-no-precaching-meta-llama-3-2-1b-instruct-llm oci://ghcr.io/confighub/configs/catalog/nimservice-no-precaching-meta-llama-3-2-1b-instruct-llm:upstream-5d5f66ee0e2e-79eee7093a87@sha256:79eee7093a87cba6806b32fd45f4a2cee4c49f249f2db91c64965609aa6e0327
 
 <span class="term-comment"># upload the bundle as a base Space of Units</span>
-<span class="term-prompt">$</span> cub variant upload --component nimservice --variant no-precaching-meta-llama-3-2-1b-instruct-llm --space nimservice-no-precaching-meta-llama-3-2-1b-instruct-llm oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-no-precaching-meta-llama-3-2-1b-instruct-llm:upstream-5d5f66ee0e2e@sha256:79eee7093a87cba6806b32fd45f4a2cee4c49f249f2db91c64965609aa6e0327</code></pre>
+<span class="term-prompt">$</span> cub variant upload --component nimservice --variant no-precaching-meta-llama-3-2-1b-instruct-llm --space nimservice-no-precaching-meta-llama-3-2-1b-instruct-llm oci://ghcr.io/confighub/configs/catalog/nimservice-no-precaching-meta-llama-3-2-1b-instruct-llm:upstream-5d5f66ee0e2e-79eee7093a87@sha256:79eee7093a87cba6806b32fd45f4a2cee4c49f249f2db91c64965609aa6e0327</code></pre>
         </div>
         <div class="entry-step" data-step="deploy" data-state="not-run-for-this-entry">
           <h3>4. Deploy it <span class="status open">Not run for this entry</span></h3>
@@ -3385,10 +3385,10 @@ da0727a0adbe8f036fca448fee699e2d6b25a48398b940ee7b66bda955e0ec1e  nimservice-no-
 <span class="term-prompt">$</span> cub auth login
 
 <span class="term-comment"># preview the upload of the published bundle; nothing is written</span>
-<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant no-precaching-meta-llama-3-2-1b-instruct-multi-llm-hf --space nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-hf oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-hf:upstream-5d5f66ee0e2e@sha256:5d6249680d40c73985c06348f9da5b928e3ef08e195bc166fa9ce989664df1e8
+<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant no-precaching-meta-llama-3-2-1b-instruct-multi-llm-hf --space nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-hf oci://ghcr.io/confighub/configs/catalog/nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-hf:upstream-5d5f66ee0e2e-5d6249680d40@sha256:5d6249680d40c73985c06348f9da5b928e3ef08e195bc166fa9ce989664df1e8
 
 <span class="term-comment"># upload the bundle as a base Space of Units</span>
-<span class="term-prompt">$</span> cub variant upload --component nimservice --variant no-precaching-meta-llama-3-2-1b-instruct-multi-llm-hf --space nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-hf oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-hf:upstream-5d5f66ee0e2e@sha256:5d6249680d40c73985c06348f9da5b928e3ef08e195bc166fa9ce989664df1e8</code></pre>
+<span class="term-prompt">$</span> cub variant upload --component nimservice --variant no-precaching-meta-llama-3-2-1b-instruct-multi-llm-hf --space nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-hf oci://ghcr.io/confighub/configs/catalog/nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-hf:upstream-5d5f66ee0e2e-5d6249680d40@sha256:5d6249680d40c73985c06348f9da5b928e3ef08e195bc166fa9ce989664df1e8</code></pre>
         </div>
         <div class="entry-step" data-step="deploy" data-state="not-run-for-this-entry">
           <h3>4. Deploy it <span class="status open">Not run for this entry</span></h3>
@@ -3471,10 +3471,10 @@ da0727a0adbe8f036fca448fee699e2d6b25a48398b940ee7b66bda955e0ec1e  nimservice-no-
 <span class="term-prompt">$</span> cub auth login
 
 <span class="term-comment"># preview the upload of the published bundle; nothing is written</span>
-<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant no-precaching-meta-llama-3-2-1b-instruct-multi-llm-ngc --space nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-ngc oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-ngc:upstream-5d5f66ee0e2e@sha256:9b0e888890e5d62f8f1c2d466c3fb696b3087ffd40a7a08765e6be5ab897e852
+<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant no-precaching-meta-llama-3-2-1b-instruct-multi-llm-ngc --space nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-ngc oci://ghcr.io/confighub/configs/catalog/nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-ngc:upstream-5d5f66ee0e2e-9b0e888890e5@sha256:9b0e888890e5d62f8f1c2d466c3fb696b3087ffd40a7a08765e6be5ab897e852
 
 <span class="term-comment"># upload the bundle as a base Space of Units</span>
-<span class="term-prompt">$</span> cub variant upload --component nimservice --variant no-precaching-meta-llama-3-2-1b-instruct-multi-llm-ngc --space nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-ngc oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-ngc:upstream-5d5f66ee0e2e@sha256:9b0e888890e5d62f8f1c2d466c3fb696b3087ffd40a7a08765e6be5ab897e852</code></pre>
+<span class="term-prompt">$</span> cub variant upload --component nimservice --variant no-precaching-meta-llama-3-2-1b-instruct-multi-llm-ngc --space nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-ngc oci://ghcr.io/confighub/configs/catalog/nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-ngc:upstream-5d5f66ee0e2e-9b0e888890e5@sha256:9b0e888890e5d62f8f1c2d466c3fb696b3087ffd40a7a08765e6be5ab897e852</code></pre>
         </div>
         <div class="entry-step" data-step="deploy" data-state="not-run-for-this-entry">
           <h3>4. Deploy it <span class="status open">Not run for this entry</span></h3>
@@ -3557,10 +3557,10 @@ c2d3c95da50e4931b40d614e30e6750a171c4a3072a8d65995b940dbd2a3fba9  nimservice-no-
 <span class="term-prompt">$</span> cub auth login
 
 <span class="term-comment"># preview the upload of the published bundle; nothing is written</span>
-<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant no-precaching-model-free-llama-3-2-1b-instruct --space nimservice-no-precaching-model-free-llama-3-2-1b-instruct oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-no-precaching-model-free-llama-3-2-1b-instruct:upstream-5d5f66ee0e2e@sha256:4419673308bdd7eb83f8e9bde16edc57c3e643a2630a15f65ba8d522e783eac0
+<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant no-precaching-model-free-llama-3-2-1b-instruct --space nimservice-no-precaching-model-free-llama-3-2-1b-instruct oci://ghcr.io/confighub/configs/catalog/nimservice-no-precaching-model-free-llama-3-2-1b-instruct:upstream-5d5f66ee0e2e-4419673308bd@sha256:4419673308bdd7eb83f8e9bde16edc57c3e643a2630a15f65ba8d522e783eac0
 
 <span class="term-comment"># upload the bundle as a base Space of Units</span>
-<span class="term-prompt">$</span> cub variant upload --component nimservice --variant no-precaching-model-free-llama-3-2-1b-instruct --space nimservice-no-precaching-model-free-llama-3-2-1b-instruct oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-no-precaching-model-free-llama-3-2-1b-instruct:upstream-5d5f66ee0e2e@sha256:4419673308bdd7eb83f8e9bde16edc57c3e643a2630a15f65ba8d522e783eac0</code></pre>
+<span class="term-prompt">$</span> cub variant upload --component nimservice --variant no-precaching-model-free-llama-3-2-1b-instruct --space nimservice-no-precaching-model-free-llama-3-2-1b-instruct oci://ghcr.io/confighub/configs/catalog/nimservice-no-precaching-model-free-llama-3-2-1b-instruct:upstream-5d5f66ee0e2e-4419673308bd@sha256:4419673308bdd7eb83f8e9bde16edc57c3e643a2630a15f65ba8d522e783eac0</code></pre>
         </div>
         <div class="entry-step" data-step="deploy" data-state="not-run-for-this-entry">
           <h3>4. Deploy it <span class="status open">Not run for this entry</span></h3>
@@ -3643,10 +3643,10 @@ c7058d52175464fba77c58613365c7c163034d9cd396ae3b33c87fe5ebc0fabe  nimservice-ret
 <span class="term-prompt">$</span> cub auth login
 
 <span class="term-comment"># preview the upload of the published bundle; nothing is written</span>
-<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant retriever-llama-nemotron-embed-vl-1b-v2 --space nimservice-retriever-llama-nemotron-embed-vl-1b-v2 oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-retriever-llama-nemotron-embed-vl-1b-v2:upstream-5d5f66ee0e2e@sha256:94ea6e5959b7727ac01646dcc318208f81a3ec0e37ef5e6d0d085812bada906f
+<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant retriever-llama-nemotron-embed-vl-1b-v2 --space nimservice-retriever-llama-nemotron-embed-vl-1b-v2 oci://ghcr.io/confighub/configs/catalog/nimservice-retriever-llama-nemotron-embed-vl-1b-v2:upstream-5d5f66ee0e2e-94ea6e5959b7@sha256:94ea6e5959b7727ac01646dcc318208f81a3ec0e37ef5e6d0d085812bada906f
 
 <span class="term-comment"># upload the bundle as a base Space of Units</span>
-<span class="term-prompt">$</span> cub variant upload --component nimservice --variant retriever-llama-nemotron-embed-vl-1b-v2 --space nimservice-retriever-llama-nemotron-embed-vl-1b-v2 oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-retriever-llama-nemotron-embed-vl-1b-v2:upstream-5d5f66ee0e2e@sha256:94ea6e5959b7727ac01646dcc318208f81a3ec0e37ef5e6d0d085812bada906f</code></pre>
+<span class="term-prompt">$</span> cub variant upload --component nimservice --variant retriever-llama-nemotron-embed-vl-1b-v2 --space nimservice-retriever-llama-nemotron-embed-vl-1b-v2 oci://ghcr.io/confighub/configs/catalog/nimservice-retriever-llama-nemotron-embed-vl-1b-v2:upstream-5d5f66ee0e2e-94ea6e5959b7@sha256:94ea6e5959b7727ac01646dcc318208f81a3ec0e37ef5e6d0d085812bada906f</code></pre>
         </div>
         <div class="entry-step" data-step="deploy" data-state="not-run-for-this-entry">
           <h3>4. Deploy it <span class="status open">Not run for this entry</span></h3>
@@ -3730,10 +3730,10 @@ d8ce2dbe3d62044a657f18613cdf8d39e346e20b4abc4a2444238736c65aacdb  nimservice-sch
 <span class="term-prompt">$</span> cub auth login
 
 <span class="term-comment"># preview the upload of the published bundle; nothing is written</span>
-<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant scheduling-meta-llama-3-2-1b-instruct-scheduling --space nimservice-scheduling-meta-llama-3-2-1b-instruct-scheduling oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-scheduling-meta-llama-3-2-1b-instruct-scheduling:upstream-5d5f66ee0e2e@sha256:842c90182eb637abddc5be190afa89fe673a350321332ddd0f4f418a35a39b73
+<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant scheduling-meta-llama-3-2-1b-instruct-scheduling --space nimservice-scheduling-meta-llama-3-2-1b-instruct-scheduling oci://ghcr.io/confighub/configs/catalog/nimservice-scheduling-meta-llama-3-2-1b-instruct-scheduling:upstream-5d5f66ee0e2e-842c90182eb6@sha256:842c90182eb637abddc5be190afa89fe673a350321332ddd0f4f418a35a39b73
 
 <span class="term-comment"># upload the bundle as a base Space of Units</span>
-<span class="term-prompt">$</span> cub variant upload --component nimservice --variant scheduling-meta-llama-3-2-1b-instruct-scheduling --space nimservice-scheduling-meta-llama-3-2-1b-instruct-scheduling oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-scheduling-meta-llama-3-2-1b-instruct-scheduling:upstream-5d5f66ee0e2e@sha256:842c90182eb637abddc5be190afa89fe673a350321332ddd0f4f418a35a39b73</code></pre>
+<span class="term-prompt">$</span> cub variant upload --component nimservice --variant scheduling-meta-llama-3-2-1b-instruct-scheduling --space nimservice-scheduling-meta-llama-3-2-1b-instruct-scheduling oci://ghcr.io/confighub/configs/catalog/nimservice-scheduling-meta-llama-3-2-1b-instruct-scheduling:upstream-5d5f66ee0e2e-842c90182eb6@sha256:842c90182eb637abddc5be190afa89fe673a350321332ddd0f4f418a35a39b73</code></pre>
         </div>
         <div class="entry-step" data-step="deploy" data-state="not-run-for-this-entry">
           <h3>4. Deploy it <span class="status open">Not run for this entry</span></h3>
@@ -3816,10 +3816,10 @@ a283dedc018fd5b19ad075fa1390204e6e61de22a5d22d132538305dfa43b634  nimservice-sid
 <span class="term-prompt">$</span> cub auth login
 
 <span class="term-comment"># preview the upload of the published bundle; nothing is written</span>
-<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant sidecars-meta-llama-3-2-1b-instruct-sidecars --space nimservice-sidecars-meta-llama-3-2-1b-instruct-sidecars oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-sidecars-meta-llama-3-2-1b-instruct-sidecars:upstream-5d5f66ee0e2e@sha256:5660005ce6568f6d6a145ede5b0511bb8095ec86fa12324bcc2b55700fe9d0a8
+<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant sidecars-meta-llama-3-2-1b-instruct-sidecars --space nimservice-sidecars-meta-llama-3-2-1b-instruct-sidecars oci://ghcr.io/confighub/configs/catalog/nimservice-sidecars-meta-llama-3-2-1b-instruct-sidecars:upstream-5d5f66ee0e2e-5660005ce656@sha256:5660005ce6568f6d6a145ede5b0511bb8095ec86fa12324bcc2b55700fe9d0a8
 
 <span class="term-comment"># upload the bundle as a base Space of Units</span>
-<span class="term-prompt">$</span> cub variant upload --component nimservice --variant sidecars-meta-llama-3-2-1b-instruct-sidecars --space nimservice-sidecars-meta-llama-3-2-1b-instruct-sidecars oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-sidecars-meta-llama-3-2-1b-instruct-sidecars:upstream-5d5f66ee0e2e@sha256:5660005ce6568f6d6a145ede5b0511bb8095ec86fa12324bcc2b55700fe9d0a8</code></pre>
+<span class="term-prompt">$</span> cub variant upload --component nimservice --variant sidecars-meta-llama-3-2-1b-instruct-sidecars --space nimservice-sidecars-meta-llama-3-2-1b-instruct-sidecars oci://ghcr.io/confighub/configs/catalog/nimservice-sidecars-meta-llama-3-2-1b-instruct-sidecars:upstream-5d5f66ee0e2e-5660005ce656@sha256:5660005ce6568f6d6a145ede5b0511bb8095ec86fa12324bcc2b55700fe9d0a8</code></pre>
         </div>
         <div class="entry-step" data-step="deploy" data-state="not-run-for-this-entry">
           <h3>4. Deploy it <span class="status open">Not run for this entry</span></h3>
@@ -3902,10 +3902,10 @@ a283dedc018fd5b19ad075fa1390204e6e61de22a5d22d132538305dfa43b634  nimservice-sid
 <span class="term-prompt">$</span> cub auth login
 
 <span class="term-comment"># preview the upload of the published bundle; nothing is written</span>
-<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant standard-meta-llama-3-2-1b-instruct --space nimservice-standard-meta-llama-3-2-1b-instruct oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-standard-meta-llama-3-2-1b-instruct:upstream-5d5f66ee0e2e@sha256:67fa833c09b43a59bb94ee567aadcab8537dab67280b8eeddf80fb566883e1f8
+<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant standard-meta-llama-3-2-1b-instruct --space nimservice-standard-meta-llama-3-2-1b-instruct oci://ghcr.io/confighub/configs/catalog/nimservice-standard-meta-llama-3-2-1b-instruct:upstream-5d5f66ee0e2e-67fa833c09b4@sha256:67fa833c09b43a59bb94ee567aadcab8537dab67280b8eeddf80fb566883e1f8
 
 <span class="term-comment"># upload the bundle as a base Space of Units</span>
-<span class="term-prompt">$</span> cub variant upload --component nimservice --variant standard-meta-llama-3-2-1b-instruct --space nimservice-standard-meta-llama-3-2-1b-instruct oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-standard-meta-llama-3-2-1b-instruct:upstream-5d5f66ee0e2e@sha256:67fa833c09b43a59bb94ee567aadcab8537dab67280b8eeddf80fb566883e1f8</code></pre>
+<span class="term-prompt">$</span> cub variant upload --component nimservice --variant standard-meta-llama-3-2-1b-instruct --space nimservice-standard-meta-llama-3-2-1b-instruct oci://ghcr.io/confighub/configs/catalog/nimservice-standard-meta-llama-3-2-1b-instruct:upstream-5d5f66ee0e2e-67fa833c09b4@sha256:67fa833c09b43a59bb94ee567aadcab8537dab67280b8eeddf80fb566883e1f8</code></pre>
         </div>
         <div class="entry-step" data-step="deploy" data-state="not-run-for-this-entry">
           <h3>4. Deploy it <span class="status open">Not run for this entry</span></h3>
@@ -3988,10 +3988,10 @@ adec6f4cb47e17dba45b40f177c7b8c206bd59607baed41bd5c7df5de6a38904  nimservice-sta
 <span class="term-prompt">$</span> cub auth login
 
 <span class="term-comment"># preview the upload of the published bundle; nothing is written</span>
-<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant standard-nim-service-model-free --space nimservice-standard-nim-service-model-free oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-standard-nim-service-model-free:upstream-5d5f66ee0e2e@sha256:e3f7332ae8d0ef8e5c6f30b5c1049423100e4cb8a1acb5a70f50872395bd5a44
+<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant standard-nim-service-model-free --space nimservice-standard-nim-service-model-free oci://ghcr.io/confighub/configs/catalog/nimservice-standard-nim-service-model-free:upstream-5d5f66ee0e2e-e3f7332ae8d0@sha256:e3f7332ae8d0ef8e5c6f30b5c1049423100e4cb8a1acb5a70f50872395bd5a44
 
 <span class="term-comment"># upload the bundle as a base Space of Units</span>
-<span class="term-prompt">$</span> cub variant upload --component nimservice --variant standard-nim-service-model-free --space nimservice-standard-nim-service-model-free oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-standard-nim-service-model-free:upstream-5d5f66ee0e2e@sha256:e3f7332ae8d0ef8e5c6f30b5c1049423100e4cb8a1acb5a70f50872395bd5a44</code></pre>
+<span class="term-prompt">$</span> cub variant upload --component nimservice --variant standard-nim-service-model-free --space nimservice-standard-nim-service-model-free oci://ghcr.io/confighub/configs/catalog/nimservice-standard-nim-service-model-free:upstream-5d5f66ee0e2e-e3f7332ae8d0@sha256:e3f7332ae8d0ef8e5c6f30b5c1049423100e4cb8a1acb5a70f50872395bd5a44</code></pre>
         </div>
         <div class="entry-step" data-step="deploy" data-state="not-run-for-this-entry">
           <h3>4. Deploy it <span class="status open">Not run for this entry</span></h3>
@@ -4074,10 +4074,10 @@ ff06cecd94d3e6e2fc8e7c59718a617b2915efdca60c6bc154a4cc1cd3631b68  nimservice-sta
 <span class="term-prompt">$</span> cub auth login
 
 <span class="term-comment"># preview the upload of the published bundle; nothing is written</span>
-<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant standard-nim-service-multi-llm --space nimservice-standard-nim-service-multi-llm oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-standard-nim-service-multi-llm:upstream-5d5f66ee0e2e@sha256:1253e0ecce618f2292529a47aba7a0cce1fce25a0442186c34d1a1d3282de3d0
+<span class="term-prompt">$</span> cub variant upload --dry-run --component nimservice --variant standard-nim-service-multi-llm --space nimservice-standard-nim-service-multi-llm oci://ghcr.io/confighub/configs/catalog/nimservice-standard-nim-service-multi-llm:upstream-5d5f66ee0e2e-1253e0ecce61@sha256:1253e0ecce618f2292529a47aba7a0cce1fce25a0442186c34d1a1d3282de3d0
 
 <span class="term-comment"># upload the bundle as a base Space of Units</span>
-<span class="term-prompt">$</span> cub variant upload --component nimservice --variant standard-nim-service-multi-llm --space nimservice-standard-nim-service-multi-llm oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-standard-nim-service-multi-llm:upstream-5d5f66ee0e2e@sha256:1253e0ecce618f2292529a47aba7a0cce1fce25a0442186c34d1a1d3282de3d0</code></pre>
+<span class="term-prompt">$</span> cub variant upload --component nimservice --variant standard-nim-service-multi-llm --space nimservice-standard-nim-service-multi-llm oci://ghcr.io/confighub/configs/catalog/nimservice-standard-nim-service-multi-llm:upstream-5d5f66ee0e2e-1253e0ecce61@sha256:1253e0ecce618f2292529a47aba7a0cce1fce25a0442186c34d1a1d3282de3d0</code></pre>
         </div>
         <div class="entry-step" data-step="deploy" data-state="not-run-for-this-entry">
           <h3>4. Deploy it <span class="status open">Not run for this entry</span></h3>

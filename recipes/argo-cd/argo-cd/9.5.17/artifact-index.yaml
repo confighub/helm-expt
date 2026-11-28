@@ -65,11 +65,18 @@ spec:
     nextAction: ""
   installerPackage:
     path: "packages/argo-cd/argo-cd/9.5.17"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.17@sha256:e32948e407f2003dd6a97ba3d6a0e362514bca13c51cbb16b7338c570fdde40f"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.17"
-    manifestDigest: "sha256:e32948e407f2003dd6a97ba3d6a0e362514bca13c51cbb16b7338c570fdde40f"
-    layerDigest: "sha256:7d3e65afe2f1a41819005d3c2a440340193f3e75ab7b35433dd854ddb0e40182"
-    publicationReceipt: "runs/installer-oci/argo-cd-argo-cd/9.5.17/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/argo-cd-helm:v9.5.17@sha256:fe4ceda053593289aea2e12da5a65360c22cf171dd1e9d6ff3944cb59f7d5df4"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/argo-cd-helm:v9.5.17"
+    manifestDigest: "sha256:fe4ceda053593289aea2e12da5a65360c22cf171dd1e9d6ff3944cb59f7d5df4"
+    layerDigest: "sha256:c57f016dafceb8e27e19ec28341fbb81561908b4c442fe5a98785489cc8a7e97"
+    publicationReceipt: "runs/ghcr-packages/argo-cd-helm/v9.5.17.yaml"
+    name: "argo-cd-helm"
+    tag: "v9.5.17"
+    installCommand: "cub package install argo-cd-helm:v9.5.17 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/argo-cd-helm@sha256:fe4ceda053593289aea2e12da5a65360c22cf171dd1e9d6ff3944cb59f7d5df4"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.17@sha256:e32948e407f2003dd6a97ba3d6a0e362514bca13c51cbb16b7338c570fdde40f"
+      publicationReceipt: "runs/installer-oci/argo-cd-argo-cd/9.5.17/installer-package-publication-receipt.yaml"
     installer: "packages/argo-cd/argo-cd/9.5.17/installer.yaml"
     receipt: "recipes/argo-cd/argo-cd/9.5.17/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "7d3e65afe2f1a41819005d3c2a440340193f3e75ab7b35433dd854ddb0e40182"
@@ -116,7 +123,7 @@ spec:
         default: true
         description: "argo-cd default variant rendered from argo-cd/argo-cd@9.5.17"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.17@sha256:e32948e407f2003dd6a97ba3d6a0e362514bca13c51cbb16b7338c570fdde40f --base default --work-dir <tmp> --non-interactive --namespace argocd"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/argo-cd-helm:v9.5.17@sha256:fe4ceda053593289aea2e12da5a65360c22cf171dd1e9d6ff3944cb59f7d5df4 --base default --work-dir <tmp> --non-interactive --namespace argocd"
         helmReleaseObjectCount: 49
         cubInstallObjectCountIncludingSupport: 50
         semanticObjectMatches: "49/49"
@@ -216,7 +223,7 @@ spec:
         default: false
         description: "argo-cd CRDs disabled variant rendered from argo-cd/argo-cd@9.5.17"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.17@sha256:e32948e407f2003dd6a97ba3d6a0e362514bca13c51cbb16b7338c570fdde40f --base no-crds --work-dir <tmp> --non-interactive --namespace argocd"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/argo-cd-helm:v9.5.17@sha256:fe4ceda053593289aea2e12da5a65360c22cf171dd1e9d6ff3944cb59f7d5df4 --base no-crds --work-dir <tmp> --non-interactive --namespace argocd"
         helmReleaseObjectCount: 46
         cubInstallObjectCountIncludingSupport: 47
         semanticObjectMatches: "46/46"

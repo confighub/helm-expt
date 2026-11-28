@@ -15,7 +15,7 @@
     "top500Matched": 69,
     "noHardGap": 100,
     "hardGap": 22,
-    "retainedCandidateVersions": 38
+    "retainedCandidateVersions": 39
   },
   "entries": [
     {
@@ -3320,6 +3320,33 @@
       "top20_rank": 1,
       "top500_rank": "",
       "chart": "argo-cd/argo-cd",
+      "version": "10.20.0",
+      "latest_version": "9.5.17",
+      "latest_status": "update-available",
+      "catalog_status": "catalog-candidate",
+      "support_level": "promotion-review-needed",
+      "production_readiness": "not-reviewed-for-production",
+      "supported_scopes": "",
+      "supported_variants": "",
+      "candidate_variants": "default;no-crds",
+      "variant_count": 2,
+      "start_variant": "default",
+      "namespace": "argocd",
+      "source_features": "",
+      "source_classification": "",
+      "top500_next_action": "",
+      "not_yet_enabled": "ha (curated proof lane — bespoke teaching needed)",
+      "package_path": "packages/argo-cd/argo-cd/10.20.0",
+      "recipe_path": "recipes/argo-cd/argo-cd/10.20.0/recipe.yaml",
+      "catalog_path": "recipes/argo-cd/argo-cd/10.20.0/CATALOG.md",
+      "helm_pain_report": "recipes/argo-cd/argo-cd/10.20.0/helm-pain-report.yaml"
+    },
+    {
+      "proof_surface": "top20-catalog-supported",
+      "proof_surface_rank": 2,
+      "top20_rank": 1,
+      "top500_rank": "",
+      "chart": "argo-cd/argo-cd",
       "version": "10.7.0",
       "latest_version": "9.5.17",
       "latest_status": "update-available",
@@ -3343,7 +3370,7 @@
     },
     {
       "proof_surface": "top20-catalog-supported",
-      "proof_surface_rank": 3,
+      "proof_surface_rank": 4,
       "top20_rank": 1,
       "top500_rank": "",
       "chart": "argo-cd/argo-cd",
@@ -3370,7 +3397,7 @@
     },
     {
       "proof_surface": "top20-catalog-supported",
-      "proof_surface_rank": 5,
+      "proof_surface_rank": 6,
       "top20_rank": 2,
       "top500_rank": 28,
       "chart": "bitnami/mongodb",
@@ -3397,7 +3424,7 @@
     },
     {
       "proof_surface": "top20-catalog-supported",
-      "proof_surface_rank": 6,
+      "proof_surface_rank": 7,
       "top20_rank": 2,
       "top500_rank": 28,
       "chart": "bitnami/mongodb",
@@ -3424,7 +3451,7 @@
     },
     {
       "proof_surface": "top20-catalog-supported",
-      "proof_surface_rank": 9,
+      "proof_surface_rank": 10,
       "top20_rank": 4,
       "top500_rank": 48,
       "chart": "bitnami/nginx",
@@ -3451,7 +3478,7 @@
     },
     {
       "proof_surface": "top20-catalog-supported",
-      "proof_surface_rank": 10,
+      "proof_surface_rank": 11,
       "top20_rank": 4,
       "top500_rank": 48,
       "chart": "bitnami/nginx",
@@ -3478,7 +3505,7 @@
     },
     {
       "proof_surface": "top20-catalog-supported",
-      "proof_surface_rank": 11,
+      "proof_surface_rank": 12,
       "top20_rank": 5,
       "top500_rank": 7,
       "chart": "bitnami/postgresql",
@@ -3505,7 +3532,7 @@
     },
     {
       "proof_surface": "top20-catalog-supported",
-      "proof_surface_rank": 13,
+      "proof_surface_rank": 14,
       "top20_rank": 5,
       "top500_rank": 7,
       "chart": "bitnami/postgresql",
@@ -3532,7 +3559,7 @@
     },
     {
       "proof_surface": "top20-catalog-supported",
-      "proof_surface_rank": 16,
+      "proof_surface_rank": 17,
       "top20_rank": 7,
       "top500_rank": 6,
       "chart": "bitnami/redis",
@@ -3559,7 +3586,7 @@
     },
     {
       "proof_surface": "top20-catalog-supported",
-      "proof_surface_rank": 17,
+      "proof_surface_rank": 18,
       "top20_rank": 8,
       "top500_rank": "",
       "chart": "external-secrets/external-secrets",
@@ -3586,7 +3613,7 @@
     },
     {
       "proof_surface": "top20-catalog-supported",
-      "proof_surface_rank": 21,
+      "proof_surface_rank": 22,
       "top20_rank": 10,
       "top500_rank": 10,
       "chart": "grafana/loki",
@@ -3613,7 +3640,7 @@
     },
     {
       "proof_surface": "top20-catalog-supported",
-      "proof_surface_rank": 27,
+      "proof_surface_rank": 28,
       "top20_rank": 15,
       "top500_rank": "",
       "chart": "jetstack/cert-manager",
@@ -3640,7 +3667,7 @@
     },
     {
       "proof_surface": "top20-catalog-supported",
-      "proof_surface_rank": 29,
+      "proof_surface_rank": 30,
       "top20_rank": 16,
       "top500_rank": 19,
       "chart": "longhorn/longhorn",
@@ -3667,7 +3694,7 @@
     },
     {
       "proof_surface": "top20-catalog-supported",
-      "proof_surface_rank": 31,
+      "proof_surface_rank": 32,
       "top20_rank": 17,
       "top500_rank": 11,
       "chart": "metrics-server/metrics-server",
@@ -3694,7 +3721,7 @@
     },
     {
       "proof_surface": "top20-catalog-supported",
-      "proof_surface_rank": 32,
+      "proof_surface_rank": 33,
       "top20_rank": 18,
       "top500_rank": 1,
       "chart": "prometheus-community/kube-prometheus-stack",
@@ -3721,7 +3748,7 @@
     },
     {
       "proof_surface": "top20-catalog-supported",
-      "proof_surface_rank": 34,
+      "proof_surface_rank": 35,
       "top20_rank": 18,
       "top500_rank": 1,
       "chart": "prometheus-community/kube-prometheus-stack",
@@ -3748,7 +3775,7 @@
     },
     {
       "proof_surface": "top20-catalog-supported",
-      "proof_surface_rank": 35,
+      "proof_surface_rank": 36,
       "top20_rank": 18,
       "top500_rank": 1,
       "chart": "prometheus-community/kube-prometheus-stack",
@@ -3775,7 +3802,7 @@
     },
     {
       "proof_surface": "top20-catalog-supported",
-      "proof_surface_rank": 37,
+      "proof_surface_rank": 38,
       "top20_rank": 19,
       "top500_rank": 5,
       "chart": "prometheus-community/prometheus",
@@ -3802,7 +3829,7 @@
     },
     {
       "proof_surface": "next80-proof-grade",
-      "proof_surface_rank": 39,
+      "proof_surface_rank": 40,
       "top20_rank": "",
       "top500_rank": 8,
       "chart": "traefik/traefik",
@@ -3829,7 +3856,7 @@
     },
     {
       "proof_surface": "next80-proof-grade",
-      "proof_surface_rank": 43,
+      "proof_surface_rank": 44,
       "top20_rank": "",
       "top500_rank": 38,
       "chart": "kyverno/kyverno",
@@ -3856,7 +3883,7 @@
     },
     {
       "proof_surface": "next80-proof-grade",
-      "proof_surface_rank": 45,
+      "proof_surface_rank": 46,
       "top20_rank": "",
       "top500_rank": 41,
       "chart": "cloudnative-pg/cloudnative-pg",
@@ -3883,7 +3910,7 @@
     },
     {
       "proof_surface": "next80-proof-grade",
-      "proof_surface_rank": 55,
+      "proof_surface_rank": 56,
       "top20_rank": "",
       "top500_rank": 65,
       "chart": "prometheus-community/prometheus-blackbox-exporter",
@@ -3910,7 +3937,7 @@
     },
     {
       "proof_surface": "next80-proof-grade",
-      "proof_surface_rank": 58,
+      "proof_surface_rank": 59,
       "top20_rank": "",
       "top500_rank": 67,
       "chart": "stakater/reloader",
@@ -3937,7 +3964,7 @@
     },
     {
       "proof_surface": "next80-proof-grade",
-      "proof_surface_rank": 62,
+      "proof_surface_rank": 63,
       "top20_rank": "",
       "top500_rank": 74,
       "chart": "grafana/alloy",
@@ -3964,7 +3991,7 @@
     },
     {
       "proof_surface": "next80-proof-grade",
-      "proof_surface_rank": 73,
+      "proof_surface_rank": 74,
       "top20_rank": "",
       "top500_rank": 133,
       "chart": "prometheus-community/prometheus-operator-crds",
@@ -3991,7 +4018,7 @@
     },
     {
       "proof_surface": "next80-proof-grade",
-      "proof_surface_rank": 92,
+      "proof_surface_rank": 93,
       "top20_rank": "",
       "top500_rank": 215,
       "chart": "kyverno/kyverno-policies",
@@ -4018,7 +4045,7 @@
     },
     {
       "proof_surface": "next80-proof-grade",
-      "proof_surface_rank": 100,
+      "proof_surface_rank": 101,
       "top20_rank": "",
       "top500_rank": 452,
       "chart": "aws-ebs-csi-driver/aws-ebs-csi-driver",
@@ -4045,7 +4072,7 @@
     },
     {
       "proof_surface": "next80-proof-grade",
-      "proof_surface_rank": 118,
+      "proof_surface_rank": 119,
       "top20_rank": "",
       "top500_rank": "",
       "chart": "dra-driver-nvidia/dra-driver-nvidia-gpu",
@@ -4072,7 +4099,7 @@
     },
     {
       "proof_surface": "next80-proof-grade",
-      "proof_surface_rank": 129,
+      "proof_surface_rank": 130,
       "top20_rank": "",
       "top500_rank": "",
       "chart": "kai-scheduler/kai-scheduler",
@@ -4099,7 +4126,7 @@
     },
     {
       "proof_surface": "next80-proof-grade",
-      "proof_surface_rank": 138,
+      "proof_surface_rank": 139,
       "top20_rank": "",
       "top500_rank": "",
       "chart": "nvidia/gpu-operator",
@@ -4126,7 +4153,7 @@
     },
     {
       "proof_surface": "next80-proof-grade",
-      "proof_surface_rank": 139,
+      "proof_surface_rank": 140,
       "top20_rank": "",
       "top500_rank": "",
       "chart": "nvidia/gpu-operator",
@@ -4153,7 +4180,7 @@
     },
     {
       "proof_surface": "next80-proof-grade",
-      "proof_surface_rank": 140,
+      "proof_surface_rank": 141,
       "top20_rank": "",
       "top500_rank": "",
       "chart": "nvidia/gpu-operator",
@@ -4180,7 +4207,7 @@
     },
     {
       "proof_surface": "next80-proof-grade",
-      "proof_surface_rank": 142,
+      "proof_surface_rank": 143,
       "top20_rank": "",
       "top500_rank": "",
       "chart": "nvidia/k8s-nim-operator",
@@ -4207,7 +4234,7 @@
     },
     {
       "proof_surface": "next80-proof-grade",
-      "proof_surface_rank": 144,
+      "proof_surface_rank": 145,
       "top20_rank": "",
       "top500_rank": "",
       "chart": "nvidia/nodewright",
@@ -4234,7 +4261,7 @@
     },
     {
       "proof_surface": "next80-proof-grade",
-      "proof_surface_rank": 147,
+      "proof_surface_rank": 148,
       "top20_rank": "",
       "top500_rank": "",
       "chart": "nvidia/nvsentinel",
@@ -4261,7 +4288,7 @@
     },
     {
       "proof_surface": "next80-proof-grade",
-      "proof_surface_rank": 148,
+      "proof_surface_rank": 149,
       "top20_rank": "",
       "top500_rank": "",
       "chart": "nvidia/nvsentinel",
@@ -4288,7 +4315,7 @@
     },
     {
       "proof_surface": "next80-proof-grade",
-      "proof_surface_rank": 150,
+      "proof_surface_rank": 151,
       "top20_rank": "",
       "top500_rank": "",
       "chart": "nvidia/nvsentinel",
@@ -4315,7 +4342,7 @@
     },
     {
       "proof_surface": "next80-proof-grade",
-      "proof_surface_rank": 153,
+      "proof_surface_rank": 154,
       "top20_rank": "",
       "top500_rank": "",
       "chart": "percona/psmdb-operator",

@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the default base variant into ./nvidia-nvsentinel-v1-26-0-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvsentinel:v1.26.0@sha256:4046e444dbc245b6077a1f568de1139dd8bb20d59eb97ac49d6c2d85a9ded0a9 --base default --work-dir ./nvidia-nvsentinel-v1-26-0-default --non-interactive --namespace nvsentinel
+cub installer setup --pull oci://ghcr.io/confighub/packages/nvsentinel:v1.26.0@sha256:6c35b6bd95699815b1394bf476373fab41239bd93677371745751a7bd3992ba5 --base default --work-dir ./nvidia-nvsentinel-v1-26-0-default --non-interactive --namespace nvsentinel
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./nvidia-nvsentinel-v1-26-0-default --space "${SPACE}"

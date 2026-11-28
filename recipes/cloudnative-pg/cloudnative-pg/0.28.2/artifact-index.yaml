@@ -75,11 +75,18 @@ spec:
     nextAction: ""
   installerPackage:
     path: "packages/cloudnative-pg/cloudnative-pg/0.28.2"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudnative-pg-cloudnative-pg:0.28.2@sha256:30cfcee4ff1d5467c4df45d8223d2b98e9a8d316fa5ec9978533d9ffdcff8dc2"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudnative-pg-cloudnative-pg:0.28.2"
-    manifestDigest: "sha256:30cfcee4ff1d5467c4df45d8223d2b98e9a8d316fa5ec9978533d9ffdcff8dc2"
-    layerDigest: "sha256:040cb5767ec4d9de62fdfaec96a35574656ef6cd2d50dadccb2c3920ba3b135f"
-    publicationReceipt: "runs/installer-oci/cloudnative-pg-cloudnative-pg/0.28.2/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/cloudnative-pg:v0.28.2@sha256:9771e69482c744aafe536590a435f63206d541c0ef0017c5f47707145f139da2"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/cloudnative-pg:v0.28.2"
+    manifestDigest: "sha256:9771e69482c744aafe536590a435f63206d541c0ef0017c5f47707145f139da2"
+    layerDigest: "sha256:3566f497bfa33139932e29caa1d916f6ed2c13affde72c94c16b100b38aaeb88"
+    publicationReceipt: "runs/ghcr-packages/cloudnative-pg/v0.28.2.yaml"
+    name: "cloudnative-pg"
+    tag: "v0.28.2"
+    installCommand: "cub package install cloudnative-pg:v0.28.2 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/cloudnative-pg@sha256:9771e69482c744aafe536590a435f63206d541c0ef0017c5f47707145f139da2"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudnative-pg-cloudnative-pg:0.28.2@sha256:30cfcee4ff1d5467c4df45d8223d2b98e9a8d316fa5ec9978533d9ffdcff8dc2"
+      publicationReceipt: "runs/installer-oci/cloudnative-pg-cloudnative-pg/0.28.2/installer-package-publication-receipt.yaml"
     installer: "packages/cloudnative-pg/cloudnative-pg/0.28.2/installer.yaml"
     receipt: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "040cb5767ec4d9de62fdfaec96a35574656ef6cd2d50dadccb2c3920ba3b135f"
@@ -116,7 +123,7 @@ spec:
         default: true
         description: "cloudnative-pg/cloudnative-pg default variant rendered from cloudnative-pg/cloudnative-pg@0.28.2"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudnative-pg-cloudnative-pg:0.28.2@sha256:30cfcee4ff1d5467c4df45d8223d2b98e9a8d316fa5ec9978533d9ffdcff8dc2 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/cloudnative-pg:v0.28.2@sha256:9771e69482c744aafe536590a435f63206d541c0ef0017c5f47707145f139da2 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 21
         cubInstallObjectCountIncludingSupport: 22
         semanticObjectMatches: "21/21"
@@ -280,7 +287,7 @@ spec:
         default: false
         description: "cloudnative-pg/cloudnative-pg no-crds variant rendered from cloudnative-pg/cloudnative-pg@0.28.2"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudnative-pg-cloudnative-pg:0.28.2@sha256:30cfcee4ff1d5467c4df45d8223d2b98e9a8d316fa5ec9978533d9ffdcff8dc2 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/cloudnative-pg:v0.28.2@sha256:9771e69482c744aafe536590a435f63206d541c0ef0017c5f47707145f139da2 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 11
         cubInstallObjectCountIncludingSupport: 12
         semanticObjectMatches: "11/11"

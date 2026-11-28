@@ -49,7 +49,10 @@ for exact base-variant evidence.
 | Value model | [recipes/metallb/metallb/0.16.1/value-model.yaml](../../../../../../../recipes/metallb/metallb/0.16.1/value-model.yaml) |
 | Catalog status | [data/kubara-catalog-release/recipe-views/recipes/metallb/metallb/0.16.1/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [data/kubara-catalog-release/recipe-views/recipes/metallb/metallb/0.16.1/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metallb-metallb:0.16.1@sha256:79b8a8a87f82e56caed0a630e46b84caf688cf50f5b18b7a7a930c7c31ba4bee` |
+| Install into a Space | `cub package install metallb:v0.16.1 --space <space>` |
+| Installer package OCI | `oci://ghcr.io/confighub/packages/metallb:v0.16.1@sha256:01f137f8067b6c5390509cdfe051ada3c4e2dc2f0066ff56f690abd7cd79e77b` |
+| Installer package publication | [runs/ghcr-packages/metallb/v0.16.1.yaml](../../../../../../../runs/ghcr-packages/metallb/v0.16.1.yaml) |
+| Earlier location | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metallb-metallb:0.16.1@sha256:79b8a8a87f82e56caed0a630e46b84caf688cf50f5b18b7a7a930c7c31ba4bee` |
 | Installer package source | [packages/metallb/metallb/0.16.1](../../../../../../../packages/metallb/metallb/0.16.1) |
 | Installer package receipt | [recipes/metallb/metallb/0.16.1/publication/installer-package-receipt.yaml](../../../../../../../recipes/metallb/metallb/0.16.1/publication/installer-package-receipt.yaml) |
 | Machine index | [data/kubara-catalog-release/recipe-views/recipes/metallb/metallb/0.16.1/artifact-index.yaml](artifact-index.yaml) |
@@ -77,12 +80,22 @@ for exact base-variant evidence.
 
 ## Current Install Shape
 
+Install the package into a ConfigHub Space, which renders it and uploads
+one Unit per resource:
+
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metallb-metallb:0.16.1@sha256:79b8a8a87f82e56caed0a630e46b84caf688cf50f5b18b7a7a930c7c31ba4bee --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub package install metallb:v0.16.1 --space metallb --base <variant> --namespace <namespace>
+```
+
+Or render it locally from the exact package bytes, with no Space:
+
+```sh
+cub installer setup --pull oci://ghcr.io/confighub/packages/metallb:v0.16.1@sha256:01f137f8067b6c5390509cdfe051ada3c4e2dc2f0066ff56f690abd7cd79e77b --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is
-the public package users pull; the `packages/...` path is the repo source path
+the public package users pull, signed by the package publish workflow; check it with
+`cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/metallb@sha256:01f137f8067b6c5390509cdfe051ada3c4e2dc2f0066ff56f690abd7cd79e77b`. The `packages/...` path is the repo source path
 used by maintainers and proof scripts. The proof path compares regular Helm
 output with real `cub installer setup` output and explains every intentional
 difference, such as the Namespace support object or separated Secrets.

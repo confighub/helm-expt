@@ -849,7 +849,7 @@
 7fb28597f2eea8113612fa9e67ac84760cba1e72c42a4c59e4c25d284e0a94ba  bitnami-nginx-24-0-2-http-clusterip.yaml
 
 <span class="term-comment"># render the same base from the signed package, into a directory you can upload later</span>
-<span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2@sha256:7cf08c0348a32d577ffa0e16069ec6c2510ce773b372008d25b938f9546c5f67 --base http-clusterip --work-dir ./bitnami-nginx-24-0-2-http-clusterip --non-interactive --namespace nginx</code></pre>
+<span class="term-prompt">$</span> cub installer setup --pull oci://ghcr.io/confighub/packages/bitnami-nginx:v24.0.2@sha256:87c91cee1f4bacd3fee5ff77f01a61956e98d3a357f4f5c2f73dd8a5e65553e0 --base http-clusterip --work-dir ./bitnami-nginx-24-0-2-http-clusterip --non-interactive --namespace nginx</code></pre>
       <p>The line under <code>shasum</code> is the value the listing expects. In the walk of 2026-10-08 the digest matched.</p>
       <p>The file holds 5 objects. They are a Deployment, a NetworkPolicy, a PodDisruptionBudget, a Service and a ServiceAccount. In the walk the installer rendered 6 manifests, because it adds a Namespace.</p>
       <p>The <a href="./charts/bitnami-nginx-24-0-2.html">entry page</a> records nothing that must exist before you apply this base. It lists 0 target prerequisites and 0 hook or setup routes.</p>
@@ -873,7 +873,7 @@ Configuration diff: 1 added, 0 removed, 1 changed, 4 unchanged</code></pre>
 <span class="term-prompt">$</span> cub auth login
 
 <span class="term-comment"># save the signed package as a Space of Units in one command</span>
-<span class="term-prompt">$</span> cub package install oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2@sha256:7cf08c0348a32d577ffa0e16069ec6c2510ce773b372008d25b938f9546c5f67 --base http-clusterip --space &lt;your-space&gt; --namespace nginx --non-interactive
+<span class="term-prompt">$</span> cub package install oci://ghcr.io/confighub/packages/bitnami-nginx:v24.0.2@sha256:87c91cee1f4bacd3fee5ff77f01a61956e98d3a357f4f5c2f73dd8a5e65553e0 --base http-clusterip --space &lt;your-space&gt; --namespace nginx --non-interactive
 
 <span class="term-comment"># or, to name the Component yourself, upload the directory rendered above</span>
 <span class="term-prompt">$</span> cub installer upload --work-dir ./bitnami-nginx-24-0-2-http-clusterip --space &lt;your-space&gt; --component &lt;your-component&gt;

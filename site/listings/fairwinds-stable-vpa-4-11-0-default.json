@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:33e9d603109b517560aaa5e244acc3a825977fd5e417b436da07b63930ac2a78",
+      "sha256": "sha256:168547f46c3c4c20ef028a08b6d32d3ad3eef87df4443bb53c51310553722cc3",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/fairwinds-stable-vpa-4-11-0-default.yaml",
-      "sha256": "sha256:593a4e749d7355158ff00858ba46e91ef772061d6a7467615060da4d00dfad80",
+      "sha256": "sha256:2194dfe6ebaba86c9ab17797d96f2774493ef224f83a5909dc840d9838d34457",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/fairwinds-stable-vpa-4-11-0-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -36,7 +36,7 @@
     "name": "fairwinds-stable/vpa",
     "version": "4.11.0",
     "reference": "fairwinds-stable/vpa@4.11.0",
-    "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-vpa:4.11.0@sha256:449c4a96412aaf799622daab235efd8800f9700c0bd5b36c9523d95756e9fc8f",
+    "ociRef": "oci://ghcr.io/confighub/packages/fairwinds-vpa:v4.11.0@sha256:7cc3c4b224e8609c4a224b969710707266eed7875ea3c35a06dc152ef1da5129",
     "record": "data/helm-render-intents/intents/fairwinds-stable-vpa-4-11-0-default.yaml",
     "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/fairwinds-stable-vpa-4-11-0-default.yaml",
     "selection": {
@@ -90,7 +90,7 @@
     }
   },
   "oci": {
-    "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-vpa:4.11.0@sha256:449c4a96412aaf799622daab235efd8800f9700c0bd5b36c9523d95756e9fc8f",
+    "sourcePackageRef": "oci://ghcr.io/confighub/packages/fairwinds-vpa:v4.11.0@sha256:7cc3c4b224e8609c4a224b969710707266eed7875ea3c35a06dc152ef1da5129",
     "bundles": [
       {
         "role": "source-package",
@@ -462,7 +462,7 @@
         },
         {
           "comment": "render this base from the signed package; step 3 can upload this directory",
-          "command": "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-vpa:4.11.0@sha256:449c4a96412aaf799622daab235efd8800f9700c0bd5b36c9523d95756e9fc8f --base default --work-dir ./fairwinds-stable-vpa-4-11-0-default --non-interactive --namespace default"
+          "command": "cub installer setup --pull oci://ghcr.io/confighub/packages/fairwinds-vpa:v4.11.0@sha256:7cc3c4b224e8609c4a224b969710707266eed7875ea3c35a06dc152ef1da5129 --base default --work-dir ./fairwinds-stable-vpa-4-11-0-default --non-interactive --namespace default"
         }
       ],
       "notes": [
@@ -519,7 +519,7 @@
         },
         {
           "comment": "put the signed package into a Space in one command: it pulls, renders and uploads",
-          "command": "cub package install oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-vpa:4.11.0@sha256:449c4a96412aaf799622daab235efd8800f9700c0bd5b36c9523d95756e9fc8f --base default --space <your-space> --namespace default --non-interactive",
+          "command": "cub package install oci://ghcr.io/confighub/packages/fairwinds-vpa:v4.11.0@sha256:7cc3c4b224e8609c4a224b969710707266eed7875ea3c35a06dc152ef1da5129 --base default --space <your-space> --namespace default --non-interactive",
           "needsAccount": true,
           "writes": true
         },

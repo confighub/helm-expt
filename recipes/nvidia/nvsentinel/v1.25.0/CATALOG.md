@@ -49,7 +49,10 @@ for exact base-variant evidence.
 | Value model | [recipes/nvidia/nvsentinel/v1.25.0/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/nvidia/nvsentinel/v1.25.0/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/nvidia/nvsentinel/v1.25.0/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvsentinel:v1.25.0@sha256:5b6363f704e89c754c2901a85ade183312afca87a94d97aa22f55d2f4d23189e` |
+| Install into a Space | `cub package install nvsentinel:v1.25.0 --space <space>` |
+| Installer package OCI | `oci://ghcr.io/confighub/packages/nvsentinel:v1.25.0@sha256:6f4535bf812888a1c3b80429225b42d0a77f8afbeafa15d0e2e1002d35f4f9d3` |
+| Installer package publication | [runs/ghcr-packages/nvsentinel/v1.25.0.yaml](../../../../runs/ghcr-packages/nvsentinel/v1.25.0.yaml) |
+| Earlier location | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvsentinel:v1.25.0@sha256:5b6363f704e89c754c2901a85ade183312afca87a94d97aa22f55d2f4d23189e` |
 | Installer package source | [packages/nvidia/nvsentinel/v1.25.0](../../../../packages/nvidia/nvsentinel/v1.25.0) |
 | Installer package receipt | [recipes/nvidia/nvsentinel/v1.25.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/nvidia/nvsentinel/v1.25.0/artifact-index.yaml](artifact-index.yaml) |
@@ -89,12 +92,22 @@ for exact base-variant evidence.
 
 ## Current Install Shape
 
+Install the package into a ConfigHub Space, which renders it and uploads
+one Unit per resource:
+
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvsentinel:v1.25.0@sha256:5b6363f704e89c754c2901a85ade183312afca87a94d97aa22f55d2f4d23189e --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub package install nvsentinel:v1.25.0 --space nvsentinel --base <variant> --namespace <namespace>
+```
+
+Or render it locally from the exact package bytes, with no Space:
+
+```sh
+cub installer setup --pull oci://ghcr.io/confighub/packages/nvsentinel:v1.25.0@sha256:6f4535bf812888a1c3b80429225b42d0a77f8afbeafa15d0e2e1002d35f4f9d3 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is
-the public package users pull; the `packages/...` path is the repo source path
+the public package users pull, signed by the package publish workflow; check it with
+`cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/nvsentinel@sha256:6f4535bf812888a1c3b80429225b42d0a77f8afbeafa15d0e2e1002d35f4f9d3`. The `packages/...` path is the repo source path
 used by maintainers and proof scripts. The proof path compares regular Helm
 output with real `cub installer setup` output and explains every intentional
 difference, such as the Namespace support object or separated Secrets.

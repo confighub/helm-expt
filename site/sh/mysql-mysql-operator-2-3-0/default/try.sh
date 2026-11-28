@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the default base variant into ./mysql-mysql-operator-2-3-0-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/mysql-mysql-operator:2.3.0@sha256:59116d8ebabcf485c7d0f38b659c3ec93e8aacb0a35db02a4f2e3226c7c8a6c5 --base default --work-dir ./mysql-mysql-operator-2-3-0-default --non-interactive --namespace mysql-operator
+cub installer setup --pull oci://ghcr.io/confighub/packages/mysql-operator:v2.3.0@sha256:1b5b4cd74ac616c2b8e60f6e95fd439294ebc0898f027c5ec451f55162e93aa6 --base default --work-dir ./mysql-mysql-operator-2-3-0-default --non-interactive --namespace mysql-operator
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./mysql-mysql-operator-2-3-0-default/out/manifests

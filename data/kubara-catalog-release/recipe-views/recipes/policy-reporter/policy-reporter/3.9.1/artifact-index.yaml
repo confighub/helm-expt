@@ -58,11 +58,18 @@ spec:
     nextAction: ""
   installerPackage:
     path: "packages/policy-reporter/policy-reporter/3.9.1"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/policy-reporter-policy-reporter:3.9.1@sha256:b23e9c4e3b73724a1f08b413937e1596aac5d21b23ccf3ddce5a67f7774e0fef"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/policy-reporter-policy-reporter:3.9.1"
-    manifestDigest: "sha256:b23e9c4e3b73724a1f08b413937e1596aac5d21b23ccf3ddce5a67f7774e0fef"
-    layerDigest: "sha256:aff830e50a145faa4ea322b6a938956cb096b6d2fdc94fc48d37086f0e0afd90"
-    publicationReceipt: "runs/installer-oci/policy-reporter-policy-reporter/3.9.1/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/policy-reporter:v3.9.1@sha256:ea3a17de77d3575076f97d19390e47f41ca0ef4a4c7450e8dd5bcb6cefe26af1"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/policy-reporter:v3.9.1"
+    manifestDigest: "sha256:ea3a17de77d3575076f97d19390e47f41ca0ef4a4c7450e8dd5bcb6cefe26af1"
+    layerDigest: "sha256:65d2df4152ab633cfb0d10e4317189238622cf8d4646095aa4710ea8d5d00ff0"
+    publicationReceipt: "runs/ghcr-packages/policy-reporter/v3.9.1.yaml"
+    name: "policy-reporter"
+    tag: "v3.9.1"
+    installCommand: "cub package install policy-reporter:v3.9.1 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/policy-reporter@sha256:ea3a17de77d3575076f97d19390e47f41ca0ef4a4c7450e8dd5bcb6cefe26af1"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/policy-reporter-policy-reporter:3.9.1@sha256:b23e9c4e3b73724a1f08b413937e1596aac5d21b23ccf3ddce5a67f7774e0fef"
+      publicationReceipt: "runs/installer-oci/policy-reporter-policy-reporter/3.9.1/installer-package-publication-receipt.yaml"
     installer: "packages/policy-reporter/policy-reporter/3.9.1/installer.yaml"
     receipt: "recipes/policy-reporter/policy-reporter/3.9.1/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "aff830e50a145faa4ea322b6a938956cb096b6d2fdc94fc48d37086f0e0afd90"
@@ -94,7 +101,7 @@ spec:
         default: true
         description: "policy-reporter chart defaults variant rendered from policy-reporter/policy-reporter@3.9.1"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/policy-reporter-policy-reporter:3.9.1@sha256:b23e9c4e3b73724a1f08b413937e1596aac5d21b23ccf3ddce5a67f7774e0fef --base default --work-dir <tmp> --non-interactive --namespace policy-reporter"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/policy-reporter:v3.9.1@sha256:ea3a17de77d3575076f97d19390e47f41ca0ef4a4c7450e8dd5bcb6cefe26af1 --base default --work-dir <tmp> --non-interactive --namespace policy-reporter"
         helmReleaseObjectCount: 8
         cubInstallObjectCountIncludingSupport: 9
         semanticObjectMatches: "8/8"

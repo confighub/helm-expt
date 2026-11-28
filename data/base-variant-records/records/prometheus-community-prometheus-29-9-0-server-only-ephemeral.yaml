@@ -13,7 +13,7 @@ spec:
     name: "prometheus-community/prometheus"
     version: "29.9.0"
     record: "data/helm-render-intents/intents/prometheus-community-prometheus-29-9-0-server-only-ephemeral.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.9.0@sha256:0be296fd83670ed5469a2ef2abca19cb515546daf7bcb262f6d0142f9269310c"
+    packageOciRef: "oci://ghcr.io/confighub/packages/prometheus:v29.9.0@sha256:9fadf73b91209d98d3ad0e2715ab80c2a8c9d33ea1e88ba34f810470a2b12746"
     selection:
       name: "server-only-ephemeral"
       kind: "catalog-preset"

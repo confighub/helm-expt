@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:33e9d603109b517560aaa5e244acc3a825977fd5e417b436da07b63930ac2a78",
+      "sha256": "sha256:168547f46c3c4c20ef028a08b6d32d3ad3eef87df4443bb53c51310553722cc3",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/kyverno-kyverno-3-8-1-default.yaml",
-      "sha256": "sha256:1ea57e002ba64912402c3418e839b8a72588ca7726b7a867da69818ce133f3e3",
+      "sha256": "sha256:ae2f3a9c6104ad5cbd251feede3bddfe4b3cfbcf16b1f4edba8d16d1d2a73431",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/kyverno-kyverno-3-8-1-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -36,7 +36,7 @@
     "name": "kyverno/kyverno",
     "version": "3.8.1",
     "reference": "kyverno/kyverno@3.8.1",
-    "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno:3.8.1@sha256:3c7560e8038b74ed7f5dd6257a11656f3e94ea4dee92768b726e50580ef3cea3",
+    "ociRef": "oci://ghcr.io/confighub/packages/kyverno:v3.8.1@sha256:8cd77fd290ab9d896a04299f087a7fc4e925e810db844665e8befcee7705430c",
     "record": "data/helm-render-intents/intents/kyverno-kyverno-3-8-1-default.yaml",
     "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/kyverno-kyverno-3-8-1-default.yaml",
     "selection": {
@@ -92,7 +92,7 @@
     }
   },
   "oci": {
-    "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno:3.8.1@sha256:3c7560e8038b74ed7f5dd6257a11656f3e94ea4dee92768b726e50580ef3cea3",
+    "sourcePackageRef": "oci://ghcr.io/confighub/packages/kyverno:v3.8.1@sha256:8cd77fd290ab9d896a04299f087a7fc4e925e810db844665e8befcee7705430c",
     "bundles": [
       {
         "role": "source-package",
@@ -641,7 +641,7 @@
         },
         {
           "comment": "render this base from the signed package; step 3 can upload this directory",
-          "command": "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno:3.8.1@sha256:3c7560e8038b74ed7f5dd6257a11656f3e94ea4dee92768b726e50580ef3cea3 --base default --work-dir ./kyverno-kyverno-3-8-1-default --non-interactive --namespace default"
+          "command": "cub installer setup --pull oci://ghcr.io/confighub/packages/kyverno:v3.8.1@sha256:8cd77fd290ab9d896a04299f087a7fc4e925e810db844665e8befcee7705430c --base default --work-dir ./kyverno-kyverno-3-8-1-default --non-interactive --namespace default"
         }
       ],
       "notes": [
@@ -720,7 +720,7 @@
         },
         {
           "comment": "put the signed package into a Space in one command: it pulls, renders and uploads",
-          "command": "cub package install oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno:3.8.1@sha256:3c7560e8038b74ed7f5dd6257a11656f3e94ea4dee92768b726e50580ef3cea3 --base default --space <your-space> --namespace default --non-interactive",
+          "command": "cub package install oci://ghcr.io/confighub/packages/kyverno:v3.8.1@sha256:8cd77fd290ab9d896a04299f087a7fc4e925e810db844665e8befcee7705430c --base default --space <your-space> --namespace default --non-interactive",
           "needsAccount": true,
           "writes": true
         },

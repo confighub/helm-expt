@@ -64,11 +64,18 @@ spec:
     nextAction: ""
   installerPackage:
     path: "packages/external-secrets/external-secrets/2.10.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.10.0@sha256:c60cd5561d7d915a60c4873371ea71573c101c95ca3b3827ec857c84c8727b34"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.10.0"
-    manifestDigest: "sha256:c60cd5561d7d915a60c4873371ea71573c101c95ca3b3827ec857c84c8727b34"
-    layerDigest: "sha256:c026ff36c6339e6f32fcb583fff9c63775057c9631e9af366bdc4bb7dd984664"
-    publicationReceipt: "runs/installer-oci/external-secrets-external-secrets/2.10.0/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/external-secrets:v2.10.0@sha256:a847593d370f86911620b0f19fa3f1ea19f9afe6a079ee52ac35e4b78d364fbd"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/external-secrets:v2.10.0"
+    manifestDigest: "sha256:a847593d370f86911620b0f19fa3f1ea19f9afe6a079ee52ac35e4b78d364fbd"
+    layerDigest: "sha256:77cbd9ca288af0cbd8e96ca91b27e62bf9a65456805a9ea249a0ca3037bcac99"
+    publicationReceipt: "runs/ghcr-packages/external-secrets/v2.10.0.yaml"
+    name: "external-secrets"
+    tag: "v2.10.0"
+    installCommand: "cub package install external-secrets:v2.10.0 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/external-secrets@sha256:a847593d370f86911620b0f19fa3f1ea19f9afe6a079ee52ac35e4b78d364fbd"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.10.0@sha256:c60cd5561d7d915a60c4873371ea71573c101c95ca3b3827ec857c84c8727b34"
+      publicationReceipt: "runs/installer-oci/external-secrets-external-secrets/2.10.0/installer-package-publication-receipt.yaml"
     installer: "packages/external-secrets/external-secrets/2.10.0/installer.yaml"
     receipt: "recipes/external-secrets/external-secrets/2.10.0/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "c026ff36c6339e6f32fcb583fff9c63775057c9631e9af366bdc4bb7dd984664"
@@ -117,7 +124,7 @@ spec:
         default: true
         description: "external-secrets default variant rendered from external-secrets/external-secrets@2.10.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.10.0@sha256:c60cd5561d7d915a60c4873371ea71573c101c95ca3b3827ec857c84c8727b34 --base default --work-dir <tmp> --non-interactive --namespace external-secrets"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/external-secrets:v2.10.0@sha256:a847593d370f86911620b0f19fa3f1ea19f9afe6a079ee52ac35e4b78d364fbd --base default --work-dir <tmp> --non-interactive --namespace external-secrets"
         helmReleaseObjectCount: 44
         cubInstallObjectCountIncludingSupport: 45
         semanticObjectMatches: "44/44"
@@ -417,7 +424,7 @@ spec:
         default: false
         description: "external-secrets CRDs disabled variant rendered from external-secrets/external-secrets@2.10.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.10.0@sha256:c60cd5561d7d915a60c4873371ea71573c101c95ca3b3827ec857c84c8727b34 --base no-crds --work-dir <tmp> --non-interactive --namespace external-secrets"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/external-secrets:v2.10.0@sha256:a847593d370f86911620b0f19fa3f1ea19f9afe6a079ee52ac35e4b78d364fbd --base no-crds --work-dir <tmp> --non-interactive --namespace external-secrets"
         helmReleaseObjectCount: 19
         cubInstallObjectCountIncludingSupport: 20
         semanticObjectMatches: "19/19"

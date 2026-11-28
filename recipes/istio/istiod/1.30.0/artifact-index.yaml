@@ -63,11 +63,18 @@ spec:
     nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:
     path: "packages/istio/istiod/1.30.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-istiod:1.30.0@sha256:ecb9f9cbd9dc89bb7707cdc98c61797f51ddf08c155f43955d3f4372ac2e5476"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-istiod:1.30.0"
-    manifestDigest: "sha256:ecb9f9cbd9dc89bb7707cdc98c61797f51ddf08c155f43955d3f4372ac2e5476"
-    layerDigest: "sha256:13f0c70fe723daf5c27d959d794a7f9f48e7bb45fd9fdfaf1fcf81f9a345e8fe"
-    publicationReceipt: "runs/installer-oci/istio-istiod/1.30.0/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/istiod:v1.30.0@sha256:fa43441c76b72e895418de4148a1df3a241bca0dcb0c0bd0abd587031750fc57"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/istiod:v1.30.0"
+    manifestDigest: "sha256:fa43441c76b72e895418de4148a1df3a241bca0dcb0c0bd0abd587031750fc57"
+    layerDigest: "sha256:59388de222a8bd98e0a3318cbc358b50335c4bf38f5e456efcba5f05e567c5cf"
+    publicationReceipt: "runs/ghcr-packages/istiod/v1.30.0.yaml"
+    name: "istiod"
+    tag: "v1.30.0"
+    installCommand: "cub package install istiod:v1.30.0 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/istiod@sha256:fa43441c76b72e895418de4148a1df3a241bca0dcb0c0bd0abd587031750fc57"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-istiod:1.30.0@sha256:ecb9f9cbd9dc89bb7707cdc98c61797f51ddf08c155f43955d3f4372ac2e5476"
+      publicationReceipt: "runs/installer-oci/istio-istiod/1.30.0/installer-package-publication-receipt.yaml"
     installer: "packages/istio/istiod/1.30.0/installer.yaml"
     receipt: "recipes/istio/istiod/1.30.0/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "13f0c70fe723daf5c27d959d794a7f9f48e7bb45fd9fdfaf1fcf81f9a345e8fe"
@@ -112,7 +119,7 @@ spec:
         default: true
         description: "istio/istiod default variant rendered from istio/istiod@1.30.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-istiod:1.30.0@sha256:ecb9f9cbd9dc89bb7707cdc98c61797f51ddf08c155f43955d3f4372ac2e5476 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/istiod:v1.30.0@sha256:fa43441c76b72e895418de4148a1df3a241bca0dcb0c0bd0abd587031750fc57 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 17
         cubInstallObjectCountIncludingSupport: 18
         semanticObjectMatches: "17/17"

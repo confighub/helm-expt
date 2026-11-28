@@ -1012,7 +1012,7 @@ Schema
           <p class="installer-command-note">If you want to try linked environment copies and approvals in hosted ConfigHub, sign in and paste the commands below. In your workspace, this creates the base folder <code>gatekeeper-example</code> and two copies, <code>gatekeeper-example-dev</code> and <code>gatekeeper-example-prod</code>. That base folder holds 34 items, including all 30 Kubernetes objects, a README and 4 plan documents. Prod runs three replicas of the audit Deployment. It touches no cluster.</p>
           <pre class="terminal-body"><code><span class="term-prompt">$</span> cub auth login
 
-<span class="term-prompt">$</span> cub variant upload --component gatekeeper-example --variant base --space gatekeeper-example --namespace default oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-gatekeeper-gatekeeper-3-22-2-default:latest@sha256:8876d3568b8eb7cfde23096ce287b20b52ae36cfba3acc3cba48cec66421c930
+<span class="term-prompt">$</span> cub variant upload --component gatekeeper-example --variant base --space gatekeeper-example --namespace default oci://ghcr.io/confighub/configs/catalog/catalog-gatekeeper-gatekeeper-3-22-2-default:bundle-8876d3568b8e@sha256:8876d3568b8eb7cfde23096ce287b20b52ae36cfba3acc3cba48cec66421c930
 
 <span class="term-prompt">$</span> cub variant create dev gatekeeper-example --change-desc &quot;Clone the base as dev&quot;
 

@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the default base variant into ./aws-controllers-k8s-iam-chart-1-7-3-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-iam-chart:1.7.3@sha256:bc64855b8024441acf8626c2d586f19661b8750db07eb69064cec52220907aac --base default --work-dir ./aws-controllers-k8s-iam-chart-1-7-3-default --non-interactive --namespace ack-system
+cub installer setup --pull oci://ghcr.io/confighub/packages/ack-iam-controller:v1.7.3@sha256:08ebdbbe384f2aca21fc0bc6cefd42d5ec546f6bf696ebc33e58de2d50bfd243 --base default --work-dir ./aws-controllers-k8s-iam-chart-1-7-3-default --non-interactive --namespace ack-system
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./aws-controllers-k8s-iam-chart-1-7-3-default --space "${SPACE}"

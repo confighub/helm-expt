@@ -751,6 +751,7 @@
       <p><strong>Needs first.</strong> Compare observed destination facts with the intended NVIDIA recipe. Plan below lists 5 more.</p>
       <p><strong>Install it.</strong> Apply its Applications on an Argo CD cluster. <a href="#use-in-confighub">Five steps below</a>.</p>
       <p><strong>OCI bundle.</strong> <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd-config:0.20.0</code></p>
+      <p><strong>Which to use.</strong> Bundle for <code>cub variant upload</code>, Argo CD or Flux; YAML to read or apply by hand.</p>
     </section>
     <article class="doc-body">
 <p>UNOFFICIAL/EXPERIMENTAL. This entry keeps NVIDIA AICR v0.20.0 beside the <a href="eks-h100-training-kubeflow.html">v0.14.0</a>, <a href="eks-h100-training-kubeflow-v0-18-0.html">v0.18.0</a>, and <a href="eks-h100-training-kubeflow-v0-19-0.html">v0.19.0</a> entries. It uses the same EKS, H100, Ubuntu, training, and Kubeflow choices, so you can see what the new release changes without replacing the earlier configurations.</p>
@@ -815,7 +816,7 @@
     <section class="entry-steps" aria-labelledby="use-in-confighub">
       <h2 id="use-in-confighub">Use this entry in ConfigHub</h2>
       <p>Every Catalog entry follows the same five-step model across Helm, NVIDIA AICR, Timoni, and YAML, whether run by you or your agent. Steps 1 and 2 inspect and diff rendered objects locally with no account; steps 3 to 5 load a ConfigHub base, customize variants, and deliver via OCI.</p>
-      <p><a href="../../../../try.html#install-cub">Install the cub CLI</a> before running <code>cub</code> commands. Step 2 uses <code>cub config diff</code> from <code>cub plugin install confighub/cub-workshop@v0.6.61</code>. Command syntax for <code>cub variant</code> comes from a <a href="../../../../d/docs/user/live-run-log-2026-10-08.html">recorded CLI log (2026-10-08)</a>, not a live run of this entry.</p>
+      <p><a href="../../../../try.html#install-cub">Install the cub CLI</a> before running <code>cub</code> commands. Only step 2 needs a plugin: <code>cub config diff</code> comes from <code>cub plugin install confighub/cub-workshop@v0.6.61</code>. Command syntax for <code>cub variant</code> comes from a <a href="../../../../d/docs/user/live-run-log-2026-10-08.html">recorded CLI log (2026-10-08)</a>, not a live run of this entry.</p>
       <div data-entry-steps="aicr-eks-h100-training-kubeflow-v0-20-0-argocd">
         <details class="entry-inputs" data-entry-inputs="aicr-eks-h100-training-kubeflow-v0-20-0-argocd" open>
         <summary>What is fixed, and what you supply</summary>

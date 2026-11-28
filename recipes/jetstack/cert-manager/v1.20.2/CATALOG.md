@@ -50,7 +50,10 @@ for exact base-variant evidence.
 | Weirdness and mitigations | [recipes/jetstack/cert-manager/v1.20.2/weirdness-and-mitigations.md](weirdness-and-mitigations.md) |
 | Catalog status | [recipes/jetstack/cert-manager/v1.20.2/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/jetstack/cert-manager/v1.20.2/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.20.2@sha256:b688d5ef7ae759bd73d2970528a7192e14058bc593a8601b6af12157270c6d2c` |
+| Install into a Space | `cub package install cert-manager:v1.20.2 --space <space>` |
+| Installer package OCI | `oci://ghcr.io/confighub/packages/cert-manager:v1.20.2@sha256:9e611f6573fdf19f9f532482ea00d527ed6351acae979c6d15a0055d77921ef5` |
+| Installer package publication | [runs/ghcr-packages/cert-manager/v1.20.2.yaml](../../../../runs/ghcr-packages/cert-manager/v1.20.2.yaml) |
+| Earlier location | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.20.2@sha256:b688d5ef7ae759bd73d2970528a7192e14058bc593a8601b6af12157270c6d2c` |
 | Installer package source | [packages/jetstack/cert-manager/v1.20.2](../../../../packages/jetstack/cert-manager/v1.20.2) |
 | Installer package receipt | [recipes/jetstack/cert-manager/v1.20.2/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/jetstack/cert-manager/v1.20.2/artifact-index.yaml](artifact-index.yaml) |
@@ -84,12 +87,22 @@ for exact base-variant evidence.
 
 ## Current Install Shape
 
+Install the package into a ConfigHub Space, which renders it and uploads
+one Unit per resource:
+
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.20.2@sha256:b688d5ef7ae759bd73d2970528a7192e14058bc593a8601b6af12157270c6d2c --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub package install cert-manager:v1.20.2 --space cert-manager --base <variant> --namespace <namespace>
+```
+
+Or render it locally from the exact package bytes, with no Space:
+
+```sh
+cub installer setup --pull oci://ghcr.io/confighub/packages/cert-manager:v1.20.2@sha256:9e611f6573fdf19f9f532482ea00d527ed6351acae979c6d15a0055d77921ef5 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is
-the public package users pull; the `packages/...` path is the repo source path
+the public package users pull, signed by the package publish workflow; check it with
+`cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/cert-manager@sha256:9e611f6573fdf19f9f532482ea00d527ed6351acae979c6d15a0055d77921ef5`. The `packages/...` path is the repo source path
 used by maintainers and proof scripts. The proof path compares regular Helm
 output with real `cub installer setup` output and explains every intentional
 difference, such as the Namespace support object or separated Secrets.

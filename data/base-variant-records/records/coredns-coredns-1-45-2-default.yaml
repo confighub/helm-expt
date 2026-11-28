@@ -13,7 +13,7 @@ spec:
     name: "coredns/coredns"
     version: "1.45.2"
     record: "data/helm-render-intents/intents/coredns-coredns-1-45-2-default.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/coredns-coredns:1.45.2@sha256:2e99a7e9923a5365c803e3ffaede5b97731ac209423d8572f4d373274f4b31bc"
+    packageOciRef: "oci://ghcr.io/confighub/packages/coredns:v1.45.2@sha256:81d61eda614fc017bdbd858a710a9d27ac2c4d369a77589e10d742595414664b"
     selection:
       name: "default"
       kind: "catalog-preset"

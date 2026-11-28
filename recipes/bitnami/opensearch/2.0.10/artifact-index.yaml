@@ -67,11 +67,18 @@ spec:
     nextAction: "run catalog promotion review"
   installerPackage:
     path: "packages/bitnami/opensearch/2.0.10"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-opensearch:2.0.10@sha256:3334c0f8f9ec8db8de4c35b946912dfd9a0822e8b640b62f60da6b8714be79d0"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-opensearch:2.0.10"
-    manifestDigest: "sha256:3334c0f8f9ec8db8de4c35b946912dfd9a0822e8b640b62f60da6b8714be79d0"
-    layerDigest: "sha256:c981534878c200f8a5c24484aeefd40366a77eda8c7affe28166c2d8f53b544a"
-    publicationReceipt: "runs/installer-oci/bitnami-opensearch/2.0.10/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/opensearch:v2.0.10@sha256:0e6fdc9b2eb17a096c4cee18110f18ab5347fb29f049c7322d005ce07da80c78"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/opensearch:v2.0.10"
+    manifestDigest: "sha256:0e6fdc9b2eb17a096c4cee18110f18ab5347fb29f049c7322d005ce07da80c78"
+    layerDigest: "sha256:0bc5a5375b915d78da1f1c6a7eb3e72a6b309251702a2d30e96a650067b1c3ca"
+    publicationReceipt: "runs/ghcr-packages/opensearch/v2.0.10.yaml"
+    name: "opensearch"
+    tag: "v2.0.10"
+    installCommand: "cub package install opensearch:v2.0.10 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/opensearch@sha256:0e6fdc9b2eb17a096c4cee18110f18ab5347fb29f049c7322d005ce07da80c78"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-opensearch:2.0.10@sha256:3334c0f8f9ec8db8de4c35b946912dfd9a0822e8b640b62f60da6b8714be79d0"
+      publicationReceipt: "runs/installer-oci/bitnami-opensearch/2.0.10/installer-package-publication-receipt.yaml"
     installer: "packages/bitnami/opensearch/2.0.10/installer.yaml"
     receipt: "recipes/bitnami/opensearch/2.0.10/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "c981534878c200f8a5c24484aeefd40366a77eda8c7affe28166c2d8f53b544a"
@@ -113,7 +120,7 @@ spec:
         default: true
         description: "bitnami/opensearch default variant rendered from bitnami/opensearch@2.0.10"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-opensearch:2.0.10@sha256:3334c0f8f9ec8db8de4c35b946912dfd9a0822e8b640b62f60da6b8714be79d0 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/opensearch:v2.0.10@sha256:0e6fdc9b2eb17a096c4cee18110f18ab5347fb29f049c7322d005ce07da80c78 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 18
         cubInstallObjectCountIncludingSupport: 19
         semanticObjectMatches: "18/18"
@@ -175,7 +182,7 @@ spec:
         default: false
         description: "bitnami/opensearch ha variant rendered from bitnami/opensearch@2.0.10"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-opensearch:2.0.10@sha256:3334c0f8f9ec8db8de4c35b946912dfd9a0822e8b640b62f60da6b8714be79d0 --base ha --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/opensearch:v2.0.10@sha256:0e6fdc9b2eb17a096c4cee18110f18ab5347fb29f049c7322d005ce07da80c78 --base ha --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 18
         cubInstallObjectCountIncludingSupport: 19
         semanticObjectMatches: "18/18"
@@ -237,7 +244,7 @@ spec:
         default: false
         description: "bitnami/opensearch legacy variant (docker.io/bitnami -> docker.io/bitnamilegacy image remap) rendered from bitnami/opensearch@2.0.10"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-opensearch:2.0.10@sha256:3334c0f8f9ec8db8de4c35b946912dfd9a0822e8b640b62f60da6b8714be79d0 --base legacy --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/opensearch:v2.0.10@sha256:0e6fdc9b2eb17a096c4cee18110f18ab5347fb29f049c7322d005ce07da80c78 --base legacy --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 18
         cubInstallObjectCountIncludingSupport: 19
         semanticObjectMatches: "18/18"

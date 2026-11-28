@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:33e9d603109b517560aaa5e244acc3a825977fd5e417b436da07b63930ac2a78",
+      "sha256": "sha256:168547f46c3c4c20ef028a08b6d32d3ad3eef87df4443bb53c51310553722cc3",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/kyverno-kyverno-policies-3-8-0-default.yaml",
-      "sha256": "sha256:30b8752798e958499ea20f90132937f40ae179b598e649ef961fa3d6cb7b1463",
+      "sha256": "sha256:953da19d1ef888a2fda75af4e3ef4626e897cd12a1866f4c70ed63244a103a0d",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/kyverno-kyverno-policies-3-8-0-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -36,7 +36,7 @@
     "name": "kyverno/kyverno-policies",
     "version": "3.8.0",
     "reference": "kyverno/kyverno-policies@3.8.0",
-    "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno-policies:3.8.0@sha256:0c781c6839fbfa001648593f415386716ce425483b491593b2338196c93988b4",
+    "ociRef": "oci://ghcr.io/confighub/packages/kyverno-policies:v3.8.0@sha256:381b4a043f5b1f0ee86087c4cc902c419b4fe40c2b0f111a5835849a0545c5b8",
     "record": "data/helm-render-intents/intents/kyverno-kyverno-policies-3-8-0-default.yaml",
     "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/kyverno-kyverno-policies-3-8-0-default.yaml",
     "selection": {
@@ -92,7 +92,7 @@
     }
   },
   "oci": {
-    "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno-policies:3.8.0@sha256:0c781c6839fbfa001648593f415386716ce425483b491593b2338196c93988b4",
+    "sourcePackageRef": "oci://ghcr.io/confighub/packages/kyverno-policies:v3.8.0@sha256:381b4a043f5b1f0ee86087c4cc902c419b4fe40c2b0f111a5835849a0545c5b8",
     "bundles": [
       {
         "role": "source-package",
@@ -449,7 +449,7 @@
         },
         {
           "comment": "render this base from the signed package; step 3 can upload this directory",
-          "command": "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno-policies:3.8.0@sha256:0c781c6839fbfa001648593f415386716ce425483b491593b2338196c93988b4 --base default --work-dir ./kyverno-kyverno-policies-3-8-0-default --non-interactive --namespace default"
+          "command": "cub installer setup --pull oci://ghcr.io/confighub/packages/kyverno-policies:v3.8.0@sha256:381b4a043f5b1f0ee86087c4cc902c419b4fe40c2b0f111a5835849a0545c5b8 --base default --work-dir ./kyverno-kyverno-policies-3-8-0-default --non-interactive --namespace default"
         }
       ],
       "notes": [
@@ -513,7 +513,7 @@
         },
         {
           "comment": "put the signed package into a Space in one command: it pulls, renders and uploads",
-          "command": "cub package install oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno-policies:3.8.0@sha256:0c781c6839fbfa001648593f415386716ce425483b491593b2338196c93988b4 --base default --space <your-space> --namespace default --non-interactive",
+          "command": "cub package install oci://ghcr.io/confighub/packages/kyverno-policies:v3.8.0@sha256:381b4a043f5b1f0ee86087c4cc902c419b4fe40c2b0f111a5835849a0545c5b8 --base default --space <your-space> --namespace default --non-interactive",
           "needsAccount": true,
           "writes": true
         },

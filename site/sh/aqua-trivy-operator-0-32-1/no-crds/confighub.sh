@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the no-crds base variant into ./aqua-trivy-operator-0-32-1-no-crds"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aqua-trivy-operator:0.32.1@sha256:473c9b5a9803e80f6554db0cb7cd7f5c64c1ffdd1b04dd0216fdb4a657552ed0 --base no-crds --work-dir ./aqua-trivy-operator-0-32-1-no-crds --non-interactive --namespace default
+cub installer setup --pull oci://ghcr.io/confighub/packages/trivy-operator:v0.32.1@sha256:7e349c9b338908232ab79a54ece2767575d4cfd2e4a81647d0239b20b99f58d1 --base no-crds --work-dir ./aqua-trivy-operator-0-32-1-no-crds --non-interactive --namespace default
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./aqua-trivy-operator-0-32-1-no-crds --space "${SPACE}"

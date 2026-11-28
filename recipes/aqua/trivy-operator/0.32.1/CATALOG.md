@@ -49,7 +49,10 @@ for exact base-variant evidence.
 | Value model | [recipes/aqua/trivy-operator/0.32.1/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/aqua/trivy-operator/0.32.1/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/aqua/trivy-operator/0.32.1/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aqua-trivy-operator:0.32.1@sha256:473c9b5a9803e80f6554db0cb7cd7f5c64c1ffdd1b04dd0216fdb4a657552ed0` |
+| Install into a Space | `cub package install trivy-operator:v0.32.1 --space <space>` |
+| Installer package OCI | `oci://ghcr.io/confighub/packages/trivy-operator:v0.32.1@sha256:7e349c9b338908232ab79a54ece2767575d4cfd2e4a81647d0239b20b99f58d1` |
+| Installer package publication | [runs/ghcr-packages/trivy-operator/v0.32.1.yaml](../../../../runs/ghcr-packages/trivy-operator/v0.32.1.yaml) |
+| Earlier location | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aqua-trivy-operator:0.32.1@sha256:473c9b5a9803e80f6554db0cb7cd7f5c64c1ffdd1b04dd0216fdb4a657552ed0` |
 | Installer package source | [packages/aqua/trivy-operator/0.32.1](../../../../packages/aqua/trivy-operator/0.32.1) |
 | Installer package receipt | [recipes/aqua/trivy-operator/0.32.1/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/aqua/trivy-operator/0.32.1/artifact-index.yaml](artifact-index.yaml) |
@@ -83,12 +86,22 @@ for exact base-variant evidence.
 
 ## Current Install Shape
 
+Install the package into a ConfigHub Space, which renders it and uploads
+one Unit per resource:
+
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aqua-trivy-operator:0.32.1@sha256:473c9b5a9803e80f6554db0cb7cd7f5c64c1ffdd1b04dd0216fdb4a657552ed0 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub package install trivy-operator:v0.32.1 --space trivy-operator --base <variant> --namespace <namespace>
+```
+
+Or render it locally from the exact package bytes, with no Space:
+
+```sh
+cub installer setup --pull oci://ghcr.io/confighub/packages/trivy-operator:v0.32.1@sha256:7e349c9b338908232ab79a54ece2767575d4cfd2e4a81647d0239b20b99f58d1 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is
-the public package users pull; the `packages/...` path is the repo source path
+the public package users pull, signed by the package publish workflow; check it with
+`cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/trivy-operator@sha256:7e349c9b338908232ab79a54ece2767575d4cfd2e4a81647d0239b20b99f58d1`. The `packages/...` path is the repo source path
 used by maintainers and proof scripts. The proof path compares regular Helm
 output with real `cub installer setup` output and explains every intentional
 difference, such as the Namespace support object or separated Secrets.

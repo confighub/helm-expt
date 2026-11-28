@@ -49,7 +49,10 @@ for exact base-variant evidence.
 | Value model | [recipes/autoscaler/vertical-pod-autoscaler/0.9.0/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/autoscaler/vertical-pod-autoscaler/0.9.0/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/autoscaler/vertical-pod-autoscaler/0.9.0/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-vertical-pod-autoscaler:0.9.0@sha256:1ee72dbefe5df3af05372c9e565302b3dfbdd4f6e91e8f116b2b6042764267e7` |
+| Install into a Space | `cub package install vertical-pod-autoscaler:v0.9.0 --space <space>` |
+| Installer package OCI | `oci://ghcr.io/confighub/packages/vertical-pod-autoscaler:v0.9.0@sha256:e16dcf411cf4ec428b98df74c123d0134277e9875e827bf2d72f2d9a3fd60454` |
+| Installer package publication | [runs/ghcr-packages/vertical-pod-autoscaler/v0.9.0.yaml](../../../../runs/ghcr-packages/vertical-pod-autoscaler/v0.9.0.yaml) |
+| Earlier location | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-vertical-pod-autoscaler:0.9.0@sha256:1ee72dbefe5df3af05372c9e565302b3dfbdd4f6e91e8f116b2b6042764267e7` |
 | Installer package source | [packages/autoscaler/vertical-pod-autoscaler/0.9.0](../../../../packages/autoscaler/vertical-pod-autoscaler/0.9.0) |
 | Installer package receipt | [recipes/autoscaler/vertical-pod-autoscaler/0.9.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/autoscaler/vertical-pod-autoscaler/0.9.0/artifact-index.yaml](artifact-index.yaml) |
@@ -83,12 +86,22 @@ for exact base-variant evidence.
 
 ## Current Install Shape
 
+Install the package into a ConfigHub Space, which renders it and uploads
+one Unit per resource:
+
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-vertical-pod-autoscaler:0.9.0@sha256:1ee72dbefe5df3af05372c9e565302b3dfbdd4f6e91e8f116b2b6042764267e7 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub package install vertical-pod-autoscaler:v0.9.0 --space vertical-pod-autoscaler --base <variant> --namespace <namespace>
+```
+
+Or render it locally from the exact package bytes, with no Space:
+
+```sh
+cub installer setup --pull oci://ghcr.io/confighub/packages/vertical-pod-autoscaler:v0.9.0@sha256:e16dcf411cf4ec428b98df74c123d0134277e9875e827bf2d72f2d9a3fd60454 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is
-the public package users pull; the `packages/...` path is the repo source path
+the public package users pull, signed by the package publish workflow; check it with
+`cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/vertical-pod-autoscaler@sha256:e16dcf411cf4ec428b98df74c123d0134277e9875e827bf2d72f2d9a3fd60454`. The `packages/...` path is the repo source path
 used by maintainers and proof scripts. The proof path compares regular Helm
 output with real `cub installer setup` output and explains every intentional
 difference, such as the Namespace support object or separated Secrets.

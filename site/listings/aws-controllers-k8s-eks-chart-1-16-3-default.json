@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:33e9d603109b517560aaa5e244acc3a825977fd5e417b436da07b63930ac2a78",
+      "sha256": "sha256:168547f46c3c4c20ef028a08b6d32d3ad3eef87df4443bb53c51310553722cc3",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/aws-controllers-k8s-eks-chart-1-16-3-default.yaml",
-      "sha256": "sha256:1501c70ae186dffa1a54924ad210465371e1f090c49d3fbcc6a29971a1cf90b6",
+      "sha256": "sha256:a8dbab28f77dc9f89cbd7b14a468a7c194bd6292ac1a438184d54b8e80f458fb",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/aws-controllers-k8s-eks-chart-1-16-3-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -36,7 +36,7 @@
     "name": "aws-controllers-k8s/eks-chart",
     "version": "1.16.3",
     "reference": "aws-controllers-k8s/eks-chart@1.16.3",
-    "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-eks-chart:1.16.3@sha256:eb94b9abf66765bdab5f22a07d826f4ef60de76ce241e052d633fc9a512775a4",
+    "ociRef": "oci://ghcr.io/confighub/packages/ack-eks-controller:v1.16.3@sha256:6fd7021a0cf4e145dde449f4d877f4d4ecfbb919d2c0f8a7fc3a48ddab8265bc",
     "record": "data/helm-render-intents/intents/aws-controllers-k8s-eks-chart-1-16-3-default.yaml",
     "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/aws-controllers-k8s-eks-chart-1-16-3-default.yaml",
     "selection": {
@@ -92,7 +92,7 @@
     }
   },
   "oci": {
-    "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-eks-chart:1.16.3@sha256:eb94b9abf66765bdab5f22a07d826f4ef60de76ce241e052d633fc9a512775a4",
+    "sourcePackageRef": "oci://ghcr.io/confighub/packages/ack-eks-controller:v1.16.3@sha256:6fd7021a0cf4e145dde449f4d877f4d4ecfbb919d2c0f8a7fc3a48ddab8265bc",
     "bundles": [
       {
         "role": "source-package",
@@ -137,7 +137,9 @@
         "ghcr": {
           "reference": "oci://ghcr.io/confighub/configs/catalog/catalog-aws-controllers-k8s-eks-chart-1-16-3-default:bundle-23bff3864d38@sha256:23bff3864d38b4603ac83a4d37d8f9ff933d3c7928a175c9437ad3e87362d345",
           "manifestDigest": "sha256:23bff3864d38b4603ac83a4d37d8f9ff933d3c7928a175c9437ad3e87362d345",
-          "state": "awaits-workflow-publication",
+          "state": "published-signed",
+          "receipt": "runs/catalog-oci/catalog-aws-controllers-k8s-eks-chart-1-16-3-default/bundle-23bff3864d38.yaml",
+          "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/runs/catalog-oci/catalog-aws-controllers-k8s-eks-chart-1-16-3-default/bundle-23bff3864d38.yaml",
           "publisher": ".github/workflows/catalog-oci-publish.yml",
           "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/catalog-aws-controllers-k8s-eks-chart-1-16-3-default@sha256:23bff3864d38b4603ac83a4d37d8f9ff933d3c7928a175c9437ad3e87362d345",
           "sameDigestAsEarlier": true
@@ -557,12 +559,12 @@
         },
         {
           "comment": "preview the upload of the published bundle; nothing is written",
-          "command": "cub variant upload --dry-run --component aws-controllers-k8s-eks-chart --variant default --space aws-controllers-k8s-eks-chart-1-16-3-default --namespace ack-system --create-namespace oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aws-controllers-k8s-eks-chart-1-16-3-default:latest@sha256:23bff3864d38b4603ac83a4d37d8f9ff933d3c7928a175c9437ad3e87362d345",
+          "command": "cub variant upload --dry-run --component aws-controllers-k8s-eks-chart --variant default --space aws-controllers-k8s-eks-chart-1-16-3-default --namespace ack-system --create-namespace oci://ghcr.io/confighub/configs/catalog/catalog-aws-controllers-k8s-eks-chart-1-16-3-default:bundle-23bff3864d38@sha256:23bff3864d38b4603ac83a4d37d8f9ff933d3c7928a175c9437ad3e87362d345",
           "needsAccount": true
         },
         {
           "comment": "upload the bundle as a base Space of Units",
-          "command": "cub variant upload --component aws-controllers-k8s-eks-chart --variant default --space aws-controllers-k8s-eks-chart-1-16-3-default --namespace ack-system --create-namespace oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aws-controllers-k8s-eks-chart-1-16-3-default:latest@sha256:23bff3864d38b4603ac83a4d37d8f9ff933d3c7928a175c9437ad3e87362d345",
+          "command": "cub variant upload --component aws-controllers-k8s-eks-chart --variant default --space aws-controllers-k8s-eks-chart-1-16-3-default --namespace ack-system --create-namespace oci://ghcr.io/confighub/configs/catalog/catalog-aws-controllers-k8s-eks-chart-1-16-3-default:bundle-23bff3864d38@sha256:23bff3864d38b4603ac83a4d37d8f9ff933d3c7928a175c9437ad3e87362d345",
           "needsAccount": true,
           "writes": true
         }

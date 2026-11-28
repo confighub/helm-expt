@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:33e9d603109b517560aaa5e244acc3a825977fd5e417b436da07b63930ac2a78",
+      "sha256": "sha256:168547f46c3c4c20ef028a08b6d32d3ad3eef87df4443bb53c51310553722cc3",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/prometheus-community-kube-state-metrics-7-4-0-default.yaml",
-      "sha256": "sha256:d7f034d8b6bb850683e5745d68e23c4c06107ea2844f13e2428e7166eba2fda4",
+      "sha256": "sha256:869d64be18ad17182ae36f682ed1a4ae57ed4063eb7cee63a9783aa86f15cbb3",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/prometheus-community-kube-state-metrics-7-4-0-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -36,7 +36,7 @@
     "name": "prometheus-community/kube-state-metrics",
     "version": "7.4.0",
     "reference": "prometheus-community/kube-state-metrics@7.4.0",
-    "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-state-metrics:7.4.0@sha256:85624ed1be4b2eab3e3316b1fe23242f4007a06abde190351f939c9ae915c251",
+    "ociRef": "oci://ghcr.io/confighub/packages/kube-state-metrics:v7.4.0@sha256:2e3c35170be8a38d360ef6fb8fae6859d8b01aa01bd34103b06c8c069d984de0",
     "record": "data/helm-render-intents/intents/prometheus-community-kube-state-metrics-7-4-0-default.yaml",
     "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/prometheus-community-kube-state-metrics-7-4-0-default.yaml",
     "selection": {
@@ -92,7 +92,7 @@
     }
   },
   "oci": {
-    "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-state-metrics:7.4.0@sha256:85624ed1be4b2eab3e3316b1fe23242f4007a06abde190351f939c9ae915c251",
+    "sourcePackageRef": "oci://ghcr.io/confighub/packages/kube-state-metrics:v7.4.0@sha256:2e3c35170be8a38d360ef6fb8fae6859d8b01aa01bd34103b06c8c069d984de0",
     "bundles": [
       {
         "role": "source-package",
@@ -137,7 +137,9 @@
         "ghcr": {
           "reference": "oci://ghcr.io/confighub/configs/catalog/catalog-prometheus-community-kube-state-metrics-7-4-0-default:bundle-923c55b9b35a@sha256:923c55b9b35ab1c4419fae4ddfc3f7baee033e835d7829087b68009d79d25df2",
           "manifestDigest": "sha256:923c55b9b35ab1c4419fae4ddfc3f7baee033e835d7829087b68009d79d25df2",
-          "state": "awaits-workflow-publication",
+          "state": "published-signed",
+          "receipt": "runs/catalog-oci/catalog-prometheus-community-kube-state-metrics-7-4-0-default/bundle-923c55b9b35a.yaml",
+          "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/runs/catalog-oci/catalog-prometheus-community-kube-state-metrics-7-4-0-default/bundle-923c55b9b35a.yaml",
           "publisher": ".github/workflows/catalog-oci-publish.yml",
           "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/catalog-prometheus-community-kube-state-metrics-7-4-0-default@sha256:923c55b9b35ab1c4419fae4ddfc3f7baee033e835d7829087b68009d79d25df2",
           "sameDigestAsEarlier": true
@@ -527,12 +529,12 @@
         },
         {
           "comment": "preview the upload of the published bundle; nothing is written",
-          "command": "cub variant upload --dry-run --component prometheus-community-kube-state-metrics --variant default --space prometheus-community-kube-state-metrics-7-4-0-default --namespace default oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-kube-state-metrics-7-4-0-default:latest@sha256:923c55b9b35ab1c4419fae4ddfc3f7baee033e835d7829087b68009d79d25df2",
+          "command": "cub variant upload --dry-run --component prometheus-community-kube-state-metrics --variant default --space prometheus-community-kube-state-metrics-7-4-0-default --namespace default oci://ghcr.io/confighub/configs/catalog/catalog-prometheus-community-kube-state-metrics-7-4-0-default:bundle-923c55b9b35a@sha256:923c55b9b35ab1c4419fae4ddfc3f7baee033e835d7829087b68009d79d25df2",
           "needsAccount": true
         },
         {
           "comment": "upload the bundle as a base Space of Units",
-          "command": "cub variant upload --component prometheus-community-kube-state-metrics --variant default --space prometheus-community-kube-state-metrics-7-4-0-default --namespace default oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-kube-state-metrics-7-4-0-default:latest@sha256:923c55b9b35ab1c4419fae4ddfc3f7baee033e835d7829087b68009d79d25df2",
+          "command": "cub variant upload --component prometheus-community-kube-state-metrics --variant default --space prometheus-community-kube-state-metrics-7-4-0-default --namespace default oci://ghcr.io/confighub/configs/catalog/catalog-prometheus-community-kube-state-metrics-7-4-0-default:bundle-923c55b9b35a@sha256:923c55b9b35ab1c4419fae4ddfc3f7baee033e835d7829087b68009d79d25df2",
           "needsAccount": true,
           "writes": true
         }

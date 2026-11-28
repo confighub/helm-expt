@@ -50,7 +50,10 @@ for exact base-variant evidence.
 | GitOps runtime review | [recipes/traefik/traefik/40.2.0/gitops-runtime-review.yaml](gitops-runtime-review.yaml) |
 | Catalog status | [recipes/traefik/traefik/40.2.0/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/traefik/traefik/40.2.0/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:40.2.0@sha256:b127b8df699116a6e6252bcf5a1199c2a32640b7e99de2e45fd507dd29022535` |
+| Install into a Space | `cub package install traefik:v40.2.0 --space <space>` |
+| Installer package OCI | `oci://ghcr.io/confighub/packages/traefik:v40.2.0@sha256:071be19434f6cebeb38d5ba1e24bde461761dce02913ebefa975823ff2d0ca52` |
+| Installer package publication | [runs/ghcr-packages/traefik/v40.2.0.yaml](../../../../runs/ghcr-packages/traefik/v40.2.0.yaml) |
+| Earlier location | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:40.2.0@sha256:b127b8df699116a6e6252bcf5a1199c2a32640b7e99de2e45fd507dd29022535` |
 | Installer package source | [packages/traefik/traefik/40.2.0](../../../../packages/traefik/traefik/40.2.0) |
 | Installer package receipt | [recipes/traefik/traefik/40.2.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/traefik/traefik/40.2.0/artifact-index.yaml](artifact-index.yaml) |
@@ -84,12 +87,22 @@ for exact base-variant evidence.
 
 ## Current Install Shape
 
+Install the package into a ConfigHub Space, which renders it and uploads
+one Unit per resource:
+
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:40.2.0@sha256:b127b8df699116a6e6252bcf5a1199c2a32640b7e99de2e45fd507dd29022535 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub package install traefik:v40.2.0 --space traefik --base <variant> --namespace <namespace>
+```
+
+Or render it locally from the exact package bytes, with no Space:
+
+```sh
+cub installer setup --pull oci://ghcr.io/confighub/packages/traefik:v40.2.0@sha256:071be19434f6cebeb38d5ba1e24bde461761dce02913ebefa975823ff2d0ca52 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is
-the public package users pull; the `packages/...` path is the repo source path
+the public package users pull, signed by the package publish workflow; check it with
+`cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/traefik@sha256:071be19434f6cebeb38d5ba1e24bde461761dce02913ebefa975823ff2d0ca52`. The `packages/...` path is the repo source path
 used by maintainers and proof scripts. The proof path compares regular Helm
 output with real `cub installer setup` output and explains every intentional
 difference, such as the Namespace support object or separated Secrets.

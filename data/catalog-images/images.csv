@@ -13,6 +13,12 @@ argo-cd-argo-cd-10-2-1-default,quay.io/argoproj/argocd:v3.4.5,tag
 argo-cd-argo-cd-10-2-1-no-crds,ecr-public.aws.com/docker/library/redis:8.2.3-alpine,tag
 argo-cd-argo-cd-10-2-1-no-crds,ghcr.io/dexidp/dex:v2.45.1,tag
 argo-cd-argo-cd-10-2-1-no-crds,quay.io/argoproj/argocd:v3.4.5,tag
+argo-cd-argo-cd-10-20-0-default,ecr-public.aws.com/docker/library/redis:8.6.4-alpine,tag
+argo-cd-argo-cd-10-20-0-default,ghcr.io/dexidp/dex:v2.46.1,tag
+argo-cd-argo-cd-10-20-0-default,quay.io/argoproj/argocd:v3.6.3,tag
+argo-cd-argo-cd-10-20-0-no-crds,ecr-public.aws.com/docker/library/redis:8.6.4-alpine,tag
+argo-cd-argo-cd-10-20-0-no-crds,ghcr.io/dexidp/dex:v2.46.1,tag
+argo-cd-argo-cd-10-20-0-no-crds,quay.io/argoproj/argocd:v3.6.3,tag
 argo-cd-argo-cd-10-7-0-default,ecr-public.aws.com/docker/library/redis:8.6.4-alpine,tag
 argo-cd-argo-cd-10-7-0-default,ghcr.io/dexidp/dex:v2.45.1,tag
 argo-cd-argo-cd-10-7-0-default,quay.io/argoproj/argocd:v3.5.2,tag

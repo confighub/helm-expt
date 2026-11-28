@@ -949,7 +949,7 @@ Schema
       <h3 id="live-own-account">With your own account</h3>
       <p class="install-cub-note installer-command-note"><strong>Here is what the command does.</strong> cub installer is an open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally, leaving delivery to kubectl, Argo CD or Flux. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
   <pre class="terminal-body"><code><span class="term-comment"># render the base from the signed package</span>
-<span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.7.0@sha256:cf2cfeae128c4ede5cfa9ac65bdf241b557d59a1badacdd107e044caadb0d353 --base existing-secret --work-dir ./bitnami-postgresql-18-7-0-existing-secret --non-interactive --namespace postgresql
+<span class="term-prompt">$</span> cub installer setup --pull oci://ghcr.io/confighub/packages/postgresql:v18.7.0@sha256:40d2f3d8b167f4d9c95b95e32250c6fd292a778cc3fdd93bbbe795476cd5dd7c --base existing-secret --work-dir ./bitnami-postgresql-18-7-0-existing-secret --non-interactive --namespace postgresql
 
 <span class="term-comment"># sign in to your organization</span>
 <span class="term-prompt">$</span> cub auth login

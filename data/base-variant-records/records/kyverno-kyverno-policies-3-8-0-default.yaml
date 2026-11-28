@@ -13,7 +13,7 @@ spec:
     name: "kyverno/kyverno-policies"
     version: "3.8.0"
     record: "data/helm-render-intents/intents/kyverno-kyverno-policies-3-8-0-default.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno-policies:3.8.0@sha256:0c781c6839fbfa001648593f415386716ce425483b491593b2338196c93988b4"
+    packageOciRef: "oci://ghcr.io/confighub/packages/kyverno-policies:v3.8.0@sha256:381b4a043f5b1f0ee86087c4cc902c419b4fe40c2b0f111a5835849a0545c5b8"
     selection:
       name: "default"
       kind: "catalog-preset"

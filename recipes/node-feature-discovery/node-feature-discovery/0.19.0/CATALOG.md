@@ -49,7 +49,10 @@ for exact base-variant evidence.
 | Value model | [recipes/node-feature-discovery/node-feature-discovery/0.19.0/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/node-feature-discovery/node-feature-discovery/0.19.0/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/node-feature-discovery/node-feature-discovery/0.19.0/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/node-feature-discovery-node-feature-discovery:0.19.0@sha256:44e9888786f6d0c52a1351f8dcae597b1c91d68ddaf135049e9637fdbd76ea63` |
+| Install into a Space | `cub package install node-feature-discovery:v0.19.0 --space <space>` |
+| Installer package OCI | `oci://ghcr.io/confighub/packages/node-feature-discovery:v0.19.0@sha256:cea7c9e8f01fab415b3cc6ac4959e8a6fe5153e933699b764a6e5349a121a75d` |
+| Installer package publication | [runs/ghcr-packages/node-feature-discovery/v0.19.0.yaml](../../../../runs/ghcr-packages/node-feature-discovery/v0.19.0.yaml) |
+| Earlier location | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/node-feature-discovery-node-feature-discovery:0.19.0@sha256:44e9888786f6d0c52a1351f8dcae597b1c91d68ddaf135049e9637fdbd76ea63` |
 | Installer package source | [packages/node-feature-discovery/node-feature-discovery/0.19.0](../../../../packages/node-feature-discovery/node-feature-discovery/0.19.0) |
 | Installer package receipt | [recipes/node-feature-discovery/node-feature-discovery/0.19.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/node-feature-discovery/node-feature-discovery/0.19.0/artifact-index.yaml](artifact-index.yaml) |
@@ -89,12 +92,22 @@ for exact base-variant evidence.
 
 ## Current Install Shape
 
+Install the package into a ConfigHub Space, which renders it and uploads
+one Unit per resource:
+
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/node-feature-discovery-node-feature-discovery:0.19.0@sha256:44e9888786f6d0c52a1351f8dcae597b1c91d68ddaf135049e9637fdbd76ea63 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub package install node-feature-discovery:v0.19.0 --space node-feature-discovery --base <variant> --namespace <namespace>
+```
+
+Or render it locally from the exact package bytes, with no Space:
+
+```sh
+cub installer setup --pull oci://ghcr.io/confighub/packages/node-feature-discovery:v0.19.0@sha256:cea7c9e8f01fab415b3cc6ac4959e8a6fe5153e933699b764a6e5349a121a75d --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is
-the public package users pull; the `packages/...` path is the repo source path
+the public package users pull, signed by the package publish workflow; check it with
+`cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/node-feature-discovery@sha256:cea7c9e8f01fab415b3cc6ac4959e8a6fe5153e933699b764a6e5349a121a75d`. The `packages/...` path is the repo source path
 used by maintainers and proof scripts. The proof path compares regular Helm
 output with real `cub installer setup` output and explains every intentional
 difference, such as the Namespace support object or separated Secrets.

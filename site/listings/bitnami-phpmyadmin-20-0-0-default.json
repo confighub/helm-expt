@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:33e9d603109b517560aaa5e244acc3a825977fd5e417b436da07b63930ac2a78",
+      "sha256": "sha256:168547f46c3c4c20ef028a08b6d32d3ad3eef87df4443bb53c51310553722cc3",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/bitnami-phpmyadmin-20-0-0-default.yaml",
-      "sha256": "sha256:d280d57813c60cf2bc077aa75844c709c101b47889a1a3d22c4f49be7882c83a",
+      "sha256": "sha256:2fc716e7f55683296415cc6b61cf8f83d6d4f220a79c7e1bae25710e644a57cb",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/bitnami-phpmyadmin-20-0-0-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -36,7 +36,7 @@
     "name": "bitnami/phpmyadmin",
     "version": "20.0.0",
     "reference": "bitnami/phpmyadmin@20.0.0",
-    "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-phpmyadmin:20.0.0@sha256:920d98ee4cb958782095688f69a573134ae55cdef731b3c8fa96e859fd59c06b",
+    "ociRef": "oci://ghcr.io/confighub/packages/phpmyadmin:v20.0.0@sha256:b09f49035e0c37eff30ca211b53eb94a1c214280e202ff1437f847886810bd8f",
     "record": "data/helm-render-intents/intents/bitnami-phpmyadmin-20-0-0-default.yaml",
     "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/bitnami-phpmyadmin-20-0-0-default.yaml",
     "selection": {
@@ -92,7 +92,7 @@
     }
   },
   "oci": {
-    "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-phpmyadmin:20.0.0@sha256:920d98ee4cb958782095688f69a573134ae55cdef731b3c8fa96e859fd59c06b",
+    "sourcePackageRef": "oci://ghcr.io/confighub/packages/phpmyadmin:v20.0.0@sha256:b09f49035e0c37eff30ca211b53eb94a1c214280e202ff1437f847886810bd8f",
     "bundles": [
       {
         "role": "source-package",
@@ -137,7 +137,9 @@
         "ghcr": {
           "reference": "oci://ghcr.io/confighub/configs/catalog/catalog-bitnami-phpmyadmin-20-0-0-default:bundle-450ebbdbf0fb@sha256:450ebbdbf0fb9952f16af5d838b158cc6d964abe1890480c7af3d642a38a6c68",
           "manifestDigest": "sha256:450ebbdbf0fb9952f16af5d838b158cc6d964abe1890480c7af3d642a38a6c68",
-          "state": "awaits-workflow-publication",
+          "state": "published-signed",
+          "receipt": "runs/catalog-oci/catalog-bitnami-phpmyadmin-20-0-0-default/bundle-450ebbdbf0fb.yaml",
+          "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/runs/catalog-oci/catalog-bitnami-phpmyadmin-20-0-0-default/bundle-450ebbdbf0fb.yaml",
           "publisher": ".github/workflows/catalog-oci-publish.yml",
           "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/catalog-bitnami-phpmyadmin-20-0-0-default@sha256:450ebbdbf0fb9952f16af5d838b158cc6d964abe1890480c7af3d642a38a6c68",
           "sameDigestAsEarlier": true
@@ -527,12 +529,12 @@
         },
         {
           "comment": "preview the upload of the published bundle; nothing is written",
-          "command": "cub variant upload --dry-run --component bitnami-phpmyadmin --variant default --space bitnami-phpmyadmin-20-0-0-default --namespace default oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-bitnami-phpmyadmin-20-0-0-default:latest@sha256:450ebbdbf0fb9952f16af5d838b158cc6d964abe1890480c7af3d642a38a6c68",
+          "command": "cub variant upload --dry-run --component bitnami-phpmyadmin --variant default --space bitnami-phpmyadmin-20-0-0-default --namespace default oci://ghcr.io/confighub/configs/catalog/catalog-bitnami-phpmyadmin-20-0-0-default:bundle-450ebbdbf0fb@sha256:450ebbdbf0fb9952f16af5d838b158cc6d964abe1890480c7af3d642a38a6c68",
           "needsAccount": true
         },
         {
           "comment": "upload the bundle as a base Space of Units",
-          "command": "cub variant upload --component bitnami-phpmyadmin --variant default --space bitnami-phpmyadmin-20-0-0-default --namespace default oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-bitnami-phpmyadmin-20-0-0-default:latest@sha256:450ebbdbf0fb9952f16af5d838b158cc6d964abe1890480c7af3d642a38a6c68",
+          "command": "cub variant upload --component bitnami-phpmyadmin --variant default --space bitnami-phpmyadmin-20-0-0-default --namespace default oci://ghcr.io/confighub/configs/catalog/catalog-bitnami-phpmyadmin-20-0-0-default:bundle-450ebbdbf0fb@sha256:450ebbdbf0fb9952f16af5d838b158cc6d964abe1890480c7af3d642a38a6c68",
           "needsAccount": true,
           "writes": true
         }

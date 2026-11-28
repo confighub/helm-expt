@@ -49,7 +49,10 @@ for exact base-variant evidence.
 | Value model | [recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics:1.19.2@sha256:d869a5ff9e363ef5624db8145215f4b369d41f3a8f9d20849258af39f4adb21d` |
+| Install into a Space | `cub package install k8s-ephemeral-storage-metrics:v1.19.2 --space <space>` |
+| Installer package OCI | `oci://ghcr.io/confighub/packages/k8s-ephemeral-storage-metrics:v1.19.2@sha256:e6c3b48eac0969b12efc8c2e1f59c8f3b80beb446d50dec56c84d12d1c4dd9f0` |
+| Installer package publication | [runs/ghcr-packages/k8s-ephemeral-storage-metrics/v1.19.2.yaml](../../../../runs/ghcr-packages/k8s-ephemeral-storage-metrics/v1.19.2.yaml) |
+| Earlier location | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics:1.19.2@sha256:d869a5ff9e363ef5624db8145215f4b369d41f3a8f9d20849258af39f4adb21d` |
 | Installer package source | [packages/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2](../../../../packages/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2) |
 | Installer package receipt | [recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/artifact-index.yaml](artifact-index.yaml) |
@@ -89,12 +92,22 @@ for exact base-variant evidence.
 
 ## Current Install Shape
 
+Install the package into a ConfigHub Space, which renders it and uploads
+one Unit per resource:
+
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics:1.19.2@sha256:d869a5ff9e363ef5624db8145215f4b369d41f3a8f9d20849258af39f4adb21d --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub package install k8s-ephemeral-storage-metrics:v1.19.2 --space k8s-ephemeral-storage-metrics --base <variant> --namespace <namespace>
+```
+
+Or render it locally from the exact package bytes, with no Space:
+
+```sh
+cub installer setup --pull oci://ghcr.io/confighub/packages/k8s-ephemeral-storage-metrics:v1.19.2@sha256:e6c3b48eac0969b12efc8c2e1f59c8f3b80beb446d50dec56c84d12d1c4dd9f0 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is
-the public package users pull; the `packages/...` path is the repo source path
+the public package users pull, signed by the package publish workflow; check it with
+`cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/k8s-ephemeral-storage-metrics@sha256:e6c3b48eac0969b12efc8c2e1f59c8f3b80beb446d50dec56c84d12d1c4dd9f0`. The `packages/...` path is the repo source path
 used by maintainers and proof scripts. The proof path compares regular Helm
 output with real `cub installer setup` output and explains every intentional
 difference, such as the Namespace support object or separated Secrets.

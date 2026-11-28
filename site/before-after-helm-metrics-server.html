@@ -921,7 +921,7 @@ Schema
       <h3 id="live-own-account">With your own account</h3>
       <p class="install-cub-note installer-command-note"><strong>Here is what the command does.</strong> cub installer is an open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally, leaving delivery to kubectl, Argo CD or Flux. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
   <pre class="terminal-body"><code><span class="term-comment"># render the base from the signed package</span>
-<span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.14.0@sha256:806f198aca52dc7db180a04354dd7895873cad5c1811a45532d7e27077e3a0a3 --base default --work-dir ./metrics-server-metrics-server-3-14-0-default --non-interactive --namespace kube-system
+<span class="term-prompt">$</span> cub installer setup --pull oci://ghcr.io/confighub/packages/metrics-server:v3.14.0@sha256:9f99668caf5862399d4ecd6d3099cb9b25bed2c56a1f15e12b845fc9735d015c --base default --work-dir ./metrics-server-metrics-server-3-14-0-default --non-interactive --namespace kube-system
 
 <span class="term-comment"># sign in to your organization</span>
 <span class="term-prompt">$</span> cub auth login

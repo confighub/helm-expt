@@ -49,7 +49,10 @@ for exact base-variant evidence.
 | Value model | [recipes/vm/victoria-logs-single/0.12.5/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/vm/victoria-logs-single/0.12.5/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/vm/victoria-logs-single/0.12.5/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-logs-single:0.12.5@sha256:600a3ea933d9ffa94358d653ab77560ad1356d48c4b3b3f06cbbfb0845438686` |
+| Install into a Space | `cub package install victoria-logs-single:v0.12.5 --space <space>` |
+| Installer package OCI | `oci://ghcr.io/confighub/packages/victoria-logs-single:v0.12.5@sha256:38f09fe2fa038edb5bc191ae1e5b2beaa0e469fed976969b2ef0edd20ce5b8c2` |
+| Installer package publication | [runs/ghcr-packages/victoria-logs-single/v0.12.5.yaml](../../../../runs/ghcr-packages/victoria-logs-single/v0.12.5.yaml) |
+| Earlier location | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-logs-single:0.12.5@sha256:600a3ea933d9ffa94358d653ab77560ad1356d48c4b3b3f06cbbfb0845438686` |
 | Installer package source | [packages/vm/victoria-logs-single/0.12.5](../../../../packages/vm/victoria-logs-single/0.12.5) |
 | Installer package receipt | [recipes/vm/victoria-logs-single/0.12.5/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/vm/victoria-logs-single/0.12.5/artifact-index.yaml](artifact-index.yaml) |
@@ -77,12 +80,22 @@ for exact base-variant evidence.
 
 ## Current Install Shape
 
+Install the package into a ConfigHub Space, which renders it and uploads
+one Unit per resource:
+
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-logs-single:0.12.5@sha256:600a3ea933d9ffa94358d653ab77560ad1356d48c4b3b3f06cbbfb0845438686 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub package install victoria-logs-single:v0.12.5 --space victoria-logs-single --base <variant> --namespace <namespace>
+```
+
+Or render it locally from the exact package bytes, with no Space:
+
+```sh
+cub installer setup --pull oci://ghcr.io/confighub/packages/victoria-logs-single:v0.12.5@sha256:38f09fe2fa038edb5bc191ae1e5b2beaa0e469fed976969b2ef0edd20ce5b8c2 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is
-the public package users pull; the `packages/...` path is the repo source path
+the public package users pull, signed by the package publish workflow; check it with
+`cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/victoria-logs-single@sha256:38f09fe2fa038edb5bc191ae1e5b2beaa0e469fed976969b2ef0edd20ce5b8c2`. The `packages/...` path is the repo source path
 used by maintainers and proof scripts. The proof path compares regular Helm
 output with real `cub installer setup` output and explains every intentional
 difference, such as the Namespace support object or separated Secrets.

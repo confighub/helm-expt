@@ -65,11 +65,18 @@ spec:
     nextAction: "resolve image digests for each affected variant before production OCI support"
   installerPackage:
     path: "packages/grafana/grafana/10.5.15"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-grafana:10.5.15@sha256:fc038da08ab8544cdf8d3c08fd981e542de4d5e0f8ae61e21f163a9eb9956cc3"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-grafana:10.5.15"
-    manifestDigest: "sha256:fc038da08ab8544cdf8d3c08fd981e542de4d5e0f8ae61e21f163a9eb9956cc3"
-    layerDigest: "sha256:b3480492646d4e9bafdee00abb9e3a8478ae9f3f25290be062b33fca0359f5f6"
-    publicationReceipt: "runs/installer-oci/grafana-grafana/10.5.15/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/grafana:v10.5.15@sha256:6b4a5d1ebf104fb5214504017f3bea306aa604e97aa2b7830248da821232c3c3"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/grafana:v10.5.15"
+    manifestDigest: "sha256:6b4a5d1ebf104fb5214504017f3bea306aa604e97aa2b7830248da821232c3c3"
+    layerDigest: "sha256:de477a9ecc23444a2fdff9232587703d1aad2f21bc162f1eabb957b2100825d1"
+    publicationReceipt: "runs/ghcr-packages/grafana/v10.5.15.yaml"
+    name: "grafana"
+    tag: "v10.5.15"
+    installCommand: "cub package install grafana:v10.5.15 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/grafana@sha256:6b4a5d1ebf104fb5214504017f3bea306aa604e97aa2b7830248da821232c3c3"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-grafana:10.5.15@sha256:fc038da08ab8544cdf8d3c08fd981e542de4d5e0f8ae61e21f163a9eb9956cc3"
+      publicationReceipt: "runs/installer-oci/grafana-grafana/10.5.15/installer-package-publication-receipt.yaml"
     installer: "packages/grafana/grafana/10.5.15/installer.yaml"
     receipt: "recipes/grafana/grafana/10.5.15/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "b3480492646d4e9bafdee00abb9e3a8478ae9f3f25290be062b33fca0359f5f6"
@@ -106,7 +113,7 @@ spec:
         default: false
         description: "grafana static password demo variant rendered from grafana/grafana@10.5.15"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-grafana:10.5.15@sha256:fc038da08ab8544cdf8d3c08fd981e542de4d5e0f8ae61e21f163a9eb9956cc3 --base static-passwords --work-dir <tmp> --non-interactive --namespace grafana"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/grafana:v10.5.15@sha256:6b4a5d1ebf104fb5214504017f3bea306aa604e97aa2b7830248da821232c3c3 --base static-passwords --work-dir <tmp> --non-interactive --namespace grafana"
         helmReleaseObjectCount: 9
         cubInstallObjectCountIncludingSupport: 10
         semanticObjectMatches: "9/9"
@@ -175,7 +182,7 @@ spec:
         default: true
         description: "grafana existing Secret default variant rendered from grafana/grafana@10.5.15"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-grafana:10.5.15@sha256:fc038da08ab8544cdf8d3c08fd981e542de4d5e0f8ae61e21f163a9eb9956cc3 --base existing-secret-ingress --work-dir <tmp> --non-interactive --namespace grafana"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/grafana:v10.5.15@sha256:6b4a5d1ebf104fb5214504017f3bea306aa604e97aa2b7830248da821232c3c3 --base existing-secret-ingress --work-dir <tmp> --non-interactive --namespace grafana"
         helmReleaseObjectCount: 9
         cubInstallObjectCountIncludingSupport: 10
         semanticObjectMatches: "9/9"

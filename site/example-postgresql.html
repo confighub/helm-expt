@@ -1010,7 +1010,7 @@ Schema
           <p class="installer-command-note">If you want to try linked environment copies and approvals in hosted ConfigHub, sign in and paste the commands below. In your workspace, this creates the base folder <code>postgresql-example</code> and two copies, <code>postgresql-example-dev</code> and <code>postgresql-example-prod</code>. That base folder holds all 6 Kubernetes objects and a record of the install. Prod runs three replicas of its StatefulSet. It touches no cluster.</p>
           <pre class="terminal-body"><code><span class="term-prompt">$</span> cub auth login
 
-<span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.7.0@sha256:cf2cfeae128c4ede5cfa9ac65bdf241b557d59a1badacdd107e044caadb0d353 --base existing-secret --work-dir ./postgresql-example --non-interactive --namespace postgresql &amp;&amp; cub installer upload --work-dir ./postgresql-example --space postgresql-example &amp;&amp; cub component create postgresql-example &amp;&amp; cub space update --patch postgresql-example --component postgresql-example
+<span class="term-prompt">$</span> cub installer setup --pull oci://ghcr.io/confighub/packages/postgresql:v18.7.0@sha256:40d2f3d8b167f4d9c95b95e32250c6fd292a778cc3fdd93bbbe795476cd5dd7c --base existing-secret --work-dir ./postgresql-example --non-interactive --namespace postgresql &amp;&amp; cub installer upload --work-dir ./postgresql-example --space postgresql-example &amp;&amp; cub component create postgresql-example &amp;&amp; cub space update --patch postgresql-example --component postgresql-example
 
 <span class="term-prompt">$</span> cub variant create dev postgresql-example --change-desc &quot;Clone the base as dev&quot;
 

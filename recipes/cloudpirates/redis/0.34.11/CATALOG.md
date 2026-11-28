@@ -51,7 +51,10 @@ for exact base-variant evidence.
 | Value model | [recipes/cloudpirates/redis/0.34.11/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/cloudpirates/redis/0.34.11/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/cloudpirates/redis/0.34.11/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11@sha256:ed4ebe13040d1fe9c079ef6b94497cda40598bcb484789db115001f6aadcc4eb` |
+| Install into a Space | `cub package install cloudpirates-redis:v0.34.11 --space <space>` |
+| Installer package OCI | `oci://ghcr.io/confighub/packages/cloudpirates-redis:v0.34.11@sha256:71421fdfe6d7fd137c7014449150967d2ba6278927749786c95367e408fbfb6e` |
+| Installer package publication | [runs/ghcr-packages/cloudpirates-redis/v0.34.11.yaml](../../../../runs/ghcr-packages/cloudpirates-redis/v0.34.11.yaml) |
+| Earlier location | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11@sha256:ed4ebe13040d1fe9c079ef6b94497cda40598bcb484789db115001f6aadcc4eb` |
 | Installer package source | [packages/cloudpirates/redis/0.34.11](../../../../packages/cloudpirates/redis/0.34.11) |
 | Installer package receipt | [recipes/cloudpirates/redis/0.34.11/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/cloudpirates/redis/0.34.11/artifact-index.yaml](artifact-index.yaml) |
@@ -85,12 +88,22 @@ for exact base-variant evidence.
 
 ## Current Install Shape
 
+Install the package into a ConfigHub Space, which renders it and uploads
+one Unit per resource:
+
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11@sha256:ed4ebe13040d1fe9c079ef6b94497cda40598bcb484789db115001f6aadcc4eb --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub package install cloudpirates-redis:v0.34.11 --space cloudpirates-redis --base <variant> --namespace <namespace>
+```
+
+Or render it locally from the exact package bytes, with no Space:
+
+```sh
+cub installer setup --pull oci://ghcr.io/confighub/packages/cloudpirates-redis:v0.34.11@sha256:71421fdfe6d7fd137c7014449150967d2ba6278927749786c95367e408fbfb6e --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is
-the public package users pull; the `packages/...` path is the repo source path
+the public package users pull, signed by the package publish workflow; check it with
+`cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/cloudpirates-redis@sha256:71421fdfe6d7fd137c7014449150967d2ba6278927749786c95367e408fbfb6e`. The `packages/...` path is the repo source path
 used by maintainers and proof scripts. The proof path compares regular Helm
 output with real `cub installer setup` output and explains every intentional
 difference, such as the Namespace support object or separated Secrets.

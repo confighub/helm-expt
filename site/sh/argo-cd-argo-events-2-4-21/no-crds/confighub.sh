@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the no-crds base variant into ./argo-cd-argo-events-2-4-21-no-crds"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-events:2.4.21@sha256:d17322319fd2884cdd914aa580ab94aed8ce7b948af51325a4d9973f7c001b47 --base no-crds --work-dir ./argo-cd-argo-events-2-4-21-no-crds --non-interactive --namespace default
+cub installer setup --pull oci://ghcr.io/confighub/packages/argo-events:v2.4.21@sha256:0450f33d53d534b19a08e3ef98a28132b3dc45a8682c18ad8e84885783f005db --base no-crds --work-dir ./argo-cd-argo-events-2-4-21-no-crds --non-interactive --namespace default
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./argo-cd-argo-events-2-4-21-no-crds --space "${SPACE}"

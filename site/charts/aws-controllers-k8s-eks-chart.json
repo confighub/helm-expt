@@ -19,7 +19,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-eks-chart:1.16.3@sha256:eb94b9abf66765bdab5f22a07d826f4ef60de76ce241e052d633fc9a512775a4"
+        "ociRef": "oci://ghcr.io/confighub/packages/ack-eks-controller:v1.16.3@sha256:6fd7021a0cf4e145dde449f4d877f4d4ecfbb919d2c0f8a7fc3a48ddab8265bc",
+        "installCommand": "cub package install ack-eks-controller:v1.16.3 --space <space>"
       },
       "bases": [
         {

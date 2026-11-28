@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the existing-secret base variant into ./cloudpirates-rabbitmq-0-21-13-existing-secret"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-rabbitmq:0.21.13@sha256:fd175661adf537893aa549cae62df7e6f0005be8f0e4098224d433626f74bbfc --base existing-secret --work-dir ./cloudpirates-rabbitmq-0-21-13-existing-secret --non-interactive --namespace default
+cub installer setup --pull oci://ghcr.io/confighub/packages/cloudpirates-rabbitmq:v0.21.13@sha256:8337f77a74ca90b01e8255c58f797feb6544d7c96d66276fa17efd720d776a78 --base existing-secret --work-dir ./cloudpirates-rabbitmq-0-21-13-existing-secret --non-interactive --namespace default
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./cloudpirates-rabbitmq-0-21-13-existing-secret/out/manifests

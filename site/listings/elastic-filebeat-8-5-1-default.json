@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:33e9d603109b517560aaa5e244acc3a825977fd5e417b436da07b63930ac2a78",
+      "sha256": "sha256:168547f46c3c4c20ef028a08b6d32d3ad3eef87df4443bb53c51310553722cc3",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/elastic-filebeat-8-5-1-default.yaml",
-      "sha256": "sha256:f66067670d05e08ce9d53c248da1bba3d091a264e4ce02ff7bf0537eca7b95a7",
+      "sha256": "sha256:59ddfc279135cbf9187d8b3b83f4ea547a07d1429194106a4fff7f67b4f269a5",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/elastic-filebeat-8-5-1-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -36,7 +36,7 @@
     "name": "elastic/filebeat",
     "version": "8.5.1",
     "reference": "elastic/filebeat@8.5.1",
-    "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-filebeat:8.5.1@sha256:16db362566c51934e9807a7f2f2f57dfc20df88318658f5e7106d0f45bca2e47",
+    "ociRef": "oci://ghcr.io/confighub/packages/filebeat:v8.5.1@sha256:8d07c3cc6d0d78ad22681505d6c2c55633d74473282b511ef490307c776da9be",
     "record": "data/helm-render-intents/intents/elastic-filebeat-8-5-1-default.yaml",
     "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/elastic-filebeat-8-5-1-default.yaml",
     "selection": {
@@ -92,7 +92,7 @@
     }
   },
   "oci": {
-    "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-filebeat:8.5.1@sha256:16db362566c51934e9807a7f2f2f57dfc20df88318658f5e7106d0f45bca2e47",
+    "sourcePackageRef": "oci://ghcr.io/confighub/packages/filebeat:v8.5.1@sha256:8d07c3cc6d0d78ad22681505d6c2c55633d74473282b511ef490307c776da9be",
     "bundles": [
       {
         "role": "source-package",
@@ -137,7 +137,9 @@
         "ghcr": {
           "reference": "oci://ghcr.io/confighub/configs/catalog/catalog-elastic-filebeat-8-5-1-default:bundle-c4f8a2f65516@sha256:c4f8a2f6551641b360154312c1efac211112d05fd28211f9baeccc83eec3ba56",
           "manifestDigest": "sha256:c4f8a2f6551641b360154312c1efac211112d05fd28211f9baeccc83eec3ba56",
-          "state": "awaits-workflow-publication",
+          "state": "published-signed",
+          "receipt": "runs/catalog-oci/catalog-elastic-filebeat-8-5-1-default/bundle-c4f8a2f65516.yaml",
+          "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/runs/catalog-oci/catalog-elastic-filebeat-8-5-1-default/bundle-c4f8a2f65516.yaml",
           "publisher": ".github/workflows/catalog-oci-publish.yml",
           "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/catalog-elastic-filebeat-8-5-1-default@sha256:c4f8a2f6551641b360154312c1efac211112d05fd28211f9baeccc83eec3ba56",
           "sameDigestAsEarlier": true
@@ -556,12 +558,12 @@
         },
         {
           "comment": "preview the upload of the published bundle; nothing is written",
-          "command": "cub variant upload --dry-run --component elastic-filebeat --variant default --space elastic-filebeat-8-5-1-default --namespace default oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-elastic-filebeat-8-5-1-default:latest@sha256:c4f8a2f6551641b360154312c1efac211112d05fd28211f9baeccc83eec3ba56",
+          "command": "cub variant upload --dry-run --component elastic-filebeat --variant default --space elastic-filebeat-8-5-1-default --namespace default oci://ghcr.io/confighub/configs/catalog/catalog-elastic-filebeat-8-5-1-default:bundle-c4f8a2f65516@sha256:c4f8a2f6551641b360154312c1efac211112d05fd28211f9baeccc83eec3ba56",
           "needsAccount": true
         },
         {
           "comment": "upload the bundle as a base Space of Units",
-          "command": "cub variant upload --component elastic-filebeat --variant default --space elastic-filebeat-8-5-1-default --namespace default oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-elastic-filebeat-8-5-1-default:latest@sha256:c4f8a2f6551641b360154312c1efac211112d05fd28211f9baeccc83eec3ba56",
+          "command": "cub variant upload --component elastic-filebeat --variant default --space elastic-filebeat-8-5-1-default --namespace default oci://ghcr.io/confighub/configs/catalog/catalog-elastic-filebeat-8-5-1-default:bundle-c4f8a2f65516@sha256:c4f8a2f6551641b360154312c1efac211112d05fd28211f9baeccc83eec3ba56",
           "needsAccount": true,
           "writes": true
         }

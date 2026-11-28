@@ -50,7 +50,10 @@ for exact base-variant evidence.
 | Target topology | [recipes/elastic/logstash/8.5.1/target-topology.yaml](target-topology.yaml) |
 | Catalog status | [recipes/elastic/logstash/8.5.1/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/elastic/logstash/8.5.1/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-logstash:8.5.1@sha256:fd909b18b84b947213f291f209e93f75dcd94dc25324a28211b2afd8960895b3` |
+| Install into a Space | `cub package install logstash:v8.5.1 --space <space>` |
+| Installer package OCI | `oci://ghcr.io/confighub/packages/logstash:v8.5.1@sha256:152db8eba6155270700cb5cc508ec8c2b0b7d241def20d36b94dec494e45dac8` |
+| Installer package publication | [runs/ghcr-packages/logstash/v8.5.1.yaml](../../../../runs/ghcr-packages/logstash/v8.5.1.yaml) |
+| Earlier location | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-logstash:8.5.1@sha256:fd909b18b84b947213f291f209e93f75dcd94dc25324a28211b2afd8960895b3` |
 | Installer package source | [packages/elastic/logstash/8.5.1](../../../../packages/elastic/logstash/8.5.1) |
 | Installer package receipt | [recipes/elastic/logstash/8.5.1/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/elastic/logstash/8.5.1/artifact-index.yaml](artifact-index.yaml) |
@@ -84,12 +87,22 @@ for exact base-variant evidence.
 
 ## Current Install Shape
 
+Install the package into a ConfigHub Space, which renders it and uploads
+one Unit per resource:
+
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-logstash:8.5.1@sha256:fd909b18b84b947213f291f209e93f75dcd94dc25324a28211b2afd8960895b3 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub package install logstash:v8.5.1 --space logstash --base <variant> --namespace <namespace>
+```
+
+Or render it locally from the exact package bytes, with no Space:
+
+```sh
+cub installer setup --pull oci://ghcr.io/confighub/packages/logstash:v8.5.1@sha256:152db8eba6155270700cb5cc508ec8c2b0b7d241def20d36b94dec494e45dac8 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is
-the public package users pull; the `packages/...` path is the repo source path
+the public package users pull, signed by the package publish workflow; check it with
+`cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/logstash@sha256:152db8eba6155270700cb5cc508ec8c2b0b7d241def20d36b94dec494e45dac8`. The `packages/...` path is the repo source path
 used by maintainers and proof scripts. The proof path compares regular Helm
 output with real `cub installer setup` output and explains every intentional
 difference, such as the Namespace support object or separated Secrets.

@@ -61,11 +61,18 @@ spec:
     nextAction: ""
   installerPackage:
     path: "packages/kyverno/kyverno-policies/3.8.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno-policies:3.8.0@sha256:0c781c6839fbfa001648593f415386716ce425483b491593b2338196c93988b4"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno-policies:3.8.0"
-    manifestDigest: "sha256:0c781c6839fbfa001648593f415386716ce425483b491593b2338196c93988b4"
-    layerDigest: "sha256:63aaf9c71000e582e1ebd861246030a07099ca7d4fbb4dc2dcc432a921fc11d9"
-    publicationReceipt: "runs/installer-oci/kyverno-kyverno-policies/3.8.0/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/kyverno-policies:v3.8.0@sha256:381b4a043f5b1f0ee86087c4cc902c419b4fe40c2b0f111a5835849a0545c5b8"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/kyverno-policies:v3.8.0"
+    manifestDigest: "sha256:381b4a043f5b1f0ee86087c4cc902c419b4fe40c2b0f111a5835849a0545c5b8"
+    layerDigest: "sha256:42ea05346428663987ad7c6d361f2b633099068a140b240ba116e7477b4af2f0"
+    publicationReceipt: "runs/ghcr-packages/kyverno-policies/v3.8.0.yaml"
+    name: "kyverno-policies"
+    tag: "v3.8.0"
+    installCommand: "cub package install kyverno-policies:v3.8.0 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/kyverno-policies@sha256:381b4a043f5b1f0ee86087c4cc902c419b4fe40c2b0f111a5835849a0545c5b8"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno-policies:3.8.0@sha256:0c781c6839fbfa001648593f415386716ce425483b491593b2338196c93988b4"
+      publicationReceipt: "runs/installer-oci/kyverno-kyverno-policies/3.8.0/installer-package-publication-receipt.yaml"
     installer: "packages/kyverno/kyverno-policies/3.8.0/installer.yaml"
     receipt: "recipes/kyverno/kyverno-policies/3.8.0/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "63aaf9c71000e582e1ebd861246030a07099ca7d4fbb4dc2dcc432a921fc11d9"
@@ -107,7 +114,7 @@ spec:
         default: true
         description: "kyverno/kyverno-policies default variant rendered from kyverno/kyverno-policies@3.8.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno-policies:3.8.0@sha256:0c781c6839fbfa001648593f415386716ce425483b491593b2338196c93988b4 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/kyverno-policies:v3.8.0@sha256:381b4a043f5b1f0ee86087c4cc902c419b4fe40c2b0f111a5835849a0545c5b8 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 11
         cubInstallObjectCountIncludingSupport: 12
         semanticObjectMatches: "11/11"

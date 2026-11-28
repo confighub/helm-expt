@@ -62,11 +62,18 @@ spec:
     nextAction: "review chart analysis and create a recipe candidate"
   installerPackage:
     path: "packages/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/dra-driver-nvidia-dra-driver-nvidia-gpu:0.5.0@sha256:f7e5c5b64875eab480936e1d3845de368e334fd144857b5f5d79b619a63e6a5e"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/dra-driver-nvidia-dra-driver-nvidia-gpu:0.5.0"
-    manifestDigest: "sha256:f7e5c5b64875eab480936e1d3845de368e334fd144857b5f5d79b619a63e6a5e"
-    layerDigest: "sha256:3a5cd56f37e0408ef8856252c9c22911e0095249d9ee9216283ee9916159572e"
-    publicationReceipt: "runs/installer-oci/dra-driver-nvidia-dra-driver-nvidia-gpu/0.5.0/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/dra-driver-nvidia-gpu:v0.5.0@sha256:f5c4712103632e82675da95f20f0fb3cfd1fb3ffd8655f0084294a4e73055d38"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/dra-driver-nvidia-gpu:v0.5.0"
+    manifestDigest: "sha256:f5c4712103632e82675da95f20f0fb3cfd1fb3ffd8655f0084294a4e73055d38"
+    layerDigest: "sha256:c4155b7c18dcfb87b3ad13318470d499d4f14b19753ea10c65204cf439a8125b"
+    publicationReceipt: "runs/ghcr-packages/dra-driver-nvidia-gpu/v0.5.0.yaml"
+    name: "dra-driver-nvidia-gpu"
+    tag: "v0.5.0"
+    installCommand: "cub package install dra-driver-nvidia-gpu:v0.5.0 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/dra-driver-nvidia-gpu@sha256:f5c4712103632e82675da95f20f0fb3cfd1fb3ffd8655f0084294a4e73055d38"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/dra-driver-nvidia-dra-driver-nvidia-gpu:0.5.0@sha256:f7e5c5b64875eab480936e1d3845de368e334fd144857b5f5d79b619a63e6a5e"
+      publicationReceipt: "runs/installer-oci/dra-driver-nvidia-dra-driver-nvidia-gpu/0.5.0/installer-package-publication-receipt.yaml"
     installer: "packages/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/installer.yaml"
     receipt: "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "3a5cd56f37e0408ef8856252c9c22911e0095249d9ee9216283ee9916159572e"
@@ -128,7 +135,7 @@ spec:
         default: true
         description: "dra-driver-nvidia-gpu GPU allocation off, because the chart refuses to render its own defaults variant rendered from dra-driver-nvidia/dra-driver-nvidia-gpu@0.5.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/dra-driver-nvidia-dra-driver-nvidia-gpu:0.5.0@sha256:f7e5c5b64875eab480936e1d3845de368e334fd144857b5f5d79b619a63e6a5e --base default --work-dir <tmp> --non-interactive --namespace nvidia-dra-driver"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/dra-driver-nvidia-gpu:v0.5.0@sha256:f5c4712103632e82675da95f20f0fb3cfd1fb3ffd8655f0084294a4e73055d38 --base default --work-dir <tmp> --non-interactive --namespace nvidia-dra-driver"
         helmReleaseObjectCount: 21
         cubInstallObjectCountIncludingSupport: 22
         semanticObjectMatches: "21/21"
@@ -210,7 +217,7 @@ spec:
         default: false
         description: "dra-driver-nvidia-gpu GPU allocation through DRA, for nodes without the standard GPU device plugin variant rendered from dra-driver-nvidia/dra-driver-nvidia-gpu@0.5.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/dra-driver-nvidia-dra-driver-nvidia-gpu:0.5.0@sha256:f7e5c5b64875eab480936e1d3845de368e334fd144857b5f5d79b619a63e6a5e --base gpu-resources --work-dir <tmp> --non-interactive --namespace nvidia-dra-driver"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/dra-driver-nvidia-gpu:v0.5.0@sha256:f5c4712103632e82675da95f20f0fb3cfd1fb3ffd8655f0084294a4e73055d38 --base gpu-resources --work-dir <tmp> --non-interactive --namespace nvidia-dra-driver"
         helmReleaseObjectCount: 24
         cubInstallObjectCountIncludingSupport: 25
         semanticObjectMatches: "24/24"
@@ -292,7 +299,7 @@ spec:
         default: false
         description: "dra-driver-nvidia-gpu AICR v1.0.0 EKS training values variant rendered from dra-driver-nvidia/dra-driver-nvidia-gpu@0.5.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/dra-driver-nvidia-dra-driver-nvidia-gpu:0.5.0@sha256:f7e5c5b64875eab480936e1d3845de368e334fd144857b5f5d79b619a63e6a5e --base aicr-eks-training --work-dir <tmp> --non-interactive --namespace nvidia-dra-driver"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/dra-driver-nvidia-gpu:v0.5.0@sha256:f5c4712103632e82675da95f20f0fb3cfd1fb3ffd8655f0084294a4e73055d38 --base aicr-eks-training --work-dir <tmp> --non-interactive --namespace nvidia-dra-driver"
         helmReleaseObjectCount: 21
         cubInstallObjectCountIncludingSupport: 22
         semanticObjectMatches: "21/21"

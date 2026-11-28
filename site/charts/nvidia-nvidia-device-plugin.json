@@ -19,7 +19,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvidia-device-plugin:0.19.3@sha256:9a4be497da7d3a34faff8bded3a878fb09528138fd3ee94539c97222b7610e07"
+        "ociRef": "oci://ghcr.io/confighub/packages/nvidia-device-plugin:v0.19.3@sha256:8b8b53ef42b75acd08a25bcae6df592c53096dc0177e02d393821ef97ba8c4f3",
+        "installCommand": "cub package install nvidia-device-plugin:v0.19.3 --space <space>"
       },
       "bases": [
         {

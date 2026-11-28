@@ -19,7 +19,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kai-scheduler-kai-scheduler:v0.16.9@sha256:7d360f97ada7c492e506acdd433c9212d21f5a6d26d8d8cbf1f0b68a268e94ab"
+        "ociRef": "oci://ghcr.io/confighub/packages/kai-scheduler:v0.16.9@sha256:2a1a31d900f268647c9efc9e0b691df4a5247cb7ebfb393e6a6d16d63d9b6259",
+        "installCommand": "cub package install kai-scheduler:v0.16.9 --space <space>"
       },
       "bases": [
         {
@@ -67,7 +68,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kai-scheduler-kai-scheduler:v0.14.1@sha256:5e7b31be9fa573c1d9eba1e990ac6ff678388be26754ab55b0fe0d4593f37510"
+        "ociRef": "oci://ghcr.io/confighub/packages/kai-scheduler:v0.14.1@sha256:154b4d44ff1fb860a2bd12dc255b255c37d904a9ba0a1c95c71e5ce6b04740e0",
+        "installCommand": "cub package install kai-scheduler:v0.14.1 --space <space>"
       },
       "bases": [
         {

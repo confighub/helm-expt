@@ -10,14 +10,14 @@ inputs is merged, and each manifest digest is signed keylessly as that
 workflow. The earlier copies in the Google registry stay where they are, with
 their receipts, as the recorded earlier location.
 
-265 artifacts: 264 rebuilt from committed files, 1 copied at their recorded digest, 0 with a GHCR receipt.
+265 artifacts: 264 rebuilt from committed files, 1 copied at their recorded digest, 265 with a GHCR receipt.
 
 | Kind | Artifacts | Rebuilt | Copied | Published earlier | GHCR receipt |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| certified-bundle | 185 | 185 | 0 | 185 | 0 |
-| nvidia-literal-bundle | 41 | 41 | 0 | 41 | 0 |
-| nimservice-variant | 38 | 38 | 0 | 37 | 0 |
-| timoni-config | 1 | 0 | 1 | 1 | 0 |
+| certified-bundle | 185 | 185 | 0 | 185 | 185 |
+| nvidia-literal-bundle | 41 | 41 | 0 | 41 | 41 |
+| nimservice-variant | 38 | 38 | 0 | 37 | 38 |
+| timoni-config | 1 | 0 | 1 | 1 | 1 |
 
 A row says `awaits-workflow-publication` until a receipt under
 `runs/catalog-oci/<name>/<tag>.yaml` records an anonymous pull of

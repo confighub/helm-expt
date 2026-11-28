@@ -13,7 +13,7 @@ spec:
     name: "nvidia/k8s-nim-operator"
     version: "3.1.0"
     record: "data/helm-render-intents/intents/nvidia-k8s-nim-operator-3-1-0-default.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-k8s-nim-operator:3.1.0@sha256:51b150bffea022e1cf3b6a21db9d9443b7c3067ee5fd9ce3fbdf96bbef9712b3"
+    packageOciRef: "oci://ghcr.io/confighub/packages/k8s-nim-operator:v3.1.0@sha256:263730dd9bd0def4d13539aab07e1feea79492cdad875fa1fa7f44281a0d2b97"
     selection:
       name: "default"
       kind: "catalog-preset"

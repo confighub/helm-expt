@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the default base variant into ./percona-psmdb-operator-1-23-0-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.23.0@sha256:d8d4593bcda2f395764b6108a564b87b5d5a336c551450df17f63d7d27b045b5 --base default --work-dir ./percona-psmdb-operator-1-23-0-default --non-interactive --namespace default
+cub installer setup --pull oci://ghcr.io/confighub/packages/psmdb-operator:v1.23.0@sha256:e32fcfcf5d611c7307968ecbd0301ee0106ad2305e0010cf99c3328a2102b4f2 --base default --work-dir ./percona-psmdb-operator-1-23-0-default --non-interactive --namespace default
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./percona-psmdb-operator-1-23-0-default --space "${SPACE}"

@@ -1011,7 +1011,7 @@ Schema
           <p class="installer-command-note">If you want to try linked environment copies and approvals in hosted ConfigHub, sign in and paste the commands below. In your workspace, this creates the base folder <code>cert-manager-example</code> and one copy, <code>cert-manager-example-prod</code>. That base folder holds 50 items, including all 46 Kubernetes objects, a README and 2 plan documents. Prod runs three replicas of the controller. It touches no cluster.</p>
           <pre class="terminal-body"><code><span class="term-prompt">$</span> cub auth login
 
-<span class="term-prompt">$</span> cub variant upload --component cert-manager-example --variant base --space cert-manager-example --namespace cert-manager --create-namespace oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jetstack-cert-manager-v1-21-1-crds-enabled:latest@sha256:7e656f058b59e2024e4d6ffa37804a771bbbe8e6dab1a56ca4b69992f903b2d9
+<span class="term-prompt">$</span> cub variant upload --component cert-manager-example --variant base --space cert-manager-example --namespace cert-manager --create-namespace oci://ghcr.io/confighub/configs/catalog/catalog-jetstack-cert-manager-v1-21-1-crds-enabled:bundle-7e656f058b59@sha256:7e656f058b59e2024e4d6ffa37804a771bbbe8e6dab1a56ca4b69992f903b2d9
 
 <span class="term-prompt">$</span> cub variant create prod cert-manager-example --change-desc &quot;Clone the base as prod&quot;
 

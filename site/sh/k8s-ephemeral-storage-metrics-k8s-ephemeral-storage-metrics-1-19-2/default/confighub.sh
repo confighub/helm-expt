@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the default base variant into ./k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics:1.19.2@sha256:d869a5ff9e363ef5624db8145215f4b369d41f3a8f9d20849258af39f4adb21d --base default --work-dir ./k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-default --non-interactive --namespace monitoring
+cub installer setup --pull oci://ghcr.io/confighub/packages/k8s-ephemeral-storage-metrics:v1.19.2@sha256:e6c3b48eac0969b12efc8c2e1f59c8f3b80beb446d50dec56c84d12d1c4dd9f0 --base default --work-dir ./k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-default --non-interactive --namespace monitoring
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-default --space "${SPACE}"

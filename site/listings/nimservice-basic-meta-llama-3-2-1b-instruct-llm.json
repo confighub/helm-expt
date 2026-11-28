@@ -5,7 +5,7 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:33e9d603109b517560aaa5e244acc3a825977fd5e417b436da07b63930ac2a78",
+      "sha256": "sha256:168547f46c3c4c20ef028a08b6d32d3ad3eef87df4443bb53c51310553722cc3",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
@@ -132,7 +132,9 @@
         "ghcr": {
           "reference": "oci://ghcr.io/confighub/configs/catalog/nimservice-basic-meta-llama-3-2-1b-instruct-llm:upstream-5d5f66ee0e2e-c7ac7f7b13a3@sha256:c7ac7f7b13a3950a4c8f3ef52c4592fec4fd5a32bcd5e2e8bbf8e044e43c1f09",
           "manifestDigest": "sha256:c7ac7f7b13a3950a4c8f3ef52c4592fec4fd5a32bcd5e2e8bbf8e044e43c1f09",
-          "state": "awaits-workflow-publication",
+          "state": "published-signed",
+          "receipt": "runs/catalog-oci/nimservice-basic-meta-llama-3-2-1b-instruct-llm/upstream-5d5f66ee0e2e-c7ac7f7b13a3.yaml",
+          "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/runs/catalog-oci/nimservice-basic-meta-llama-3-2-1b-instruct-llm/upstream-5d5f66ee0e2e-c7ac7f7b13a3.yaml",
           "publisher": ".github/workflows/catalog-oci-publish.yml",
           "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/nimservice-basic-meta-llama-3-2-1b-instruct-llm@sha256:c7ac7f7b13a3950a4c8f3ef52c4592fec4fd5a32bcd5e2e8bbf8e044e43c1f09",
           "sameDigestAsEarlier": true
@@ -1263,12 +1265,12 @@
         },
         {
           "comment": "preview the upload of the published bundle; nothing is written",
-          "command": "cub variant upload --dry-run --component nimservice --variant basic-meta-llama-3-2-1b-instruct-llm --space nimservice-basic-meta-llama-3-2-1b-instruct-llm oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-basic-meta-llama-3-2-1b-instruct-llm:upstream-5d5f66ee0e2e@sha256:c7ac7f7b13a3950a4c8f3ef52c4592fec4fd5a32bcd5e2e8bbf8e044e43c1f09",
+          "command": "cub variant upload --dry-run --component nimservice --variant basic-meta-llama-3-2-1b-instruct-llm --space nimservice-basic-meta-llama-3-2-1b-instruct-llm oci://ghcr.io/confighub/configs/catalog/nimservice-basic-meta-llama-3-2-1b-instruct-llm:upstream-5d5f66ee0e2e-c7ac7f7b13a3@sha256:c7ac7f7b13a3950a4c8f3ef52c4592fec4fd5a32bcd5e2e8bbf8e044e43c1f09",
           "needsAccount": true
         },
         {
           "comment": "upload the bundle as a base Space of Units",
-          "command": "cub variant upload --component nimservice --variant basic-meta-llama-3-2-1b-instruct-llm --space nimservice-basic-meta-llama-3-2-1b-instruct-llm oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-basic-meta-llama-3-2-1b-instruct-llm:upstream-5d5f66ee0e2e@sha256:c7ac7f7b13a3950a4c8f3ef52c4592fec4fd5a32bcd5e2e8bbf8e044e43c1f09",
+          "command": "cub variant upload --component nimservice --variant basic-meta-llama-3-2-1b-instruct-llm --space nimservice-basic-meta-llama-3-2-1b-instruct-llm oci://ghcr.io/confighub/configs/catalog/nimservice-basic-meta-llama-3-2-1b-instruct-llm:upstream-5d5f66ee0e2e-c7ac7f7b13a3@sha256:c7ac7f7b13a3950a4c8f3ef52c4592fec4fd5a32bcd5e2e8bbf8e044e43c1f09",
           "needsAccount": true,
           "writes": true
         }

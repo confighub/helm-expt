@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the external-nfd base variant into ./nvidia-gpu-operator-v26-7-1-external-nfd"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.7.1@sha256:03fa8aec9221b64cc5c25f3334775338a9f98c0529bad66f12340d124c238b71 --base external-nfd --work-dir ./nvidia-gpu-operator-v26-7-1-external-nfd --non-interactive --namespace gpu-operator
+cub installer setup --pull oci://ghcr.io/confighub/packages/gpu-operator:v26.7.1@sha256:4ed84ef6638e41bb2df3afb9c4f30012104a079215e39f16445f611ee1053f25 --base external-nfd --work-dir ./nvidia-gpu-operator-v26-7-1-external-nfd --non-interactive --namespace gpu-operator
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./nvidia-gpu-operator-v26-7-1-external-nfd --space "${SPACE}"

@@ -57,11 +57,18 @@ spec:
     nextAction: ""
   installerPackage:
     path: "packages/stakater/reloader/2.2.14"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.14@sha256:8be0cb9b152ba3e0e80b81c9e19b1f5d2e4d05091e8d0577356fc94a495e74d4"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.14"
-    manifestDigest: "sha256:8be0cb9b152ba3e0e80b81c9e19b1f5d2e4d05091e8d0577356fc94a495e74d4"
-    layerDigest: "sha256:3c3937720734200df4740f169b70b373507b1802dc4a8f204bd9444eb950769c"
-    publicationReceipt: "runs/installer-oci/stakater-reloader/2.2.14/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/reloader:v2.2.14@sha256:549bc2e8d0cf16eaa90b64e9b68c183de66d6aa11d885e5aac603e8bd0ad891d"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/reloader:v2.2.14"
+    manifestDigest: "sha256:549bc2e8d0cf16eaa90b64e9b68c183de66d6aa11d885e5aac603e8bd0ad891d"
+    layerDigest: "sha256:2f801f075c5aff2a516c8f44f90bea7430b0e1863097c00f3f87d4783c1453d0"
+    publicationReceipt: "runs/ghcr-packages/reloader/v2.2.14.yaml"
+    name: "reloader"
+    tag: "v2.2.14"
+    installCommand: "cub package install reloader:v2.2.14 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/reloader@sha256:549bc2e8d0cf16eaa90b64e9b68c183de66d6aa11d885e5aac603e8bd0ad891d"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.14@sha256:8be0cb9b152ba3e0e80b81c9e19b1f5d2e4d05091e8d0577356fc94a495e74d4"
+      publicationReceipt: "runs/installer-oci/stakater-reloader/2.2.14/installer-package-publication-receipt.yaml"
     installer: "packages/stakater/reloader/2.2.14/installer.yaml"
     receipt: "recipes/stakater/reloader/2.2.14/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "3c3937720734200df4740f169b70b373507b1802dc4a8f204bd9444eb950769c"
@@ -93,7 +100,7 @@ spec:
         default: true
         description: "reloader chart defaults variant rendered from stakater/reloader@2.2.14"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.14@sha256:8be0cb9b152ba3e0e80b81c9e19b1f5d2e4d05091e8d0577356fc94a495e74d4 --base default --work-dir <tmp> --non-interactive --namespace reloader"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/reloader:v2.2.14@sha256:549bc2e8d0cf16eaa90b64e9b68c183de66d6aa11d885e5aac603e8bd0ad891d --base default --work-dir <tmp> --non-interactive --namespace reloader"
         helmReleaseObjectCount: 6
         cubInstallObjectCountIncludingSupport: 7
         semanticObjectMatches: "6/6"

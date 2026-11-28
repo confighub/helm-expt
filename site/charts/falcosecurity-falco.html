@@ -766,9 +766,12 @@
   <main>
     <section class="at-a-glance" aria-label="At a glance">
       <p><strong>What it is.</strong> <code>falcosecurity/falco</code> 9.0.0, pre-rendered as 6 Kubernetes objects in its <code>default</code> preset.</p>
+      <p><strong>Install falco into ConfigHub.</strong> <code>cub package install falco:v9.0.0 --space falco --namespace default</code></p>
+      <p>Needs a ConfigHub sign-in (<code>cub auth login</code>). Nothing reaches a cluster until you <a href="../packages.html#run-it">release it</a>. <a href="../packages.html">How packages work</a>.</p>
       <p><strong>Inspect YAML.</strong> <a href="https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/falcosecurity/falco/9.0.0/revisions/default/r001/rendered/release-objects.yaml">Read rendered YAML on GitHub</a> (zero install).</p>
-      <p><strong>Install it.</strong> Pull locally with <code>cub installer</code>. <a href="#use-in-confighub">Five steps below</a>.</p>
+      <p><strong>Render it locally (no account).</strong> Pull locally with <code>cub installer</code>. <a href="#use-in-confighub">Five steps below</a>.</p>
       
+      <p><strong>Which to use.</strong> Package to install into ConfigHub; YAML to read or apply by hand.</p>
       <p><strong>Docs.</strong> <a href="../d/docs/user/model-and-vocabulary.html">Model</a> · <a href="../config.html">Helm in the Catalog</a>.</p>
     </section>
     <section aria-labelledby="versions">
@@ -829,7 +832,7 @@
 e417f53227667413d5d51b89157f00c603af2cd613e282816c27df69408f7648  falcosecurity-falco-9-0-0-default.yaml
 
 <span class="term-comment"># render this base from the signed package; step 3 can upload this directory</span>
-<span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/falcosecurity-falco:9.0.0@sha256:0a17c36c302c5e5fb8cd13ced42c8c72f6ed5c59fa06ab78b63c5e9a9fb32bcf --base default --work-dir ./falcosecurity-falco-9-0-0-default --non-interactive --namespace default</code></pre>
+<span class="term-prompt">$</span> cub installer setup --pull oci://ghcr.io/confighub/packages/falco:v9.0.0@sha256:17bc18c0895ef6020fc4976c52dd9c37f31247179dc6f415900c8323315b9ad3 --base default --work-dir ./falcosecurity-falco-9-0-0-default --non-interactive --namespace default</code></pre>
         </div>
         <div class="entry-step" data-step="compare" data-state="not-available">
           <h3>2. Compare with another version or base <span class="status none">Not available yet</span></h3>
@@ -846,7 +849,7 @@ e417f53227667413d5d51b89157f00c603af2cd613e282816c27df69408f7648  falcosecurity-
 <span class="term-prompt">$</span> cub auth login
 
 <span class="term-comment"># put the signed package into a Space in one command: it pulls, renders and uploads</span>
-<span class="term-prompt">$</span> cub package install oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/falcosecurity-falco:9.0.0@sha256:0a17c36c302c5e5fb8cd13ced42c8c72f6ed5c59fa06ab78b63c5e9a9fb32bcf --base default --space &lt;your-space&gt; --namespace default --non-interactive
+<span class="term-prompt">$</span> cub package install oci://ghcr.io/confighub/packages/falco:v9.0.0@sha256:17bc18c0895ef6020fc4976c52dd9c37f31247179dc6f415900c8323315b9ad3 --base default --space &lt;your-space&gt; --namespace default --non-interactive
 
 <span class="term-comment"># or, to name the Component yourself, upload step 1's directory instead</span>
 <span class="term-prompt">$</span> cub installer upload --work-dir ./falcosecurity-falco-9-0-0-default --space &lt;your-space&gt; --component &lt;your-component&gt;

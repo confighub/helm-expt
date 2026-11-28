@@ -944,7 +944,7 @@ Schema
       <h3 id="live-own-account">With your own account</h3>
       <p class="install-cub-note installer-command-note"><strong>Here is what the command does.</strong> cub installer is an open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally, leaving delivery to kubectl, Argo CD or Flux. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
   <pre class="terminal-body"><code><span class="term-comment"># render the base from the signed package</span>
-<span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gatekeeper-gatekeeper:3.22.2@sha256:ce4877c260225419e22d820f9d15652ad48ed5f205117099e88abb3f590241a5 --base default --work-dir ./gatekeeper-gatekeeper-3-22-2-default --non-interactive --namespace default
+<span class="term-prompt">$</span> cub installer setup --pull oci://ghcr.io/confighub/packages/gatekeeper:v3.22.2@sha256:608e779b1c55a7c92dd2e660198fd41aa5f75141d45a166548e52db39ce1ec7e --base default --work-dir ./gatekeeper-gatekeeper-3-22-2-default --non-interactive --namespace default
 
 <span class="term-comment"># sign in to your organization</span>
 <span class="term-prompt">$</span> cub auth login

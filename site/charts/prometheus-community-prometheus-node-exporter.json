@@ -19,7 +19,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-node-exporter:4.55.0@sha256:b5365489a899714904a438a5a3ccb2f7a7814f1b41bc16cf8fa41638e4ffa9cd"
+        "ociRef": "oci://ghcr.io/confighub/packages/prometheus-node-exporter:v4.55.0@sha256:b59533411a149e19928d61efeeb8c78c1b8e95093c4e98e417db75871044d1e5",
+        "installCommand": "cub package install prometheus-node-exporter:v4.55.0 --space <space>"
       },
       "bases": [
         {

@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the reuse-existing-secret base variant into ./cloudpirates-redis-0-34-11-reuse-existing-secret"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11@sha256:ed4ebe13040d1fe9c079ef6b94497cda40598bcb484789db115001f6aadcc4eb --base reuse-existing-secret --work-dir ./cloudpirates-redis-0-34-11-reuse-existing-secret --non-interactive --namespace default
+cub installer setup --pull oci://ghcr.io/confighub/packages/cloudpirates-redis:v0.34.11@sha256:71421fdfe6d7fd137c7014449150967d2ba6278927749786c95367e408fbfb6e --base reuse-existing-secret --work-dir ./cloudpirates-redis-0-34-11-reuse-existing-secret --non-interactive --namespace default
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./cloudpirates-redis-0-34-11-reuse-existing-secret/out/manifests

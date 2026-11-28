@@ -766,9 +766,12 @@
   <main>
     <section class="at-a-glance" aria-label="At a glance">
       <p><strong>What it is.</strong> <code>open-telemetry/opentelemetry-operator</code> 0.114.0, pre-rendered as 17 Kubernetes objects in its <code>default</code> preset.</p>
+      <p><strong>Install opentelemetry-operator into ConfigHub.</strong> <code>cub package install opentelemetry-operator:v0.114.0 --space opentelemetry-operator --namespace default</code></p>
+      <p>Needs a ConfigHub sign-in (<code>cub auth login</code>). Nothing reaches a cluster until you <a href="../packages.html#run-it">release it</a>. <a href="../packages.html">How packages work</a>.</p>
       <p><strong>Inspect YAML.</strong> <a href="https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/open-telemetry/opentelemetry-operator/0.114.0/revisions/default/r001/rendered/release-objects.yaml">Read rendered YAML on GitHub</a> (zero install).</p>
-      <p><strong>Install it.</strong> Pull locally with <code>cub installer</code>. <a href="#use-in-confighub">Five steps below</a>.</p>
+      <p><strong>Render it locally (no account).</strong> Pull locally with <code>cub installer</code>. <a href="#use-in-confighub">Five steps below</a>.</p>
       
+      <p><strong>Which to use.</strong> Package to install into ConfigHub; YAML to read or apply by hand.</p>
       <p><strong>Docs.</strong> <a href="../d/docs/user/model-and-vocabulary.html">Model</a> · <a href="../config.html">Helm in the Catalog</a>.</p>
     </section>
     <section aria-labelledby="versions">
@@ -836,7 +839,7 @@
     <section class="entry-steps" aria-labelledby="use-in-confighub">
       <h2 id="use-in-confighub">Use this entry in ConfigHub</h2>
       <p>Every Catalog entry follows the same five-step model across Helm, NVIDIA AICR, Timoni, and YAML, whether run by you or your agent. Steps 1 and 2 inspect and diff rendered objects locally with no account; steps 3 to 5 load a ConfigHub base, customize variants, and deliver via OCI.</p>
-      <p><a href="../try.html#install-cub">Install the cub CLI</a> before running <code>cub</code> commands. Step 2 uses <code>cub config diff</code> from <code>cub plugin install confighub/cub-workshop@v0.6.61</code>. Command syntax for step 3 comes from a <a href="../d/docs/user/live-walk-cub-package-install-2026-11-26.html">recorded run (2026-11-26)</a>, and for steps 4 and 5 from a <a href="../d/docs/user/live-walk-entry-deploy-promote-2026-11-27.html">recorded run (2026-11-27)</a>. It applies to this entry only where a step badge says Run. These are the steps for 0.114.0, the newest version, on its default base.</p>
+      <p><a href="../try.html#install-cub">Install the cub CLI</a> before running <code>cub</code> commands. Only step 2 needs a plugin: <code>cub config diff</code> comes from <code>cub plugin install confighub/cub-workshop@v0.6.61</code>. Command syntax for step 3 comes from a <a href="../d/docs/user/live-walk-cub-package-install-2026-11-26.html">recorded run (2026-11-26)</a>, and for steps 4 and 5 from a <a href="../d/docs/user/live-walk-entry-deploy-promote-2026-11-27.html">recorded run (2026-11-27)</a>. It applies to this entry only where a step badge says Run. These are the steps for 0.114.0, the newest version, on its default base.</p>
       <div data-entry-steps="open-telemetry-opentelemetry-operator-0-114-0-default">
         <details class="entry-inputs" data-entry-inputs="open-telemetry-opentelemetry-operator-0-114-0-default" open>
         <summary>What is fixed, and what you supply</summary>
@@ -867,7 +870,7 @@
 68dd01565796d137e5dea26e1db02ef3e0d99bbbafd000ec3663680b5bbda873  open-telemetry-opentelemetry-operator-0-114-0-default.yaml
 
 <span class="term-comment"># render this base from the signed package; step 3 can upload this directory</span>
-<span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/open-telemetry-opentelemetry-operator:0.114.0@sha256:b6e1298c04526648e5e182fffb70d7fefe40d7809dc400699acb3e3f73abaa24 --base default --work-dir ./open-telemetry-opentelemetry-operator-0-114-0-default --non-interactive --namespace default</code></pre>
+<span class="term-prompt">$</span> cub installer setup --pull oci://ghcr.io/confighub/packages/opentelemetry-operator:v0.114.0@sha256:10b8c19c061ecd12604a36af141d00d41c99c872aa5c6b4411d1456c1ab24e25 --base default --work-dir ./open-telemetry-opentelemetry-operator-0-114-0-default --non-interactive --namespace default</code></pre>
         </div>
         <div class="entry-step" data-step="compare" data-state="not-run-for-this-entry">
           <h3>2. Compare with another version or base <span class="status open">Not run for this entry</span></h3>
@@ -889,7 +892,7 @@
 <span class="term-prompt">$</span> cub auth login
 
 <span class="term-comment"># put the signed package into a Space in one command: it pulls, renders and uploads</span>
-<span class="term-prompt">$</span> cub package install oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/open-telemetry-opentelemetry-operator:0.114.0@sha256:b6e1298c04526648e5e182fffb70d7fefe40d7809dc400699acb3e3f73abaa24 --base default --space &lt;your-space&gt; --namespace default --non-interactive
+<span class="term-prompt">$</span> cub package install oci://ghcr.io/confighub/packages/opentelemetry-operator:v0.114.0@sha256:10b8c19c061ecd12604a36af141d00d41c99c872aa5c6b4411d1456c1ab24e25 --base default --space &lt;your-space&gt; --namespace default --non-interactive
 
 <span class="term-comment"># or, to name the Component yourself, upload step 1's directory instead</span>
 <span class="term-prompt">$</span> cub installer upload --work-dir ./open-telemetry-opentelemetry-operator-0-114-0-default --space &lt;your-space&gt; --component &lt;your-component&gt;

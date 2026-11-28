@@ -13,7 +13,7 @@ spec:
     name: "aws-ebs-csi-driver/aws-ebs-csi-driver"
     version: "2.59.0"
     record: "data/helm-render-intents/intents/aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-aicr-eks-training-v0-20-0.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-ebs-csi-driver-aws-ebs-csi-driver:2.59.0@sha256:f409faa3e5e43425f2d2cb9a544b7b0dc304b4b95ff3e6520b596dbbd23c3edd"
+    packageOciRef: "oci://ghcr.io/confighub/packages/aws-ebs-csi-driver:v2.59.0@sha256:bd14d5f4650e45fe83ee3d35139cefa308424ebba21bec401a94b861da4cd00e"
     selection:
       name: "aicr-eks-training-v0-20-0"
       kind: "catalog-preset"

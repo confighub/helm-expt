@@ -49,7 +49,10 @@ for exact base-variant evidence.
 | Value model | [recipes/prometheus-community/prometheus-operator-crds/28.0.1/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/prometheus-community/prometheus-operator-crds/28.0.1/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/prometheus-community/prometheus-operator-crds/28.0.1/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-operator-crds:28.0.1@sha256:666c7cf9a3928b3e47c7b01832cb9dcec116029710a8d4a4a358211aaf238aea` |
+| Install into a Space | `cub package install prometheus-operator-crds:v28.0.1 --space <space>` |
+| Installer package OCI | `oci://ghcr.io/confighub/packages/prometheus-operator-crds:v28.0.1@sha256:d1d77f2d31a9f35156b8277a5767e6371a19d4a20e6658c7e5ae19aed18da678` |
+| Installer package publication | [runs/ghcr-packages/prometheus-operator-crds/v28.0.1.yaml](../../../../runs/ghcr-packages/prometheus-operator-crds/v28.0.1.yaml) |
+| Earlier location | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-operator-crds:28.0.1@sha256:666c7cf9a3928b3e47c7b01832cb9dcec116029710a8d4a4a358211aaf238aea` |
 | Installer package source | [packages/prometheus-community/prometheus-operator-crds/28.0.1](../../../../packages/prometheus-community/prometheus-operator-crds/28.0.1) |
 | Installer package receipt | [recipes/prometheus-community/prometheus-operator-crds/28.0.1/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/prometheus-community/prometheus-operator-crds/28.0.1/artifact-index.yaml](artifact-index.yaml) |
@@ -83,12 +86,22 @@ for exact base-variant evidence.
 
 ## Current Install Shape
 
+Install the package into a ConfigHub Space, which renders it and uploads
+one Unit per resource:
+
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-operator-crds:28.0.1@sha256:666c7cf9a3928b3e47c7b01832cb9dcec116029710a8d4a4a358211aaf238aea --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub package install prometheus-operator-crds:v28.0.1 --space prometheus-operator-crds --base <variant> --namespace <namespace>
+```
+
+Or render it locally from the exact package bytes, with no Space:
+
+```sh
+cub installer setup --pull oci://ghcr.io/confighub/packages/prometheus-operator-crds:v28.0.1@sha256:d1d77f2d31a9f35156b8277a5767e6371a19d4a20e6658c7e5ae19aed18da678 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is
-the public package users pull; the `packages/...` path is the repo source path
+the public package users pull, signed by the package publish workflow; check it with
+`cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/prometheus-operator-crds@sha256:d1d77f2d31a9f35156b8277a5767e6371a19d4a20e6658c7e5ae19aed18da678`. The `packages/...` path is the repo source path
 used by maintainers and proof scripts. The proof path compares regular Helm
 output with real `cub installer setup` output and explains every intentional
 difference, such as the Namespace support object or separated Secrets.

@@ -19,7 +19,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pxc-operator:1.19.1@sha256:bb1357840683c3f15451aa40c5af978395ed31cf45aa18ac71c1f44c3e4a7597"
+        "ociRef": "oci://ghcr.io/confighub/packages/pxc-operator:v1.19.1@sha256:8d65158eec2ac91f5351cc1a6d0b428df6f6c272c12a0ee4c4250449fe6c528b",
+        "installCommand": "cub package install pxc-operator:v1.19.1 --space <space>"
       },
       "bases": [
         {

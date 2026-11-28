@@ -49,7 +49,10 @@ for exact base-variant evidence.
 | Value model | [recipes/longhorn/longhorn/1.12.0/value-model.yaml](../../../../../../../recipes/longhorn/longhorn/1.12.0/value-model.yaml) |
 | Catalog status | [data/kubara-catalog-release/recipe-views/recipes/longhorn/longhorn/1.12.0/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [data/kubara-catalog-release/recipe-views/recipes/longhorn/longhorn/1.12.0/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.12.0@sha256:f0ca4ef7a625739a763933ede5edd882e26c9ff6ebb0dd0ef6e500adfd4ed717` |
+| Install into a Space | `cub package install longhorn:v1.12.0 --space <space>` |
+| Installer package OCI | `oci://ghcr.io/confighub/packages/longhorn:v1.12.0@sha256:d9e3f68993dfdb7d0f23cef168135633a63302ce0624153d5fcebe18ac34443c` |
+| Installer package publication | [runs/ghcr-packages/longhorn/v1.12.0.yaml](../../../../../../../runs/ghcr-packages/longhorn/v1.12.0.yaml) |
+| Earlier location | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.12.0@sha256:f0ca4ef7a625739a763933ede5edd882e26c9ff6ebb0dd0ef6e500adfd4ed717` |
 | Installer package source | [packages/longhorn/longhorn/1.12.0](../../../../../../../packages/longhorn/longhorn/1.12.0) |
 | Installer package receipt | [recipes/longhorn/longhorn/1.12.0/publication/installer-package-receipt.yaml](../../../../../../../recipes/longhorn/longhorn/1.12.0/publication/installer-package-receipt.yaml) |
 | Machine index | [data/kubara-catalog-release/recipe-views/recipes/longhorn/longhorn/1.12.0/artifact-index.yaml](artifact-index.yaml) |
@@ -77,12 +80,22 @@ for exact base-variant evidence.
 
 ## Current Install Shape
 
+Install the package into a ConfigHub Space, which renders it and uploads
+one Unit per resource:
+
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.12.0@sha256:f0ca4ef7a625739a763933ede5edd882e26c9ff6ebb0dd0ef6e500adfd4ed717 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub package install longhorn:v1.12.0 --space longhorn --base <variant> --namespace <namespace>
+```
+
+Or render it locally from the exact package bytes, with no Space:
+
+```sh
+cub installer setup --pull oci://ghcr.io/confighub/packages/longhorn:v1.12.0@sha256:d9e3f68993dfdb7d0f23cef168135633a63302ce0624153d5fcebe18ac34443c --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is
-the public package users pull; the `packages/...` path is the repo source path
+the public package users pull, signed by the package publish workflow; check it with
+`cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/longhorn@sha256:d9e3f68993dfdb7d0f23cef168135633a63302ce0624153d5fcebe18ac34443c`. The `packages/...` path is the repo source path
 used by maintainers and proof scripts. The proof path compares regular Helm
 output with real `cub installer setup` output and explains every intentional
 difference, such as the Namespace support object or separated Secrets.

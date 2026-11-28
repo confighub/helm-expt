@@ -19,7 +19,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-ebs-csi-driver-aws-ebs-csi-driver:2.60.1@sha256:aa07d92ad91345ba7401a70b82dfdf9d2c9ca22ade4de23db3b370c77a3b88a0"
+        "ociRef": "oci://ghcr.io/confighub/packages/aws-ebs-csi-driver:v2.60.1@sha256:f73bc079d243a235e5b03ef0559a644c6080ca6ffb85a4452ee16f344b6ab24a",
+        "installCommand": "cub package install aws-ebs-csi-driver:v2.60.1 --space <space>"
       },
       "bases": [
         {
@@ -49,7 +50,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-ebs-csi-driver-aws-ebs-csi-driver:2.59.0@sha256:f409faa3e5e43425f2d2cb9a544b7b0dc304b4b95ff3e6520b596dbbd23c3edd"
+        "ociRef": "oci://ghcr.io/confighub/packages/aws-ebs-csi-driver:v2.59.0@sha256:bd14d5f4650e45fe83ee3d35139cefa308424ebba21bec401a94b861da4cd00e",
+        "installCommand": "cub package install aws-ebs-csi-driver:v2.59.0 --space <space>"
       },
       "bases": [
         {

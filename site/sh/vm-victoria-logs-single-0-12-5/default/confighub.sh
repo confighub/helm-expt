@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the default base variant into ./vm-victoria-logs-single-0-12-5-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-logs-single:0.12.5@sha256:600a3ea933d9ffa94358d653ab77560ad1356d48c4b3b3f06cbbfb0845438686 --base default --work-dir ./vm-victoria-logs-single-0-12-5-default --non-interactive --namespace default
+cub installer setup --pull oci://ghcr.io/confighub/packages/victoria-logs-single:v0.12.5@sha256:38f09fe2fa038edb5bc191ae1e5b2beaa0e469fed976969b2ef0edd20ce5b8c2 --base default --work-dir ./vm-victoria-logs-single-0-12-5-default --non-interactive --namespace default
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./vm-victoria-logs-single-0-12-5-default --space "${SPACE}"

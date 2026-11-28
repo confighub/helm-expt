@@ -5,7 +5,7 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:33e9d603109b517560aaa5e244acc3a825977fd5e417b436da07b63930ac2a78",
+      "sha256": "sha256:168547f46c3c4c20ef028a08b6d32d3ad3eef87df4443bb53c51310553722cc3",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
@@ -130,7 +130,9 @@
         "ghcr": {
           "reference": "oci://ghcr.io/confighub/configs/catalog/timoni-redis-config:8.10.1-default@sha256:375bc7dee05f4629d3b297f05628ee52c104d7a6ced03a2c16b198c819b7ae65",
           "manifestDigest": "sha256:375bc7dee05f4629d3b297f05628ee52c104d7a6ced03a2c16b198c819b7ae65",
-          "state": "awaits-workflow-publication",
+          "state": "published-signed",
+          "receipt": "runs/catalog-oci/timoni-redis-config/8.10.1-default.yaml",
+          "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/runs/catalog-oci/timoni-redis-config/8.10.1-default.yaml",
           "publisher": ".github/workflows/catalog-oci-publish.yml",
           "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/timoni-redis-config@sha256:375bc7dee05f4629d3b297f05628ee52c104d7a6ced03a2c16b198c819b7ae65",
           "sameDigestAsEarlier": true
@@ -644,12 +646,12 @@
         },
         {
           "comment": "preview the upload of the published bundle; nothing is written",
-          "command": "cub variant upload --dry-run --component redis --variant default --space timoni-redis-8-10-1-default --namespace redis --create-namespace oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/timoni-redis-config@sha256:375bc7dee05f4629d3b297f05628ee52c104d7a6ced03a2c16b198c819b7ae65",
+          "command": "cub variant upload --dry-run --component redis --variant default --space timoni-redis-8-10-1-default --namespace redis --create-namespace oci://ghcr.io/confighub/configs/catalog/timoni-redis-config:8.10.1-default@sha256:375bc7dee05f4629d3b297f05628ee52c104d7a6ced03a2c16b198c819b7ae65",
           "needsAccount": true
         },
         {
           "comment": "upload the bundle as a base Space of Units",
-          "command": "cub variant upload --component redis --variant default --space timoni-redis-8-10-1-default --namespace redis --create-namespace oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/timoni-redis-config@sha256:375bc7dee05f4629d3b297f05628ee52c104d7a6ced03a2c16b198c819b7ae65",
+          "command": "cub variant upload --component redis --variant default --space timoni-redis-8-10-1-default --namespace redis --create-namespace oci://ghcr.io/confighub/configs/catalog/timoni-redis-config:8.10.1-default@sha256:375bc7dee05f4629d3b297f05628ee52c104d7a6ced03a2c16b198c819b7ae65",
           "needsAccount": true,
           "writes": true
         }

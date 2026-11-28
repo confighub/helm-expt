@@ -19,7 +19,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.23.0@sha256:d8d4593bcda2f395764b6108a564b87b5d5a336c551450df17f63d7d27b045b5"
+        "ociRef": "oci://ghcr.io/confighub/packages/psmdb-operator:v1.23.0@sha256:e32fcfcf5d611c7307968ecbd0301ee0106ad2305e0010cf99c3328a2102b4f2",
+        "installCommand": "cub package install psmdb-operator:v1.23.0 --space <space>"
       },
       "bases": [
         {
@@ -49,7 +50,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.22.0@sha256:9a90a52074a6eef6c5a25f4bfc52b25a56441d73f5d980482a34709194f7cb30"
+        "ociRef": "oci://ghcr.io/confighub/packages/psmdb-operator:v1.22.0@sha256:3cb086f9d2bbc672222badcab0f307381d63d889b364afb1d0f258e7ec67d0cb",
+        "installCommand": "cub package install psmdb-operator:v1.22.0 --space <space>"
       },
       "bases": [
         {

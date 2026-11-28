@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:33e9d603109b517560aaa5e244acc3a825977fd5e417b436da07b63930ac2a78",
+      "sha256": "sha256:168547f46c3c4c20ef028a08b6d32d3ad3eef87df4443bb53c51310553722cc3",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/autoscaler-vertical-pod-autoscaler-0-9-0-default.yaml",
-      "sha256": "sha256:cd51b440b6a70370bb900b6447e9ab9b730dd0b80757a005d779e1f4b51cb975",
+      "sha256": "sha256:e00a81a476d1a319f6954d11ee5162ba25925c71650e37817e7d0df1663dfdd8",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/autoscaler-vertical-pod-autoscaler-0-9-0-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -36,7 +36,7 @@
     "name": "autoscaler/vertical-pod-autoscaler",
     "version": "0.9.0",
     "reference": "autoscaler/vertical-pod-autoscaler@0.9.0",
-    "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-vertical-pod-autoscaler:0.9.0@sha256:1ee72dbefe5df3af05372c9e565302b3dfbdd4f6e91e8f116b2b6042764267e7",
+    "ociRef": "oci://ghcr.io/confighub/packages/vertical-pod-autoscaler:v0.9.0@sha256:e16dcf411cf4ec428b98df74c123d0134277e9875e827bf2d72f2d9a3fd60454",
     "record": "data/helm-render-intents/intents/autoscaler-vertical-pod-autoscaler-0-9-0-default.yaml",
     "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/autoscaler-vertical-pod-autoscaler-0-9-0-default.yaml",
     "selection": {
@@ -92,7 +92,7 @@
     }
   },
   "oci": {
-    "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-vertical-pod-autoscaler:0.9.0@sha256:1ee72dbefe5df3af05372c9e565302b3dfbdd4f6e91e8f116b2b6042764267e7",
+    "sourcePackageRef": "oci://ghcr.io/confighub/packages/vertical-pod-autoscaler:v0.9.0@sha256:e16dcf411cf4ec428b98df74c123d0134277e9875e827bf2d72f2d9a3fd60454",
     "bundles": [
       {
         "role": "source-package",
@@ -137,7 +137,9 @@
         "ghcr": {
           "reference": "oci://ghcr.io/confighub/configs/catalog/catalog-autoscaler-vertical-pod-autoscaler-0-9-0-default:bundle-44018558020b@sha256:44018558020bb3c4b52802617789273f5c16a04fb21b3d370f346e3e97b735c7",
           "manifestDigest": "sha256:44018558020bb3c4b52802617789273f5c16a04fb21b3d370f346e3e97b735c7",
-          "state": "awaits-workflow-publication",
+          "state": "published-signed",
+          "receipt": "runs/catalog-oci/catalog-autoscaler-vertical-pod-autoscaler-0-9-0-default/bundle-44018558020b.yaml",
+          "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/runs/catalog-oci/catalog-autoscaler-vertical-pod-autoscaler-0-9-0-default/bundle-44018558020b.yaml",
           "publisher": ".github/workflows/catalog-oci-publish.yml",
           "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/catalog-autoscaler-vertical-pod-autoscaler-0-9-0-default@sha256:44018558020bb3c4b52802617789273f5c16a04fb21b3d370f346e3e97b735c7",
           "sameDigestAsEarlier": true
@@ -611,12 +613,12 @@
         },
         {
           "comment": "preview the upload of the published bundle; nothing is written",
-          "command": "cub variant upload --dry-run --component autoscaler-vertical-pod-autoscaler --variant default --space autoscaler-vertical-pod-autoscaler-0-9-0-default --namespace default oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-autoscaler-vertical-pod-autoscaler-0-9-0-default:latest@sha256:44018558020bb3c4b52802617789273f5c16a04fb21b3d370f346e3e97b735c7",
+          "command": "cub variant upload --dry-run --component autoscaler-vertical-pod-autoscaler --variant default --space autoscaler-vertical-pod-autoscaler-0-9-0-default --namespace default oci://ghcr.io/confighub/configs/catalog/catalog-autoscaler-vertical-pod-autoscaler-0-9-0-default:bundle-44018558020b@sha256:44018558020bb3c4b52802617789273f5c16a04fb21b3d370f346e3e97b735c7",
           "needsAccount": true
         },
         {
           "comment": "upload the bundle as a base Space of Units",
-          "command": "cub variant upload --component autoscaler-vertical-pod-autoscaler --variant default --space autoscaler-vertical-pod-autoscaler-0-9-0-default --namespace default oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-autoscaler-vertical-pod-autoscaler-0-9-0-default:latest@sha256:44018558020bb3c4b52802617789273f5c16a04fb21b3d370f346e3e97b735c7",
+          "command": "cub variant upload --component autoscaler-vertical-pod-autoscaler --variant default --space autoscaler-vertical-pod-autoscaler-0-9-0-default --namespace default oci://ghcr.io/confighub/configs/catalog/catalog-autoscaler-vertical-pod-autoscaler-0-9-0-default:bundle-44018558020b@sha256:44018558020bb3c4b52802617789273f5c16a04fb21b3d370f346e3e97b735c7",
           "needsAccount": true,
           "writes": true
         }

@@ -18,7 +18,7 @@ top-500 = source-feature reconnaissance plus any matching recipe proof
 rows: 122
 top-20 catalog-supported entries: 20
 next-80 proof-grade entries: 102
-retained newer candidate versions: 38
+retained newer candidate versions: 39
 catalog-supported: 20
 proof-grade: 88
 multi-variant entries: 76

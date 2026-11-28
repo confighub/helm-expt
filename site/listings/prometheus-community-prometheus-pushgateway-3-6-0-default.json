@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:33e9d603109b517560aaa5e244acc3a825977fd5e417b436da07b63930ac2a78",
+      "sha256": "sha256:168547f46c3c4c20ef028a08b6d32d3ad3eef87df4443bb53c51310553722cc3",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/prometheus-community-prometheus-pushgateway-3-6-0-default.yaml",
-      "sha256": "sha256:69f74d387739d0ef9230c964da480cd82b7750f0ce70862fc484ba7293036b00",
+      "sha256": "sha256:bd96e1ad89823caf458db58345a07781c4f35d846ffbb75cee75de9f7bda2382",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/prometheus-community-prometheus-pushgateway-3-6-0-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -36,7 +36,7 @@
     "name": "prometheus-community/prometheus-pushgateway",
     "version": "3.6.0",
     "reference": "prometheus-community/prometheus-pushgateway@3.6.0",
-    "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-pushgateway:3.6.0@sha256:0018337ac8b9d81ccce8b98c7bbcf09fac81b9e5706b3c59113d8748492b719b",
+    "ociRef": "oci://ghcr.io/confighub/packages/prometheus-pushgateway:v3.6.0@sha256:7d6a4625094fa584ff3211cd73824448ae6aa1ca738064d39ad17b5e056e34af",
     "record": "data/helm-render-intents/intents/prometheus-community-prometheus-pushgateway-3-6-0-default.yaml",
     "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/prometheus-community-prometheus-pushgateway-3-6-0-default.yaml",
     "selection": {
@@ -92,7 +92,7 @@
     }
   },
   "oci": {
-    "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-pushgateway:3.6.0@sha256:0018337ac8b9d81ccce8b98c7bbcf09fac81b9e5706b3c59113d8748492b719b",
+    "sourcePackageRef": "oci://ghcr.io/confighub/packages/prometheus-pushgateway:v3.6.0@sha256:7d6a4625094fa584ff3211cd73824448ae6aa1ca738064d39ad17b5e056e34af",
     "bundles": [
       {
         "role": "source-package",
@@ -137,7 +137,9 @@
         "ghcr": {
           "reference": "oci://ghcr.io/confighub/configs/catalog/catalog-prometheus-community-prometheus-pushgateway-3-6-0-default:bundle-a8a5bd04a9d1@sha256:a8a5bd04a9d125d6fc2597cbf2a455ee952c8821e4b8f651f3af4fae61bd1bcf",
           "manifestDigest": "sha256:a8a5bd04a9d125d6fc2597cbf2a455ee952c8821e4b8f651f3af4fae61bd1bcf",
-          "state": "awaits-workflow-publication",
+          "state": "published-signed",
+          "receipt": "runs/catalog-oci/catalog-prometheus-community-prometheus-pushgateway-3-6-0-default/bundle-a8a5bd04a9d1.yaml",
+          "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/runs/catalog-oci/catalog-prometheus-community-prometheus-pushgateway-3-6-0-default/bundle-a8a5bd04a9d1.yaml",
           "publisher": ".github/workflows/catalog-oci-publish.yml",
           "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/catalog-prometheus-community-prometheus-pushgateway-3-6-0-default@sha256:a8a5bd04a9d125d6fc2597cbf2a455ee952c8821e4b8f651f3af4fae61bd1bcf",
           "sameDigestAsEarlier": true
@@ -503,12 +505,12 @@
         },
         {
           "comment": "preview the upload of the published bundle; nothing is written",
-          "command": "cub variant upload --dry-run --component prometheus-community-prometheus-pushgateway --variant default --space prometheus-community-prometheus-pushgateway-3-6-0-default --namespace default oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-pushgateway-3-6-0-default:latest@sha256:a8a5bd04a9d125d6fc2597cbf2a455ee952c8821e4b8f651f3af4fae61bd1bcf",
+          "command": "cub variant upload --dry-run --component prometheus-community-prometheus-pushgateway --variant default --space prometheus-community-prometheus-pushgateway-3-6-0-default --namespace default oci://ghcr.io/confighub/configs/catalog/catalog-prometheus-community-prometheus-pushgateway-3-6-0-default:bundle-a8a5bd04a9d1@sha256:a8a5bd04a9d125d6fc2597cbf2a455ee952c8821e4b8f651f3af4fae61bd1bcf",
           "needsAccount": true
         },
         {
           "comment": "upload the bundle as a base Space of Units",
-          "command": "cub variant upload --component prometheus-community-prometheus-pushgateway --variant default --space prometheus-community-prometheus-pushgateway-3-6-0-default --namespace default oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-pushgateway-3-6-0-default:latest@sha256:a8a5bd04a9d125d6fc2597cbf2a455ee952c8821e4b8f651f3af4fae61bd1bcf",
+          "command": "cub variant upload --component prometheus-community-prometheus-pushgateway --variant default --space prometheus-community-prometheus-pushgateway-3-6-0-default --namespace default oci://ghcr.io/confighub/configs/catalog/catalog-prometheus-community-prometheus-pushgateway-3-6-0-default:bundle-a8a5bd04a9d1@sha256:a8a5bd04a9d125d6fc2597cbf2a455ee952c8821e4b8f651f3af4fae61bd1bcf",
           "needsAccount": true,
           "writes": true
         }

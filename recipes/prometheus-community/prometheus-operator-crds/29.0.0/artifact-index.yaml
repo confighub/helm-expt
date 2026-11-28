@@ -62,11 +62,18 @@ spec:
     nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:
     path: "packages/prometheus-community/prometheus-operator-crds/29.0.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-operator-crds:29.0.0@sha256:923b79c94ab4d966ae66cc7b6e2ddc199d042ebe5ea16942d197dc2a12fdec42"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-operator-crds:29.0.0"
-    manifestDigest: "sha256:923b79c94ab4d966ae66cc7b6e2ddc199d042ebe5ea16942d197dc2a12fdec42"
-    layerDigest: "sha256:304b6c269645257cf613a009e59a7bbc08e3c0e0c323455bacbe9e426645ce94"
-    publicationReceipt: "runs/installer-oci/prometheus-community-prometheus-operator-crds/29.0.0/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/prometheus-operator-crds:v29.0.0@sha256:2d19b5fa9d5085952ddda6abf6387e6edca4c1fce88ef21ef733d6f7d9c50cbd"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/prometheus-operator-crds:v29.0.0"
+    manifestDigest: "sha256:2d19b5fa9d5085952ddda6abf6387e6edca4c1fce88ef21ef733d6f7d9c50cbd"
+    layerDigest: "sha256:c4fb94ebbbd399430bf73bfc9c80b87d037ecbc946a2741e319f8795f3ef726e"
+    publicationReceipt: "runs/ghcr-packages/prometheus-operator-crds/v29.0.0.yaml"
+    name: "prometheus-operator-crds"
+    tag: "v29.0.0"
+    installCommand: "cub package install prometheus-operator-crds:v29.0.0 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/prometheus-operator-crds@sha256:2d19b5fa9d5085952ddda6abf6387e6edca4c1fce88ef21ef733d6f7d9c50cbd"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-operator-crds:29.0.0@sha256:923b79c94ab4d966ae66cc7b6e2ddc199d042ebe5ea16942d197dc2a12fdec42"
+      publicationReceipt: "runs/installer-oci/prometheus-community-prometheus-operator-crds/29.0.0/installer-package-publication-receipt.yaml"
     installer: "packages/prometheus-community/prometheus-operator-crds/29.0.0/installer.yaml"
     receipt: "recipes/prometheus-community/prometheus-operator-crds/29.0.0/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "304b6c269645257cf613a009e59a7bbc08e3c0e0c323455bacbe9e426645ce94"
@@ -98,7 +105,7 @@ spec:
         default: true
         description: "prometheus-community/prometheus-operator-crds default variant rendered from prometheus-community/prometheus-operator-crds@29.0.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-operator-crds:29.0.0@sha256:923b79c94ab4d966ae66cc7b6e2ddc199d042ebe5ea16942d197dc2a12fdec42 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/prometheus-operator-crds:v29.0.0@sha256:2d19b5fa9d5085952ddda6abf6387e6edca4c1fce88ef21ef733d6f7d9c50cbd --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 10
         cubInstallObjectCountIncludingSupport: 11
         semanticObjectMatches: "10/10"

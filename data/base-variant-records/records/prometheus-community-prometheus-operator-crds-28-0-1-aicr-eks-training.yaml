@@ -13,7 +13,7 @@ spec:
     name: "prometheus-community/prometheus-operator-crds"
     version: "28.0.1"
     record: "data/helm-render-intents/intents/prometheus-community-prometheus-operator-crds-28-0-1-aicr-eks-training.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-operator-crds:28.0.1@sha256:666c7cf9a3928b3e47c7b01832cb9dcec116029710a8d4a4a358211aaf238aea"
+    packageOciRef: "oci://ghcr.io/confighub/packages/prometheus-operator-crds:v28.0.1@sha256:d1d77f2d31a9f35156b8277a5767e6371a19d4a20e6658c7e5ae19aed18da678"
     selection:
       name: "aicr-eks-training"
       kind: "catalog-preset"

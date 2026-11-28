@@ -62,11 +62,18 @@ spec:
     nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:
     path: "packages/opencost/opencost/2.5.21"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/opencost-opencost:2.5.21@sha256:fe20f3373efbf0a04f374fa580de65ffb9401b0f471c41391c887edfb3859b75"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/opencost-opencost:2.5.21"
-    manifestDigest: "sha256:fe20f3373efbf0a04f374fa580de65ffb9401b0f471c41391c887edfb3859b75"
-    layerDigest: "sha256:174ec78cf025f8e9ef56468d2f90b94b876717d8bfff64674d733c0739a6d35a"
-    publicationReceipt: "runs/installer-oci/opencost-opencost/2.5.21/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/opencost:v2.5.21@sha256:731ef4b3c87942176abf364f71b33133c6f318f0805dee084102657ef9dcbf2d"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/opencost:v2.5.21"
+    manifestDigest: "sha256:731ef4b3c87942176abf364f71b33133c6f318f0805dee084102657ef9dcbf2d"
+    layerDigest: "sha256:5e68743a0bfc6c303c0e9787eb1211a63ef64a422d619dcee3f96850adef9f77"
+    publicationReceipt: "runs/ghcr-packages/opencost/v2.5.21.yaml"
+    name: "opencost"
+    tag: "v2.5.21"
+    installCommand: "cub package install opencost:v2.5.21 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/opencost@sha256:731ef4b3c87942176abf364f71b33133c6f318f0805dee084102657ef9dcbf2d"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/opencost-opencost:2.5.21@sha256:fe20f3373efbf0a04f374fa580de65ffb9401b0f471c41391c887edfb3859b75"
+      publicationReceipt: "runs/installer-oci/opencost-opencost/2.5.21/installer-package-publication-receipt.yaml"
     installer: "packages/opencost/opencost/2.5.21/installer.yaml"
     receipt: "recipes/opencost/opencost/2.5.21/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "174ec78cf025f8e9ef56468d2f90b94b876717d8bfff64674d733c0739a6d35a"
@@ -98,7 +105,7 @@ spec:
         default: true
         description: "opencost/opencost default variant rendered from opencost/opencost@2.5.21"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/opencost-opencost:2.5.21@sha256:fe20f3373efbf0a04f374fa580de65ffb9401b0f471c41391c887edfb3859b75 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/opencost:v2.5.21@sha256:731ef4b3c87942176abf364f71b33133c6f318f0805dee084102657ef9dcbf2d --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 6
         cubInstallObjectCountIncludingSupport: 7
         semanticObjectMatches: "6/6"

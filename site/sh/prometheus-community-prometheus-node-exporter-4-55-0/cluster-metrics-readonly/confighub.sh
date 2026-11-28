@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the cluster-metrics-readonly base variant into ./prometheus-community-prometheus-node-exporter-4-55-0-cluster-metrics-readonly"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-node-exporter:4.55.0@sha256:b5365489a899714904a438a5a3ccb2f7a7814f1b41bc16cf8fa41638e4ffa9cd --base cluster-metrics-readonly --work-dir ./prometheus-community-prometheus-node-exporter-4-55-0-cluster-metrics-readonly --non-interactive --namespace default
+cub installer setup --pull oci://ghcr.io/confighub/packages/prometheus-node-exporter:v4.55.0@sha256:b59533411a149e19928d61efeeb8c78c1b8e95093c4e98e417db75871044d1e5 --base cluster-metrics-readonly --work-dir ./prometheus-community-prometheus-node-exporter-4-55-0-cluster-metrics-readonly --non-interactive --namespace default
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./prometheus-community-prometheus-node-exporter-4-55-0-cluster-metrics-readonly --space "${SPACE}"

@@ -62,11 +62,18 @@ spec:
     nextAction: "review source/current-version drift and refresh recipe if needed"
   installerPackage:
     path: "packages/node-feature-discovery/node-feature-discovery/0.19.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/node-feature-discovery-node-feature-discovery:0.19.0@sha256:44e9888786f6d0c52a1351f8dcae597b1c91d68ddaf135049e9637fdbd76ea63"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/node-feature-discovery-node-feature-discovery:0.19.0"
-    manifestDigest: "sha256:44e9888786f6d0c52a1351f8dcae597b1c91d68ddaf135049e9637fdbd76ea63"
-    layerDigest: "sha256:9249260d7911a04453b39d2b6e088cada54e6b71f30b66982f82824becfc076e"
-    publicationReceipt: "runs/installer-oci/node-feature-discovery-node-feature-discovery/0.19.0/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/node-feature-discovery:v0.19.0@sha256:cea7c9e8f01fab415b3cc6ac4959e8a6fe5153e933699b764a6e5349a121a75d"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/node-feature-discovery:v0.19.0"
+    manifestDigest: "sha256:cea7c9e8f01fab415b3cc6ac4959e8a6fe5153e933699b764a6e5349a121a75d"
+    layerDigest: "sha256:19494f7bac02cb09b9a27f95c84504d10e36c86ef45a8da6a0c766a9ecf506b0"
+    publicationReceipt: "runs/ghcr-packages/node-feature-discovery/v0.19.0.yaml"
+    name: "node-feature-discovery"
+    tag: "v0.19.0"
+    installCommand: "cub package install node-feature-discovery:v0.19.0 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/node-feature-discovery@sha256:cea7c9e8f01fab415b3cc6ac4959e8a6fe5153e933699b764a6e5349a121a75d"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/node-feature-discovery-node-feature-discovery:0.19.0@sha256:44e9888786f6d0c52a1351f8dcae597b1c91d68ddaf135049e9637fdbd76ea63"
+      publicationReceipt: "runs/installer-oci/node-feature-discovery-node-feature-discovery/0.19.0/installer-package-publication-receipt.yaml"
     installer: "packages/node-feature-discovery/node-feature-discovery/0.19.0/installer.yaml"
     receipt: "recipes/node-feature-discovery/node-feature-discovery/0.19.0/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "9249260d7911a04453b39d2b6e088cada54e6b71f30b66982f82824becfc076e"
@@ -138,7 +145,7 @@ spec:
         default: true
         description: "node-feature-discovery chart defaults variant rendered from node-feature-discovery/node-feature-discovery@0.19.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/node-feature-discovery-node-feature-discovery:0.19.0@sha256:44e9888786f6d0c52a1351f8dcae597b1c91d68ddaf135049e9637fdbd76ea63 --base default --work-dir <tmp> --non-interactive --namespace node-feature-discovery"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/node-feature-discovery:v0.19.0@sha256:cea7c9e8f01fab415b3cc6ac4959e8a6fe5153e933699b764a6e5349a121a75d --base default --work-dir <tmp> --non-interactive --namespace node-feature-discovery"
         helmReleaseObjectCount: 17
         cubInstallObjectCountIncludingSupport: 18
         semanticObjectMatches: "17/17"
@@ -240,7 +247,7 @@ spec:
         default: false
         description: "node-feature-discovery AICR v0.20.0 EKS training values variant rendered from node-feature-discovery/node-feature-discovery@0.19.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/node-feature-discovery-node-feature-discovery:0.19.0@sha256:44e9888786f6d0c52a1351f8dcae597b1c91d68ddaf135049e9637fdbd76ea63 --base aicr-eks-training-v0-20-0 --work-dir <tmp> --non-interactive --namespace node-feature-discovery"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/node-feature-discovery:v0.19.0@sha256:cea7c9e8f01fab415b3cc6ac4959e8a6fe5153e933699b764a6e5349a121a75d --base aicr-eks-training-v0-20-0 --work-dir <tmp> --non-interactive --namespace node-feature-discovery"
         helmReleaseObjectCount: 23
         cubInstallObjectCountIncludingSupport: 24
         semanticObjectMatches: "23/23"
@@ -342,7 +349,7 @@ spec:
         default: false
         description: "node-feature-discovery AICR v1.0.0 EKS training values variant rendered from node-feature-discovery/node-feature-discovery@0.19.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/node-feature-discovery-node-feature-discovery:0.19.0@sha256:44e9888786f6d0c52a1351f8dcae597b1c91d68ddaf135049e9637fdbd76ea63 --base aicr-eks-training-v1-0-0 --work-dir <tmp> --non-interactive --namespace node-feature-discovery"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/node-feature-discovery:v0.19.0@sha256:cea7c9e8f01fab415b3cc6ac4959e8a6fe5153e933699b764a6e5349a121a75d --base aicr-eks-training-v1-0-0 --work-dir <tmp> --non-interactive --namespace node-feature-discovery"
         helmReleaseObjectCount: 23
         cubInstallObjectCountIncludingSupport: 24
         semanticObjectMatches: "23/23"

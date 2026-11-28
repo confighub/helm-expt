@@ -13,7 +13,7 @@ spec:
     name: "node-feature-discovery/node-feature-discovery"
     version: "0.19.0"
     record: "data/helm-render-intents/intents/node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v0-20-0.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/node-feature-discovery-node-feature-discovery:0.19.0@sha256:44e9888786f6d0c52a1351f8dcae597b1c91d68ddaf135049e9637fdbd76ea63"
+    packageOciRef: "oci://ghcr.io/confighub/packages/node-feature-discovery:v0.19.0@sha256:cea7c9e8f01fab415b3cc6ac4959e8a6fe5153e933699b764a6e5349a121a75d"
     selection:
       name: "aicr-eks-training-v0-20-0"
       kind: "catalog-preset"

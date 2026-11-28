@@ -63,11 +63,18 @@ spec:
     nextAction: ""
   installerPackage:
     path: "packages/jetstack/cert-manager/v1.21.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.21.0@sha256:c6ebd798984a15a6bf3e856b02cc1f3806c48cb2ee714d655ea3dd312c939ecc"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.21.0"
-    manifestDigest: "sha256:c6ebd798984a15a6bf3e856b02cc1f3806c48cb2ee714d655ea3dd312c939ecc"
-    layerDigest: "sha256:3aae227fdb5e32be21e01950a13ea8ede2f2090f0386a71d910f28eb2ae220c0"
-    publicationReceipt: "runs/installer-oci/jetstack-cert-manager/v1.21.0/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/cert-manager:v1.21.0@sha256:fbe39726d4146e107f692ef1841b57bbf27570a4a49ae25b89979d9feb28d0cd"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/cert-manager:v1.21.0"
+    manifestDigest: "sha256:fbe39726d4146e107f692ef1841b57bbf27570a4a49ae25b89979d9feb28d0cd"
+    layerDigest: "sha256:a4b52a5e34f1958341d680e3e97ae80239e91adb5dbc7dcdea804dcabb5ffaa6"
+    publicationReceipt: "runs/ghcr-packages/cert-manager/v1.21.0.yaml"
+    name: "cert-manager"
+    tag: "v1.21.0"
+    installCommand: "cub package install cert-manager:v1.21.0 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/cert-manager@sha256:fbe39726d4146e107f692ef1841b57bbf27570a4a49ae25b89979d9feb28d0cd"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.21.0@sha256:c6ebd798984a15a6bf3e856b02cc1f3806c48cb2ee714d655ea3dd312c939ecc"
+      publicationReceipt: "runs/installer-oci/jetstack-cert-manager/v1.21.0/installer-package-publication-receipt.yaml"
     installer: "packages/jetstack/cert-manager/v1.21.0/installer.yaml"
     receipt: "recipes/jetstack/cert-manager/v1.21.0/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "3aae227fdb5e32be21e01950a13ea8ede2f2090f0386a71d910f28eb2ae220c0"
@@ -164,7 +171,7 @@ spec:
         default: true
         description: "cert-manager default variant rendered from jetstack/cert-manager@v1.21.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.21.0@sha256:c6ebd798984a15a6bf3e856b02cc1f3806c48cb2ee714d655ea3dd312c939ecc --base default --work-dir <tmp> --non-interactive --namespace cert-manager"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/cert-manager:v1.21.0@sha256:fbe39726d4146e107f692ef1841b57bbf27570a4a49ae25b89979d9feb28d0cd --base default --work-dir <tmp> --non-interactive --namespace cert-manager"
         helmReleaseObjectCount: 40
         cubInstallObjectCountIncludingSupport: 41
         semanticObjectMatches: "40/40"
@@ -226,7 +233,7 @@ spec:
         default: false
         description: "cert-manager CRDs enabled variant rendered from jetstack/cert-manager@v1.21.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.21.0@sha256:c6ebd798984a15a6bf3e856b02cc1f3806c48cb2ee714d655ea3dd312c939ecc --base crds-enabled --work-dir <tmp> --non-interactive --namespace cert-manager"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/cert-manager:v1.21.0@sha256:fbe39726d4146e107f692ef1841b57bbf27570a4a49ae25b89979d9feb28d0cd --base crds-enabled --work-dir <tmp> --non-interactive --namespace cert-manager"
         helmReleaseObjectCount: 46
         cubInstallObjectCountIncludingSupport: 47
         semanticObjectMatches: "46/46"

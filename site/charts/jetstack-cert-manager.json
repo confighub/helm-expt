@@ -19,7 +19,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.21.1@sha256:830d0dfee2531c05cb48f3328abd1858b97bacf050208e583ab2dd2214d2cba5"
+        "ociRef": "oci://ghcr.io/confighub/packages/cert-manager:v1.21.1@sha256:4fb4f934a1791d6bccf34cd316f5bdacd01448da67f1bc1339a9ccddf74b723c",
+        "installCommand": "cub package install cert-manager:v1.21.1 --space <space>"
       },
       "bases": [
         {
@@ -67,7 +68,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.21.0@sha256:c6ebd798984a15a6bf3e856b02cc1f3806c48cb2ee714d655ea3dd312c939ecc"
+        "ociRef": "oci://ghcr.io/confighub/packages/cert-manager:v1.21.0@sha256:fbe39726d4146e107f692ef1841b57bbf27570a4a49ae25b89979d9feb28d0cd",
+        "installCommand": "cub package install cert-manager:v1.21.0 --space <space>"
       },
       "bases": [
         {
@@ -115,7 +117,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.20.2@sha256:b688d5ef7ae759bd73d2970528a7192e14058bc593a8601b6af12157270c6d2c"
+        "ociRef": "oci://ghcr.io/confighub/packages/cert-manager:v1.20.2@sha256:9e611f6573fdf19f9f532482ea00d527ed6351acae979c6d15a0055d77921ef5",
+        "installCommand": "cub package install cert-manager:v1.20.2 --space <space>"
       },
       "bases": [
         {

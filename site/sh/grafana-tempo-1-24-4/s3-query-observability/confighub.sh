@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the s3-query-observability base variant into ./grafana-tempo-1-24-4-s3-query-observability"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-tempo:1.24.4@sha256:bdeba9d642d10538e41f72eb96bd59f62428a6d0bc395111c74a7bcb8c1e7e12 --base s3-query-observability --work-dir ./grafana-tempo-1-24-4-s3-query-observability --non-interactive --namespace tempo
+cub installer setup --pull oci://ghcr.io/confighub/packages/tempo:v1.24.4@sha256:5c5e9597520f79c574b455cd79e70c87d23fb3fd087a5aa14f8df43932f1f707 --base s3-query-observability --work-dir ./grafana-tempo-1-24-4-s3-query-observability --non-interactive --namespace tempo
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./grafana-tempo-1-24-4-s3-query-observability --space "${SPACE}"

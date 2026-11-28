@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the aicr-eks-training base variant into ./eks-aws-efa-k8s-device-plugin-v0-5-29-aicr-eks-training"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/eks-aws-efa-k8s-device-plugin:v0.5.29@sha256:5ae84f9bb5ee745360393d7b9b3f4955f37ec75503f5f7b26ae0bc2c287ce24c --base aicr-eks-training --work-dir ./eks-aws-efa-k8s-device-plugin-v0-5-29-aicr-eks-training --non-interactive --namespace kube-system
+cub installer setup --pull oci://ghcr.io/confighub/packages/aws-efa-k8s-device-plugin:v0.5.29@sha256:fae58dd06ae5ba3f35ceb776658367d9753f2f59488e085e0bfa62b7b4295c14 --base aicr-eks-training --work-dir ./eks-aws-efa-k8s-device-plugin-v0-5-29-aicr-eks-training --non-interactive --namespace kube-system
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./eks-aws-efa-k8s-device-plugin-v0-5-29-aicr-eks-training/out/manifests

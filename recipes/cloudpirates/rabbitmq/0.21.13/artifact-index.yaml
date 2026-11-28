@@ -75,11 +75,18 @@ spec:
     nextAction: "run catalog promotion review"
   installerPackage:
     path: "packages/cloudpirates/rabbitmq/0.21.13"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-rabbitmq:0.21.13@sha256:fd175661adf537893aa549cae62df7e6f0005be8f0e4098224d433626f74bbfc"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-rabbitmq:0.21.13"
-    manifestDigest: "sha256:fd175661adf537893aa549cae62df7e6f0005be8f0e4098224d433626f74bbfc"
-    layerDigest: "sha256:fd76a776ab4f12beac468bbefad26fd2bc568c0e342556680690f193f92f3449"
-    publicationReceipt: "runs/installer-oci/cloudpirates-rabbitmq/0.21.13/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/cloudpirates-rabbitmq:v0.21.13@sha256:8337f77a74ca90b01e8255c58f797feb6544d7c96d66276fa17efd720d776a78"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/cloudpirates-rabbitmq:v0.21.13"
+    manifestDigest: "sha256:8337f77a74ca90b01e8255c58f797feb6544d7c96d66276fa17efd720d776a78"
+    layerDigest: "sha256:e65fa6eaefe445c3dc40b48e6610e12a16a03ddfc20de4f7bac2753526349d32"
+    publicationReceipt: "runs/ghcr-packages/cloudpirates-rabbitmq/v0.21.13.yaml"
+    name: "cloudpirates-rabbitmq"
+    tag: "v0.21.13"
+    installCommand: "cub package install cloudpirates-rabbitmq:v0.21.13 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/cloudpirates-rabbitmq@sha256:8337f77a74ca90b01e8255c58f797feb6544d7c96d66276fa17efd720d776a78"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-rabbitmq:0.21.13@sha256:fd175661adf537893aa549cae62df7e6f0005be8f0e4098224d433626f74bbfc"
+      publicationReceipt: "runs/installer-oci/cloudpirates-rabbitmq/0.21.13/installer-package-publication-receipt.yaml"
     installer: "packages/cloudpirates/rabbitmq/0.21.13/installer.yaml"
     receipt: "recipes/cloudpirates/rabbitmq/0.21.13/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "fd76a776ab4f12beac468bbefad26fd2bc568c0e342556680690f193f92f3449"
@@ -116,7 +123,7 @@ spec:
         default: true
         description: "cloudpirates/rabbitmq default variant rendered from cloudpirates/rabbitmq@0.21.13"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-rabbitmq:0.21.13@sha256:fd175661adf537893aa549cae62df7e6f0005be8f0e4098224d433626f74bbfc --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/cloudpirates-rabbitmq:v0.21.13@sha256:8337f77a74ca90b01e8255c58f797feb6544d7c96d66276fa17efd720d776a78 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 5
         cubInstallObjectCountIncludingSupport: 6
         semanticObjectMatches: "5/5"
@@ -185,7 +192,7 @@ spec:
         default: false
         description: "cloudpirates/rabbitmq existing-secret variant rendered from cloudpirates/rabbitmq@0.21.13"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-rabbitmq:0.21.13@sha256:fd175661adf537893aa549cae62df7e6f0005be8f0e4098224d433626f74bbfc --base existing-secret --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/cloudpirates-rabbitmq:v0.21.13@sha256:8337f77a74ca90b01e8255c58f797feb6544d7c96d66276fa17efd720d776a78 --base existing-secret --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 5
         cubInstallObjectCountIncludingSupport: 6
         semanticObjectMatches: "5/5"

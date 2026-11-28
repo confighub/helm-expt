@@ -19,7 +19,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-k8s-nim-operator:3.1.2@sha256:3539d06bc051040cc6afd8759af2a5b406a5d2f2a79a7a8621918da92de2e93d"
+        "ociRef": "oci://ghcr.io/confighub/packages/k8s-nim-operator:v3.1.2@sha256:1cd086887e2e8306294dc65c790cf1a92a83d7d09a9ac52016ce3fcd75f248cb",
+        "installCommand": "cub package install k8s-nim-operator:v3.1.2 --space <space>"
       },
       "bases": [
         {
@@ -49,7 +50,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-k8s-nim-operator:3.1.0@sha256:51b150bffea022e1cf3b6a21db9d9443b7c3067ee5fd9ce3fbdf96bbef9712b3"
+        "ociRef": "oci://ghcr.io/confighub/packages/k8s-nim-operator:v3.1.0@sha256:263730dd9bd0def4d13539aab07e1feea79492cdad875fa1fa7f44281a0d2b97",
+        "installCommand": "cub package install k8s-nim-operator:v3.1.0 --space <space>"
       },
       "bases": [
         {

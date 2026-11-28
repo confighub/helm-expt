@@ -50,7 +50,10 @@ for exact base-variant evidence.
 | Production readiness plan | [recipes/prometheus-community/kube-prometheus-stack/87.19.2/production-readiness-plan.yaml](../../../../../../../recipes/prometheus-community/kube-prometheus-stack/87.19.2/production-readiness-plan.yaml) |
 | Catalog status | [data/kubara-catalog-release/recipe-views/recipes/prometheus-community/kube-prometheus-stack/87.19.2/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [data/kubara-catalog-release/recipe-views/recipes/prometheus-community/kube-prometheus-stack/87.19.2/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:87.19.2@sha256:df91aefaac87edd2bcd625ec9a87f7142d49fc2d7ffc70878dfb1d92bc885987` |
+| Install into a Space | `cub package install kube-prometheus-stack:v87.19.2 --space <space>` |
+| Installer package OCI | `oci://ghcr.io/confighub/packages/kube-prometheus-stack:v87.19.2@sha256:c6efc87e7fed1b1c8f7b6072c2264a312f50d7b6bc9f7a1bf040f96fe4051297` |
+| Installer package publication | [runs/ghcr-packages/kube-prometheus-stack/v87.19.2.yaml](../../../../../../../runs/ghcr-packages/kube-prometheus-stack/v87.19.2.yaml) |
+| Earlier location | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:87.19.2@sha256:df91aefaac87edd2bcd625ec9a87f7142d49fc2d7ffc70878dfb1d92bc885987` |
 | Installer package source | [packages/prometheus-community/kube-prometheus-stack/87.19.2](../../../../../../../packages/prometheus-community/kube-prometheus-stack/87.19.2) |
 | Installer package receipt | [recipes/prometheus-community/kube-prometheus-stack/87.19.2/publication/installer-package-receipt.yaml](../../../../../../../recipes/prometheus-community/kube-prometheus-stack/87.19.2/publication/installer-package-receipt.yaml) |
 | Machine index | [data/kubara-catalog-release/recipe-views/recipes/prometheus-community/kube-prometheus-stack/87.19.2/artifact-index.yaml](artifact-index.yaml) |
@@ -90,12 +93,22 @@ for exact base-variant evidence.
 
 ## Current Install Shape
 
+Install the package into a ConfigHub Space, which renders it and uploads
+one Unit per resource:
+
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:87.19.2@sha256:df91aefaac87edd2bcd625ec9a87f7142d49fc2d7ffc70878dfb1d92bc885987 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub package install kube-prometheus-stack:v87.19.2 --space kube-prometheus-stack --base <variant> --namespace <namespace>
+```
+
+Or render it locally from the exact package bytes, with no Space:
+
+```sh
+cub installer setup --pull oci://ghcr.io/confighub/packages/kube-prometheus-stack:v87.19.2@sha256:c6efc87e7fed1b1c8f7b6072c2264a312f50d7b6bc9f7a1bf040f96fe4051297 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is
-the public package users pull; the `packages/...` path is the repo source path
+the public package users pull, signed by the package publish workflow; check it with
+`cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/kube-prometheus-stack@sha256:c6efc87e7fed1b1c8f7b6072c2264a312f50d7b6bc9f7a1bf040f96fe4051297`. The `packages/...` path is the repo source path
 used by maintainers and proof scripts. The proof path compares regular Helm
 output with real `cub installer setup` output and explains every intentional
 difference, such as the Namespace support object or separated Secrets.

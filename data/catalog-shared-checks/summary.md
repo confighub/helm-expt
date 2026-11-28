@@ -8,10 +8,10 @@ The older per-revision `scan-receipt.yaml` files remain the chart-specific Catal
 
 ## Coverage
 
-- Exact Helm configurations checked: **344**
-- Configurations with advisory findings: **331**
+- Exact Helm configurations checked: **346**
+- Configurations with advisory findings: **333**
 - Configurations with no finding from this ruleset: **13**
-- Findings: **3639** (970 critical, 2080 warning, 589 info)
+- Findings: **3733** (994 critical, 2130 warning, 609 info)
 - Stable controls reported: **48**
 - Scanner: **cub check v0.7.3**
 - Bundle manifest: `sha256:0405f6ffe21e567adf5d6a732d181c7f228194920456d046b4338baeb14de1a8`
@@ -54,6 +54,8 @@ The mappings below are deliberately partial. A shared field check can support a 
 | `argo-cd/argo-cd` | `10.1.3` | `no-crds` | 50 findings (13 critical, 27 warning, 10 info) | [result](./receipts/argo-cd-argo-cd-10-1-3-no-crds.json) | [objects](../../recipes/argo-cd/argo-cd/10.1.3/revisions/no-crds/r001/rendered/release-objects.yaml) | [Catalog review](../../recipes/argo-cd/argo-cd/10.1.3/revisions/no-crds/r001/receipts/scan-receipt.yaml) |
 | `argo-cd/argo-cd` | `10.2.1` | `default` | 50 findings (13 critical, 27 warning, 10 info) | [result](./receipts/argo-cd-argo-cd-10-2-1-default.json) | [objects](../../recipes/argo-cd/argo-cd/10.2.1/revisions/default/r001/rendered/release-objects.yaml) | [Catalog review](../../recipes/argo-cd/argo-cd/10.2.1/revisions/default/r001/receipts/scan-receipt.yaml) |
 | `argo-cd/argo-cd` | `10.2.1` | `no-crds` | 50 findings (13 critical, 27 warning, 10 info) | [result](./receipts/argo-cd-argo-cd-10-2-1-no-crds.json) | [objects](../../recipes/argo-cd/argo-cd/10.2.1/revisions/no-crds/r001/rendered/release-objects.yaml) | [Catalog review](../../recipes/argo-cd/argo-cd/10.2.1/revisions/no-crds/r001/receipts/scan-receipt.yaml) |
+| `argo-cd/argo-cd` | `10.20.0` | `default` | 47 findings (12 critical, 25 warning, 10 info) | [result](./receipts/argo-cd-argo-cd-10-20-0-default.json) | [objects](../../recipes/argo-cd/argo-cd/10.20.0/revisions/default/r001/rendered/release-objects.yaml) | [Catalog review](../../recipes/argo-cd/argo-cd/10.20.0/revisions/default/r001/receipts/scan-receipt.yaml) |
+| `argo-cd/argo-cd` | `10.20.0` | `no-crds` | 47 findings (12 critical, 25 warning, 10 info) | [result](./receipts/argo-cd-argo-cd-10-20-0-no-crds.json) | [objects](../../recipes/argo-cd/argo-cd/10.20.0/revisions/no-crds/r001/rendered/release-objects.yaml) | [Catalog review](../../recipes/argo-cd/argo-cd/10.20.0/revisions/no-crds/r001/receipts/scan-receipt.yaml) |
 | `argo-cd/argo-cd` | `10.7.0` | `default` | 50 findings (13 critical, 27 warning, 10 info) | [result](./receipts/argo-cd-argo-cd-10-7-0-default.json) | [objects](../../recipes/argo-cd/argo-cd/10.7.0/revisions/default/r001/rendered/release-objects.yaml) | [Catalog review](../../recipes/argo-cd/argo-cd/10.7.0/revisions/default/r001/receipts/scan-receipt.yaml) |
 | `argo-cd/argo-cd` | `10.7.0` | `no-crds` | 50 findings (13 critical, 27 warning, 10 info) | [result](./receipts/argo-cd-argo-cd-10-7-0-no-crds.json) | [objects](../../recipes/argo-cd/argo-cd/10.7.0/revisions/no-crds/r001/rendered/release-objects.yaml) | [Catalog review](../../recipes/argo-cd/argo-cd/10.7.0/revisions/no-crds/r001/receipts/scan-receipt.yaml) |
 | `argo-cd/argo-cd` | `9.5.15` | `default` | 50 findings (13 critical, 27 warning, 10 info) | [result](./receipts/argo-cd-argo-cd-9-5-15-default.json) | [objects](../../recipes/argo-cd/argo-cd/9.5.15/revisions/default/r001/rendered/release-objects.yaml) | [Catalog review](../../recipes/argo-cd/argo-cd/9.5.15/revisions/default/r001/receipts/scan-receipt.yaml) |

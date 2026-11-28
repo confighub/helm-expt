@@ -49,7 +49,10 @@ for exact base-variant evidence.
 | Value model | [recipes/coredns/coredns/1.45.2/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/coredns/coredns/1.45.2/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/coredns/coredns/1.45.2/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/coredns-coredns:1.45.2@sha256:2e99a7e9923a5365c803e3ffaede5b97731ac209423d8572f4d373274f4b31bc` |
+| Install into a Space | `cub package install coredns:v1.45.2 --space <space>` |
+| Installer package OCI | `oci://ghcr.io/confighub/packages/coredns:v1.45.2@sha256:81d61eda614fc017bdbd858a710a9d27ac2c4d369a77589e10d742595414664b` |
+| Installer package publication | [runs/ghcr-packages/coredns/v1.45.2.yaml](../../../../runs/ghcr-packages/coredns/v1.45.2.yaml) |
+| Earlier location | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/coredns-coredns:1.45.2@sha256:2e99a7e9923a5365c803e3ffaede5b97731ac209423d8572f4d373274f4b31bc` |
 | Installer package source | [packages/coredns/coredns/1.45.2](../../../../packages/coredns/coredns/1.45.2) |
 | Installer package receipt | [recipes/coredns/coredns/1.45.2/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/coredns/coredns/1.45.2/artifact-index.yaml](artifact-index.yaml) |
@@ -77,12 +80,22 @@ for exact base-variant evidence.
 
 ## Current Install Shape
 
+Install the package into a ConfigHub Space, which renders it and uploads
+one Unit per resource:
+
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/coredns-coredns:1.45.2@sha256:2e99a7e9923a5365c803e3ffaede5b97731ac209423d8572f4d373274f4b31bc --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub package install coredns:v1.45.2 --space coredns --base <variant> --namespace <namespace>
+```
+
+Or render it locally from the exact package bytes, with no Space:
+
+```sh
+cub installer setup --pull oci://ghcr.io/confighub/packages/coredns:v1.45.2@sha256:81d61eda614fc017bdbd858a710a9d27ac2c4d369a77589e10d742595414664b --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is
-the public package users pull; the `packages/...` path is the repo source path
+the public package users pull, signed by the package publish workflow; check it with
+`cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/coredns@sha256:81d61eda614fc017bdbd858a710a9d27ac2c4d369a77589e10d742595414664b`. The `packages/...` path is the repo source path
 used by maintainers and proof scripts. The proof path compares regular Helm
 output with real `cub installer setup` output and explains every intentional
 difference, such as the Namespace support object or separated Secrets.

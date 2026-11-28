@@ -13,7 +13,7 @@ spec:
     name: "nvidia/gpu-operator"
     version: "v26.3.3"
     record: "data/helm-render-intents/intents/nvidia-gpu-operator-v26-3-3-default.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.3.3@sha256:abd8475d6bfeabe88acc2d6a319a04054a9e84046d69926dcee4717674329a8f"
+    packageOciRef: "oci://ghcr.io/confighub/packages/gpu-operator:v26.3.3@sha256:f9562ec32d98a81f28ba2bf5a38ce9c18f347af8809958b966c0f7081dfe7a6d"
     selection:
       name: "default"
       kind: "catalog-preset"

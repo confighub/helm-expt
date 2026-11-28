@@ -76,11 +76,18 @@ spec:
     nextAction: "run catalog promotion review"
   installerPackage:
     path: "packages/cloudpirates/redis/0.34.11"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11@sha256:ed4ebe13040d1fe9c079ef6b94497cda40598bcb484789db115001f6aadcc4eb"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11"
-    manifestDigest: "sha256:ed4ebe13040d1fe9c079ef6b94497cda40598bcb484789db115001f6aadcc4eb"
-    layerDigest: "sha256:03f31ab491bf1093f1ec0aed11e9f72b098cd8700a382e8cf3164854f4ab4f57"
-    publicationReceipt: "runs/installer-oci/cloudpirates-redis/0.34.11/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/cloudpirates-redis:v0.34.11@sha256:71421fdfe6d7fd137c7014449150967d2ba6278927749786c95367e408fbfb6e"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/cloudpirates-redis:v0.34.11"
+    manifestDigest: "sha256:71421fdfe6d7fd137c7014449150967d2ba6278927749786c95367e408fbfb6e"
+    layerDigest: "sha256:1e208ec68557132a53902fed2a95d3bde12ac696e2da47fb35328de9b888fa5b"
+    publicationReceipt: "runs/ghcr-packages/cloudpirates-redis/v0.34.11.yaml"
+    name: "cloudpirates-redis"
+    tag: "v0.34.11"
+    installCommand: "cub package install cloudpirates-redis:v0.34.11 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/cloudpirates-redis@sha256:71421fdfe6d7fd137c7014449150967d2ba6278927749786c95367e408fbfb6e"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11@sha256:ed4ebe13040d1fe9c079ef6b94497cda40598bcb484789db115001f6aadcc4eb"
+      publicationReceipt: "runs/installer-oci/cloudpirates-redis/0.34.11/installer-package-publication-receipt.yaml"
     installer: "packages/cloudpirates/redis/0.34.11/installer.yaml"
     receipt: "recipes/cloudpirates/redis/0.34.11/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "03f31ab491bf1093f1ec0aed11e9f72b098cd8700a382e8cf3164854f4ab4f57"
@@ -117,7 +124,7 @@ spec:
         default: true
         description: "cloudpirates/redis default variant rendered from cloudpirates/redis@0.34.11"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11@sha256:ed4ebe13040d1fe9c079ef6b94497cda40598bcb484789db115001f6aadcc4eb --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/cloudpirates-redis:v0.34.11@sha256:71421fdfe6d7fd137c7014449150967d2ba6278927749786c95367e408fbfb6e --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 5
         cubInstallObjectCountIncludingSupport: 6
         semanticObjectMatches: "5/5"
@@ -185,7 +192,7 @@ spec:
         default: false
         description: "cloudpirates/redis reuse-existing-secret variant rendered from cloudpirates/redis@0.34.11"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11@sha256:ed4ebe13040d1fe9c079ef6b94497cda40598bcb484789db115001f6aadcc4eb --base reuse-existing-secret --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/cloudpirates-redis:v0.34.11@sha256:71421fdfe6d7fd137c7014449150967d2ba6278927749786c95367e408fbfb6e --base reuse-existing-secret --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 5
         cubInstallObjectCountIncludingSupport: 6
         semanticObjectMatches: "5/5"

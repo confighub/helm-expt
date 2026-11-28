@@ -72,11 +72,18 @@ spec:
     nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:
     path: "packages/mysql/mysql-operator/2.3.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/mysql-mysql-operator:2.3.0@sha256:59116d8ebabcf485c7d0f38b659c3ec93e8aacb0a35db02a4f2e3226c7c8a6c5"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/mysql-mysql-operator:2.3.0"
-    manifestDigest: "sha256:59116d8ebabcf485c7d0f38b659c3ec93e8aacb0a35db02a4f2e3226c7c8a6c5"
-    layerDigest: "sha256:5307a3d786f9c7694909fea18c99e0619829edd4fc0b3a0e51749702cc7eb8b2"
-    publicationReceipt: "runs/installer-oci/mysql-mysql-operator/2.3.0/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/mysql-operator:v2.3.0@sha256:1b5b4cd74ac616c2b8e60f6e95fd439294ebc0898f027c5ec451f55162e93aa6"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/mysql-operator:v2.3.0"
+    manifestDigest: "sha256:1b5b4cd74ac616c2b8e60f6e95fd439294ebc0898f027c5ec451f55162e93aa6"
+    layerDigest: "sha256:1c8012a0dc831062d6fa06ed23cbcf693739456eab334a11f16d9b45a9aa353e"
+    publicationReceipt: "runs/ghcr-packages/mysql-operator/v2.3.0.yaml"
+    name: "mysql-operator"
+    tag: "v2.3.0"
+    installCommand: "cub package install mysql-operator:v2.3.0 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/mysql-operator@sha256:1b5b4cd74ac616c2b8e60f6e95fd439294ebc0898f027c5ec451f55162e93aa6"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/mysql-mysql-operator:2.3.0@sha256:59116d8ebabcf485c7d0f38b659c3ec93e8aacb0a35db02a4f2e3226c7c8a6c5"
+      publicationReceipt: "runs/installer-oci/mysql-mysql-operator/2.3.0/installer-package-publication-receipt.yaml"
     installer: "packages/mysql/mysql-operator/2.3.0/installer.yaml"
     receipt: "recipes/mysql/mysql-operator/2.3.0/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "5307a3d786f9c7694909fea18c99e0619829edd4fc0b3a0e51749702cc7eb8b2"
@@ -108,7 +115,7 @@ spec:
         default: true
         description: "mysql/mysql-operator default variant rendered from mysql/mysql-operator@2.3.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/mysql-mysql-operator:2.3.0@sha256:59116d8ebabcf485c7d0f38b659c3ec93e8aacb0a35db02a4f2e3226c7c8a6c5 --base default --work-dir <tmp> --non-interactive --namespace mysql-operator"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/mysql-operator:v2.3.0@sha256:1b5b4cd74ac616c2b8e60f6e95fd439294ebc0898f027c5ec451f55162e93aa6 --base default --work-dir <tmp> --non-interactive --namespace mysql-operator"
         helmReleaseObjectCount: 13
         cubInstallObjectCountIncludingSupport: 14
         semanticObjectMatches: "13/13"

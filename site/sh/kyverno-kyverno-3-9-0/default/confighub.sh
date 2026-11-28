@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the default base variant into ./kyverno-kyverno-3-9-0-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno:3.9.0@sha256:d776bb0614033308ed60af0b15af522ba857f255ad92b3247773f8c4cd63874f --base default --work-dir ./kyverno-kyverno-3-9-0-default --non-interactive --namespace kyverno
+cub installer setup --pull oci://ghcr.io/confighub/packages/kyverno:v3.9.0@sha256:8921285f688873d2313d30aa6e5c99df41354e741421f03238343b849c2a17c5 --base default --work-dir ./kyverno-kyverno-3-9-0-default --non-interactive --namespace kyverno
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./kyverno-kyverno-3-9-0-default --space "${SPACE}"

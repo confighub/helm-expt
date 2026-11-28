@@ -60,11 +60,18 @@ spec:
     nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:
     path: "packages/nvidia/k8s-nim-operator/3.1.2"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-k8s-nim-operator:3.1.2@sha256:3539d06bc051040cc6afd8759af2a5b406a5d2f2a79a7a8621918da92de2e93d"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-k8s-nim-operator:3.1.2"
-    manifestDigest: "sha256:3539d06bc051040cc6afd8759af2a5b406a5d2f2a79a7a8621918da92de2e93d"
-    layerDigest: "sha256:b9d16ed1c7f44ff81598337fe8935fdaf6ed550c3a0d8b5a00bf5e60c6e9ba5d"
-    publicationReceipt: "runs/installer-oci/nvidia-k8s-nim-operator/3.1.2/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/k8s-nim-operator:v3.1.2@sha256:1cd086887e2e8306294dc65c790cf1a92a83d7d09a9ac52016ce3fcd75f248cb"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/k8s-nim-operator:v3.1.2"
+    manifestDigest: "sha256:1cd086887e2e8306294dc65c790cf1a92a83d7d09a9ac52016ce3fcd75f248cb"
+    layerDigest: "sha256:c73a42b46950f04fa1efc5efbe7f0423bb7852621d09dc535b06066c80ef829f"
+    publicationReceipt: "runs/ghcr-packages/k8s-nim-operator/v3.1.2.yaml"
+    name: "k8s-nim-operator"
+    tag: "v3.1.2"
+    installCommand: "cub package install k8s-nim-operator:v3.1.2 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/k8s-nim-operator@sha256:1cd086887e2e8306294dc65c790cf1a92a83d7d09a9ac52016ce3fcd75f248cb"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-k8s-nim-operator:3.1.2@sha256:3539d06bc051040cc6afd8759af2a5b406a5d2f2a79a7a8621918da92de2e93d"
+      publicationReceipt: "runs/installer-oci/nvidia-k8s-nim-operator/3.1.2/installer-package-publication-receipt.yaml"
     installer: "packages/nvidia/k8s-nim-operator/3.1.2/installer.yaml"
     receipt: "recipes/nvidia/k8s-nim-operator/3.1.2/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "b9d16ed1c7f44ff81598337fe8935fdaf6ed550c3a0d8b5a00bf5e60c6e9ba5d"
@@ -186,7 +193,7 @@ spec:
         default: true
         description: "k8s-nim-operator chart defaults variant rendered from nvidia/k8s-nim-operator@3.1.2"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-k8s-nim-operator:3.1.2@sha256:3539d06bc051040cc6afd8759af2a5b406a5d2f2a79a7a8621918da92de2e93d --base default --work-dir <tmp> --non-interactive --namespace nvidia-nim"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/k8s-nim-operator:v3.1.2@sha256:1cd086887e2e8306294dc65c790cf1a92a83d7d09a9ac52016ce3fcd75f248cb --base default --work-dir <tmp> --non-interactive --namespace nvidia-nim"
         helmReleaseObjectCount: 17
         cubInstallObjectCountIncludingSupport: 18
         semanticObjectMatches: "17/17"

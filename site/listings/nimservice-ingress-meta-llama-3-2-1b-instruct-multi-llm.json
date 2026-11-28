@@ -5,7 +5,7 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:33e9d603109b517560aaa5e244acc3a825977fd5e417b436da07b63930ac2a78",
+      "sha256": "sha256:168547f46c3c4c20ef028a08b6d32d3ad3eef87df4443bb53c51310553722cc3",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
@@ -132,7 +132,9 @@
         "ghcr": {
           "reference": "oci://ghcr.io/confighub/configs/catalog/nimservice-ingress-meta-llama-3-2-1b-instruct-multi-llm:upstream-5d5f66ee0e2e-833da78d85d7@sha256:833da78d85d7ee65f857f5b949fd5f69d42036232aae1e2bc20862aa696836fe",
           "manifestDigest": "sha256:833da78d85d7ee65f857f5b949fd5f69d42036232aae1e2bc20862aa696836fe",
-          "state": "awaits-workflow-publication",
+          "state": "published-signed",
+          "receipt": "runs/catalog-oci/nimservice-ingress-meta-llama-3-2-1b-instruct-multi-llm/upstream-5d5f66ee0e2e-833da78d85d7.yaml",
+          "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/runs/catalog-oci/nimservice-ingress-meta-llama-3-2-1b-instruct-multi-llm/upstream-5d5f66ee0e2e-833da78d85d7.yaml",
           "publisher": ".github/workflows/catalog-oci-publish.yml",
           "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/nimservice-ingress-meta-llama-3-2-1b-instruct-multi-llm@sha256:833da78d85d7ee65f857f5b949fd5f69d42036232aae1e2bc20862aa696836fe",
           "sameDigestAsEarlier": true
@@ -1308,12 +1310,12 @@
         },
         {
           "comment": "preview the upload of the published bundle; nothing is written",
-          "command": "cub variant upload --dry-run --component nimservice --variant ingress-meta-llama-3-2-1b-instruct-multi-llm --space nimservice-ingress-meta-llama-3-2-1b-instruct-multi-llm oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-ingress-meta-llama-3-2-1b-instruct-multi-llm:upstream-5d5f66ee0e2e@sha256:833da78d85d7ee65f857f5b949fd5f69d42036232aae1e2bc20862aa696836fe",
+          "command": "cub variant upload --dry-run --component nimservice --variant ingress-meta-llama-3-2-1b-instruct-multi-llm --space nimservice-ingress-meta-llama-3-2-1b-instruct-multi-llm oci://ghcr.io/confighub/configs/catalog/nimservice-ingress-meta-llama-3-2-1b-instruct-multi-llm:upstream-5d5f66ee0e2e-833da78d85d7@sha256:833da78d85d7ee65f857f5b949fd5f69d42036232aae1e2bc20862aa696836fe",
           "needsAccount": true
         },
         {
           "comment": "upload the bundle as a base Space of Units",
-          "command": "cub variant upload --component nimservice --variant ingress-meta-llama-3-2-1b-instruct-multi-llm --space nimservice-ingress-meta-llama-3-2-1b-instruct-multi-llm oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-ingress-meta-llama-3-2-1b-instruct-multi-llm:upstream-5d5f66ee0e2e@sha256:833da78d85d7ee65f857f5b949fd5f69d42036232aae1e2bc20862aa696836fe",
+          "command": "cub variant upload --component nimservice --variant ingress-meta-llama-3-2-1b-instruct-multi-llm --space nimservice-ingress-meta-llama-3-2-1b-instruct-multi-llm oci://ghcr.io/confighub/configs/catalog/nimservice-ingress-meta-llama-3-2-1b-instruct-multi-llm:upstream-5d5f66ee0e2e-833da78d85d7@sha256:833da78d85d7ee65f857f5b949fd5f69d42036232aae1e2bc20862aa696836fe",
           "needsAccount": true,
           "writes": true
         }

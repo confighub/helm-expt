@@ -62,11 +62,18 @@ spec:
     nextAction: ""
   installerPackage:
     path: "packages/prometheus-community/kube-prometheus-stack/84.4.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:84.4.0@sha256:e466955464cf236106ed17b445bc7e918386b508ab3a5bd9bfa578e5546468c8"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:84.4.0"
-    manifestDigest: "sha256:e466955464cf236106ed17b445bc7e918386b508ab3a5bd9bfa578e5546468c8"
-    layerDigest: "sha256:1b53563ba1e4eda376ff8b49093d1fe49855d6f94c76b1c346636ad1abdaf2f4"
-    publicationReceipt: "runs/installer-oci/prometheus-community-kube-prometheus-stack/84.4.0/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/kube-prometheus-stack:v84.4.0@sha256:fd62d9f200df2a8a10494301ef27c766c17f09b4ff9fe2791305164b71016b65"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/kube-prometheus-stack:v84.4.0"
+    manifestDigest: "sha256:fd62d9f200df2a8a10494301ef27c766c17f09b4ff9fe2791305164b71016b65"
+    layerDigest: "sha256:c4bc3abf727375e89393141646ed306d307d376c76b9dc223098e9633ece0a4f"
+    publicationReceipt: "runs/ghcr-packages/kube-prometheus-stack/v84.4.0.yaml"
+    name: "kube-prometheus-stack"
+    tag: "v84.4.0"
+    installCommand: "cub package install kube-prometheus-stack:v84.4.0 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/kube-prometheus-stack@sha256:fd62d9f200df2a8a10494301ef27c766c17f09b4ff9fe2791305164b71016b65"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:84.4.0@sha256:e466955464cf236106ed17b445bc7e918386b508ab3a5bd9bfa578e5546468c8"
+      publicationReceipt: "runs/installer-oci/prometheus-community-kube-prometheus-stack/84.4.0/installer-package-publication-receipt.yaml"
     installer: "packages/prometheus-community/kube-prometheus-stack/84.4.0/installer.yaml"
     receipt: "recipes/prometheus-community/kube-prometheus-stack/84.4.0/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "1b53563ba1e4eda376ff8b49093d1fe49855d6f94c76b1c346636ad1abdaf2f4"
@@ -222,7 +229,7 @@ spec:
         default: true
         description: "kube-prometheus-stack default with Grafana password bound variant rendered from prometheus-community/kube-prometheus-stack@84.4.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:84.4.0@sha256:e466955464cf236106ed17b445bc7e918386b508ab3a5bd9bfa578e5546468c8 --base default --work-dir <tmp> --non-interactive --namespace monitoring"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/kube-prometheus-stack:v84.4.0@sha256:fd62d9f200df2a8a10494301ef27c766c17f09b4ff9fe2791305164b71016b65 --base default --work-dir <tmp> --non-interactive --namespace monitoring"
         helmReleaseObjectCount: 126
         cubInstallObjectCountIncludingSupport: 127
         semanticObjectMatches: "126/126"
@@ -408,7 +415,7 @@ spec:
         default: false
         description: "kube-prometheus-stack AICR v0.20.0 EKS training values variant rendered from prometheus-community/kube-prometheus-stack@84.4.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:84.4.0@sha256:e466955464cf236106ed17b445bc7e918386b508ab3a5bd9bfa578e5546468c8 --base aicr-eks-training-v0-20-0 --work-dir <tmp> --non-interactive --namespace monitoring"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/kube-prometheus-stack:v84.4.0@sha256:fd62d9f200df2a8a10494301ef27c766c17f09b4ff9fe2791305164b71016b65 --base aicr-eks-training-v0-20-0 --work-dir <tmp> --non-interactive --namespace monitoring"
         helmReleaseObjectCount: 116
         cubInstallObjectCountIncludingSupport: 117
         semanticObjectMatches: "116/116"
@@ -594,7 +601,7 @@ spec:
         default: false
         description: "kube-prometheus-stack AICR v1.0.0 EKS training values variant rendered from prometheus-community/kube-prometheus-stack@84.4.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:84.4.0@sha256:e466955464cf236106ed17b445bc7e918386b508ab3a5bd9bfa578e5546468c8 --base aicr-eks-training-v1-0-0 --work-dir <tmp> --non-interactive --namespace monitoring"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/kube-prometheus-stack:v84.4.0@sha256:fd62d9f200df2a8a10494301ef27c766c17f09b4ff9fe2791305164b71016b65 --base aicr-eks-training-v1-0-0 --work-dir <tmp> --non-interactive --namespace monitoring"
         helmReleaseObjectCount: 116
         cubInstallObjectCountIncludingSupport: 117
         semanticObjectMatches: "116/116"

@@ -53,7 +53,10 @@ for exact base-variant evidence.
 | Weirdness and mitigations | [recipes/ingress-nginx/ingress-nginx/4.15.1/weirdness-and-mitigations.md](weirdness-and-mitigations.md) |
 | Catalog status | [recipes/ingress-nginx/ingress-nginx/4.15.1/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/ingress-nginx/ingress-nginx/4.15.1/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/ingress-nginx-ingress-nginx:4.15.1@sha256:dc0f6c1a8158230957c1cae1b26073339b009b220c79cff0e3df31e9f21c73e4` |
+| Install into a Space | `cub package install ingress-nginx:v4.15.1 --space <space>` |
+| Installer package OCI | `oci://ghcr.io/confighub/packages/ingress-nginx:v4.15.1@sha256:644621e316d9bd6c2803b7f1677cb2aee6d074432bdea9156e65c06794a1fe38` |
+| Installer package publication | [runs/ghcr-packages/ingress-nginx/v4.15.1.yaml](../../../../runs/ghcr-packages/ingress-nginx/v4.15.1.yaml) |
+| Earlier location | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/ingress-nginx-ingress-nginx:4.15.1@sha256:dc0f6c1a8158230957c1cae1b26073339b009b220c79cff0e3df31e9f21c73e4` |
 | Installer package source | [packages/ingress-nginx/ingress-nginx/4.15.1](../../../../packages/ingress-nginx/ingress-nginx/4.15.1) |
 | Installer package receipt | [recipes/ingress-nginx/ingress-nginx/4.15.1/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/ingress-nginx/ingress-nginx/4.15.1/artifact-index.yaml](artifact-index.yaml) |
@@ -93,12 +96,22 @@ for exact base-variant evidence.
 
 ## Current Install Shape
 
+Install the package into a ConfigHub Space, which renders it and uploads
+one Unit per resource:
+
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/ingress-nginx-ingress-nginx:4.15.1@sha256:dc0f6c1a8158230957c1cae1b26073339b009b220c79cff0e3df31e9f21c73e4 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub package install ingress-nginx:v4.15.1 --space ingress-nginx --base <variant> --namespace <namespace>
+```
+
+Or render it locally from the exact package bytes, with no Space:
+
+```sh
+cub installer setup --pull oci://ghcr.io/confighub/packages/ingress-nginx:v4.15.1@sha256:644621e316d9bd6c2803b7f1677cb2aee6d074432bdea9156e65c06794a1fe38 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is
-the public package users pull; the `packages/...` path is the repo source path
+the public package users pull, signed by the package publish workflow; check it with
+`cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/ingress-nginx@sha256:644621e316d9bd6c2803b7f1677cb2aee6d074432bdea9156e65c06794a1fe38`. The `packages/...` path is the repo source path
 used by maintainers and proof scripts. The proof path compares regular Helm
 output with real `cub installer setup` output and explains every intentional
 difference, such as the Namespace support object or separated Secrets.

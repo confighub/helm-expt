@@ -1011,7 +1011,7 @@ Schema
           <p class="installer-command-note">If you want to try linked environment copies and approvals in hosted ConfigHub, sign in and paste the commands below. In your workspace, this creates the base folder <code>argo-cd-example</code> and two copies, <code>argo-cd-example-dev</code> and <code>argo-cd-example-prod</code>. That base folder holds 58 items, including all 55 Kubernetes objects, a README and 3 plan documents. Prod runs three replicas of the server. It touches no cluster.</p>
           <pre class="terminal-body"><code><span class="term-prompt">$</span> cub auth login
 
-<span class="term-prompt">$</span> cub variant upload --component argo-cd-example --variant base --space argo-cd-example --namespace argocd --create-namespace oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-argo-cd-argo-cd-10-7-0-default:latest@sha256:573ef457232508892dc5b94dc4706c2c86d97adc9ba57b59271da90acd20089a
+<span class="term-prompt">$</span> cub variant upload --component argo-cd-example --variant base --space argo-cd-example --namespace argocd --create-namespace oci://ghcr.io/confighub/configs/catalog/catalog-argo-cd-argo-cd-10-7-0-default:bundle-573ef4572325@sha256:573ef457232508892dc5b94dc4706c2c86d97adc9ba57b59271da90acd20089a
 
 <span class="term-prompt">$</span> cub variant create dev argo-cd-example --change-desc &quot;Clone the base as dev&quot;
 

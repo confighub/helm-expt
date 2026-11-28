@@ -13,7 +13,7 @@ spec:
     name: "falcosecurity/falco"
     version: "9.0.0"
     record: "data/helm-render-intents/intents/falcosecurity-falco-9-0-0-default.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/falcosecurity-falco:9.0.0@sha256:0a17c36c302c5e5fb8cd13ced42c8c72f6ed5c59fa06ab78b63c5e9a9fb32bcf"
+    packageOciRef: "oci://ghcr.io/confighub/packages/falco:v9.0.0@sha256:17bc18c0895ef6020fc4976c52dd9c37f31247179dc6f415900c8323315b9ad3"
     selection:
       name: "default"
       kind: "catalog-preset"

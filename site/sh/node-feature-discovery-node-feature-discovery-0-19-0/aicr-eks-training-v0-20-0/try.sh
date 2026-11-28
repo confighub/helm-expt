@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the aicr-eks-training-v0-20-0 base variant into ./node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v0-20-0"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/node-feature-discovery-node-feature-discovery:0.19.0@sha256:44e9888786f6d0c52a1351f8dcae597b1c91d68ddaf135049e9637fdbd76ea63 --base aicr-eks-training-v0-20-0 --work-dir ./node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v0-20-0 --non-interactive --namespace node-feature-discovery
+cub installer setup --pull oci://ghcr.io/confighub/packages/node-feature-discovery:v0.19.0@sha256:cea7c9e8f01fab415b3cc6ac4959e8a6fe5153e933699b764a6e5349a121a75d --base aicr-eks-training-v0-20-0 --work-dir ./node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v0-20-0 --non-interactive --namespace node-feature-discovery
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v0-20-0/out/manifests

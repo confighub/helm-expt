@@ -13,7 +13,7 @@ spec:
     name: "nvidia/gpu-operator"
     version: "v25.10.1"
     record: "data/helm-render-intents/intents/nvidia-gpu-operator-v25-10-1-driver-580-126-20.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v25.10.1@sha256:35774151264bf1b5998330ca4290ae306e89470c7eb05a4e4c8fc18401c9e155"
+    packageOciRef: "oci://ghcr.io/confighub/packages/gpu-operator:v25.10.1@sha256:34940c221c3f5b0c0f2cf5b99e1355d2571ec6da72ec4b77c7262c2e5953d4ee"
     selection:
       name: "driver-580.126.20"
       kind: "catalog-preset"

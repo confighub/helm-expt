@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the default base variant into ./grafana-promtail-6-17-1-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-promtail:6.17.1@sha256:94c1d1c38ab69b006974816eded3380ec3e3a6a042398f8214615d42fb79f647 --base default --work-dir ./grafana-promtail-6-17-1-default --non-interactive --namespace default
+cub installer setup --pull oci://ghcr.io/confighub/packages/promtail:v6.17.1@sha256:e335ce9a54e56c518f9fecc9eba9afcb784b7593a4e7661185af9c5cb89fb7a1 --base default --work-dir ./grafana-promtail-6-17-1-default --non-interactive --namespace default
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./grafana-promtail-6-17-1-default --space "${SPACE}"

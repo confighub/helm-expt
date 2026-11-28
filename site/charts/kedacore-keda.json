@@ -19,7 +19,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kedacore-keda:2.19.0@sha256:69335ae19106baebe131e86d2e409df6965f8f855927396d5079622d01ab7ba9"
+        "ociRef": "oci://ghcr.io/confighub/packages/keda:v2.19.0@sha256:ce1a1c8a77f7ed421d7e40fcc038f342ae242d80e65be0d56061b2da4d8dabfa",
+        "installCommand": "cub package install keda:v2.19.0 --space <space>"
       },
       "bases": [
         {

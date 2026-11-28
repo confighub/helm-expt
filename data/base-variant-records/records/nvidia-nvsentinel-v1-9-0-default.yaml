@@ -13,7 +13,7 @@ spec:
     name: "nvidia/nvsentinel"
     version: "v1.9.0"
     record: "data/helm-render-intents/intents/nvidia-nvsentinel-v1-9-0-default.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvsentinel:v1.9.0@sha256:d13963c102f908c62a297120947532bc4101486e72d5cb36b1708a04a6e5283b"
+    packageOciRef: "oci://ghcr.io/confighub/packages/nvsentinel:v1.9.0@sha256:28a31f4888eb6839fa4b840382cf6ea6ad51a08195dfc573d69ac7f1f9826107"
     selection:
       name: "default"
       kind: "catalog-preset"

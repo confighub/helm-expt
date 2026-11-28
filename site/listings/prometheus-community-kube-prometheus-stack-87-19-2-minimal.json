@@ -5,7 +5,7 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:33e9d603109b517560aaa5e244acc3a825977fd5e417b436da07b63930ac2a78",
+      "sha256": "sha256:168547f46c3c4c20ef028a08b6d32d3ad3eef87df4443bb53c51310553722cc3",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
@@ -148,7 +148,9 @@
         "ghcr": {
           "reference": "oci://ghcr.io/confighub/configs/catalog/catalog-prometheus-community-kube-prometheus-stack-87-19-2-minimal:bundle-194fa0207e19@sha256:194fa0207e199e7f5b834583ac06495d05cd3d84c1ed5dc0fc5936d854975bb1",
           "manifestDigest": "sha256:194fa0207e199e7f5b834583ac06495d05cd3d84c1ed5dc0fc5936d854975bb1",
-          "state": "awaits-workflow-publication",
+          "state": "published-signed",
+          "receipt": "runs/catalog-oci/catalog-prometheus-community-kube-prometheus-stack-87-19-2-minimal/bundle-194fa0207e19.yaml",
+          "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/runs/catalog-oci/catalog-prometheus-community-kube-prometheus-stack-87-19-2-minimal/bundle-194fa0207e19.yaml",
           "publisher": ".github/workflows/catalog-oci-publish.yml",
           "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/catalog-prometheus-community-kube-prometheus-stack-87-19-2-minimal@sha256:194fa0207e199e7f5b834583ac06495d05cd3d84c1ed5dc0fc5936d854975bb1",
           "sameDigestAsEarlier": true
@@ -878,12 +880,12 @@
         },
         {
           "comment": "preview the upload of the published bundle; nothing is written",
-          "command": "cub variant upload --dry-run --component prometheus-community-kube-prometheus-stack --variant minimal --space prometheus-community-kube-prometheus-stack-87-19-2-minimal --namespace monitoring --create-namespace oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-kube-prometheus-stack-87-19-2-minimal:latest@sha256:194fa0207e199e7f5b834583ac06495d05cd3d84c1ed5dc0fc5936d854975bb1",
+          "command": "cub variant upload --dry-run --component prometheus-community-kube-prometheus-stack --variant minimal --space prometheus-community-kube-prometheus-stack-87-19-2-minimal --namespace monitoring --create-namespace oci://ghcr.io/confighub/configs/catalog/catalog-prometheus-community-kube-prometheus-stack-87-19-2-minimal:bundle-194fa0207e19@sha256:194fa0207e199e7f5b834583ac06495d05cd3d84c1ed5dc0fc5936d854975bb1",
           "needsAccount": true
         },
         {
           "comment": "upload the bundle as a base Space of Units",
-          "command": "cub variant upload --component prometheus-community-kube-prometheus-stack --variant minimal --space prometheus-community-kube-prometheus-stack-87-19-2-minimal --namespace monitoring --create-namespace oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-kube-prometheus-stack-87-19-2-minimal:latest@sha256:194fa0207e199e7f5b834583ac06495d05cd3d84c1ed5dc0fc5936d854975bb1",
+          "command": "cub variant upload --component prometheus-community-kube-prometheus-stack --variant minimal --space prometheus-community-kube-prometheus-stack-87-19-2-minimal --namespace monitoring --create-namespace oci://ghcr.io/confighub/configs/catalog/catalog-prometheus-community-kube-prometheus-stack-87-19-2-minimal:bundle-194fa0207e19@sha256:194fa0207e199e7f5b834583ac06495d05cd3d84c1ed5dc0fc5936d854975bb1",
           "needsAccount": true,
           "writes": true
         }

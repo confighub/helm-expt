@@ -62,11 +62,18 @@ spec:
     nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:
     path: "packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-ebs-csi-driver-aws-ebs-csi-driver:2.60.1@sha256:aa07d92ad91345ba7401a70b82dfdf9d2c9ca22ade4de23db3b370c77a3b88a0"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-ebs-csi-driver-aws-ebs-csi-driver:2.60.1"
-    manifestDigest: "sha256:aa07d92ad91345ba7401a70b82dfdf9d2c9ca22ade4de23db3b370c77a3b88a0"
-    layerDigest: "sha256:60ae07d553b41aa92ef3a8663e9275e18077166c3e6e0fad824acfc8d5b21ff6"
-    publicationReceipt: "runs/installer-oci/aws-ebs-csi-driver-aws-ebs-csi-driver/2.60.1/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/aws-ebs-csi-driver:v2.60.1@sha256:f73bc079d243a235e5b03ef0559a644c6080ca6ffb85a4452ee16f344b6ab24a"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/aws-ebs-csi-driver:v2.60.1"
+    manifestDigest: "sha256:f73bc079d243a235e5b03ef0559a644c6080ca6ffb85a4452ee16f344b6ab24a"
+    layerDigest: "sha256:dd6d738c90da30288f3a87a0cf0ab4dd02e21c3c25dfeb630701ba89cd3f6e46"
+    publicationReceipt: "runs/ghcr-packages/aws-ebs-csi-driver/v2.60.1.yaml"
+    name: "aws-ebs-csi-driver"
+    tag: "v2.60.1"
+    installCommand: "cub package install aws-ebs-csi-driver:v2.60.1 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/aws-ebs-csi-driver@sha256:f73bc079d243a235e5b03ef0559a644c6080ca6ffb85a4452ee16f344b6ab24a"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-ebs-csi-driver-aws-ebs-csi-driver:2.60.1@sha256:aa07d92ad91345ba7401a70b82dfdf9d2c9ca22ade4de23db3b370c77a3b88a0"
+      publicationReceipt: "runs/installer-oci/aws-ebs-csi-driver-aws-ebs-csi-driver/2.60.1/installer-package-publication-receipt.yaml"
     installer: "packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/installer.yaml"
     receipt: "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "60ae07d553b41aa92ef3a8663e9275e18077166c3e6e0fad824acfc8d5b21ff6"
@@ -98,7 +105,7 @@ spec:
         default: true
         description: "aws-ebs-csi-driver/aws-ebs-csi-driver default variant rendered from aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-ebs-csi-driver-aws-ebs-csi-driver:2.60.1@sha256:aa07d92ad91345ba7401a70b82dfdf9d2c9ca22ade4de23db3b370c77a3b88a0 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/aws-ebs-csi-driver:v2.60.1@sha256:f73bc079d243a235e5b03ef0559a644c6080ca6ffb85a4452ee16f344b6ab24a --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 19
         cubInstallObjectCountIncludingSupport: 20
         semanticObjectMatches: "19/19"

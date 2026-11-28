@@ -5,7 +5,7 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:33e9d603109b517560aaa5e244acc3a825977fd5e417b436da07b63930ac2a78",
+      "sha256": "sha256:168547f46c3c4c20ef028a08b6d32d3ad3eef87df4443bb53c51310553722cc3",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
@@ -132,7 +132,9 @@
         "ghcr": {
           "reference": "oci://ghcr.io/confighub/configs/catalog/nimservice-multi-node-deepseek-r1-multi-node-nimservice-rdma:upstream-5d5f66ee0e2e-57cc38f80a51@sha256:57cc38f80a5146da018f56b23b647f44bc26c8fe2824cd3f056949c4661035e3",
           "manifestDigest": "sha256:57cc38f80a5146da018f56b23b647f44bc26c8fe2824cd3f056949c4661035e3",
-          "state": "awaits-workflow-publication",
+          "state": "published-signed",
+          "receipt": "runs/catalog-oci/nimservice-multi-node-deepseek-r1-multi-node-nimservice-rdma/upstream-5d5f66ee0e2e-57cc38f80a51.yaml",
+          "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/runs/catalog-oci/nimservice-multi-node-deepseek-r1-multi-node-nimservice-rdma/upstream-5d5f66ee0e2e-57cc38f80a51.yaml",
           "publisher": ".github/workflows/catalog-oci-publish.yml",
           "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/nimservice-multi-node-deepseek-r1-multi-node-nimservice-rdma@sha256:57cc38f80a5146da018f56b23b647f44bc26c8fe2824cd3f056949c4661035e3",
           "sameDigestAsEarlier": true
@@ -1302,12 +1304,12 @@
         },
         {
           "comment": "preview the upload of the published bundle; nothing is written",
-          "command": "cub variant upload --dry-run --component nimservice --variant multi-node-deepseek-r1-multi-node-nimservice-rdma --space nimservice-multi-node-deepseek-r1-multi-node-nimservice-rdma oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-multi-node-deepseek-r1-multi-node-nimservice-rdma:upstream-5d5f66ee0e2e@sha256:57cc38f80a5146da018f56b23b647f44bc26c8fe2824cd3f056949c4661035e3",
+          "command": "cub variant upload --dry-run --component nimservice --variant multi-node-deepseek-r1-multi-node-nimservice-rdma --space nimservice-multi-node-deepseek-r1-multi-node-nimservice-rdma oci://ghcr.io/confighub/configs/catalog/nimservice-multi-node-deepseek-r1-multi-node-nimservice-rdma:upstream-5d5f66ee0e2e-57cc38f80a51@sha256:57cc38f80a5146da018f56b23b647f44bc26c8fe2824cd3f056949c4661035e3",
           "needsAccount": true
         },
         {
           "comment": "upload the bundle as a base Space of Units",
-          "command": "cub variant upload --component nimservice --variant multi-node-deepseek-r1-multi-node-nimservice-rdma --space nimservice-multi-node-deepseek-r1-multi-node-nimservice-rdma oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-multi-node-deepseek-r1-multi-node-nimservice-rdma:upstream-5d5f66ee0e2e@sha256:57cc38f80a5146da018f56b23b647f44bc26c8fe2824cd3f056949c4661035e3",
+          "command": "cub variant upload --component nimservice --variant multi-node-deepseek-r1-multi-node-nimservice-rdma --space nimservice-multi-node-deepseek-r1-multi-node-nimservice-rdma oci://ghcr.io/confighub/configs/catalog/nimservice-multi-node-deepseek-r1-multi-node-nimservice-rdma:upstream-5d5f66ee0e2e-57cc38f80a51@sha256:57cc38f80a5146da018f56b23b647f44bc26c8fe2824cd3f056949c4661035e3",
           "needsAccount": true,
           "writes": true
         }

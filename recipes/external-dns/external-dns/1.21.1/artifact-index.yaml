@@ -66,11 +66,18 @@ spec:
     nextAction: "run catalog promotion review"
   installerPackage:
     path: "packages/external-dns/external-dns/1.21.1"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-dns-external-dns:1.21.1@sha256:7683722340b073403d7fbb313f139f44d7e01e03f1fbb1606283758876d33bf9"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-dns-external-dns:1.21.1"
-    manifestDigest: "sha256:7683722340b073403d7fbb313f139f44d7e01e03f1fbb1606283758876d33bf9"
-    layerDigest: "sha256:f4f3b4457c4b502f4c71e806f0cc46a5b39759ab57b8dfb018d99625aa304704"
-    publicationReceipt: "runs/installer-oci/external-dns-external-dns/1.21.1/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/external-dns:v1.21.1@sha256:faba9e8ed8830397b849de92de94ed6c8a7b456a8860515a9236ae0ddbd2974b"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/external-dns:v1.21.1"
+    manifestDigest: "sha256:faba9e8ed8830397b849de92de94ed6c8a7b456a8860515a9236ae0ddbd2974b"
+    layerDigest: "sha256:5db3852e15bb654e3190130be666f5967b47d7742ea95e99c13fa9a8c5c52d5f"
+    publicationReceipt: "runs/ghcr-packages/external-dns/v1.21.1.yaml"
+    name: "external-dns"
+    tag: "v1.21.1"
+    installCommand: "cub package install external-dns:v1.21.1 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/external-dns@sha256:faba9e8ed8830397b849de92de94ed6c8a7b456a8860515a9236ae0ddbd2974b"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-dns-external-dns:1.21.1@sha256:7683722340b073403d7fbb313f139f44d7e01e03f1fbb1606283758876d33bf9"
+      publicationReceipt: "runs/installer-oci/external-dns-external-dns/1.21.1/installer-package-publication-receipt.yaml"
     installer: "packages/external-dns/external-dns/1.21.1/installer.yaml"
     receipt: "recipes/external-dns/external-dns/1.21.1/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "f4f3b4457c4b502f4c71e806f0cc46a5b39759ab57b8dfb018d99625aa304704"
@@ -112,7 +119,7 @@ spec:
         default: true
         description: "external-dns/external-dns default variant rendered from external-dns/external-dns@1.21.1"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-dns-external-dns:1.21.1@sha256:7683722340b073403d7fbb313f139f44d7e01e03f1fbb1606283758876d33bf9 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/external-dns:v1.21.1@sha256:faba9e8ed8830397b849de92de94ed6c8a7b456a8860515a9236ae0ddbd2974b --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 6
         cubInstallObjectCountIncludingSupport: 7
         semanticObjectMatches: "6/6"
@@ -174,7 +181,7 @@ spec:
         default: false
         description: "external-dns/external-dns no-crds variant rendered from external-dns/external-dns@1.21.1"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-dns-external-dns:1.21.1@sha256:7683722340b073403d7fbb313f139f44d7e01e03f1fbb1606283758876d33bf9 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/external-dns:v1.21.1@sha256:faba9e8ed8830397b849de92de94ed6c8a7b456a8860515a9236ae0ddbd2974b --base no-crds --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 5
         cubInstallObjectCountIncludingSupport: 6
         semanticObjectMatches: "5/5"
@@ -236,7 +243,7 @@ spec:
         default: false
         description: "external-dns/external-dns dry-run-txt-registry variant rendered from external-dns/external-dns@1.21.1"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-dns-external-dns:1.21.1@sha256:7683722340b073403d7fbb313f139f44d7e01e03f1fbb1606283758876d33bf9 --base dry-run-txt-registry --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/external-dns:v1.21.1@sha256:faba9e8ed8830397b849de92de94ed6c8a7b456a8860515a9236ae0ddbd2974b --base dry-run-txt-registry --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 4
         cubInstallObjectCountIncludingSupport: 5
         semanticObjectMatches: "4/4"

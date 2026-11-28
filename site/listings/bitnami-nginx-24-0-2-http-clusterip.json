@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:33e9d603109b517560aaa5e244acc3a825977fd5e417b436da07b63930ac2a78",
+      "sha256": "sha256:168547f46c3c4c20ef028a08b6d32d3ad3eef87df4443bb53c51310553722cc3",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/bitnami-nginx-24-0-2-http-clusterip.yaml",
-      "sha256": "sha256:50894bd7ad6c9b535a5bf6b957bd4429d45bf4b9e42eaffc86ae55c920b7e127",
+      "sha256": "sha256:5a17dc84c05b7bbfb5db7ea5609c9ac1e2e097e23a90727802eb79266ce6b609",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/bitnami-nginx-24-0-2-http-clusterip.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -36,7 +36,7 @@
     "name": "bitnami/nginx",
     "version": "24.0.2",
     "reference": "bitnami/nginx@24.0.2",
-    "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2@sha256:7cf08c0348a32d577ffa0e16069ec6c2510ce773b372008d25b938f9546c5f67",
+    "ociRef": "oci://ghcr.io/confighub/packages/bitnami-nginx:v24.0.2@sha256:87c91cee1f4bacd3fee5ff77f01a61956e98d3a357f4f5c2f73dd8a5e65553e0",
     "record": "data/helm-render-intents/intents/bitnami-nginx-24-0-2-http-clusterip.yaml",
     "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/bitnami-nginx-24-0-2-http-clusterip.yaml",
     "selection": {
@@ -92,7 +92,7 @@
     }
   },
   "oci": {
-    "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2@sha256:7cf08c0348a32d577ffa0e16069ec6c2510ce773b372008d25b938f9546c5f67",
+    "sourcePackageRef": "oci://ghcr.io/confighub/packages/bitnami-nginx:v24.0.2@sha256:87c91cee1f4bacd3fee5ff77f01a61956e98d3a357f4f5c2f73dd8a5e65553e0",
     "bundles": [
       {
         "role": "source-package",
@@ -478,7 +478,7 @@
         },
         {
           "comment": "render this base from the signed package; step 3 can upload this directory",
-          "command": "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2@sha256:7cf08c0348a32d577ffa0e16069ec6c2510ce773b372008d25b938f9546c5f67 --base http-clusterip --work-dir ./bitnami-nginx-24-0-2-http-clusterip --non-interactive --namespace nginx"
+          "command": "cub installer setup --pull oci://ghcr.io/confighub/packages/bitnami-nginx:v24.0.2@sha256:87c91cee1f4bacd3fee5ff77f01a61956e98d3a357f4f5c2f73dd8a5e65553e0 --base http-clusterip --work-dir ./bitnami-nginx-24-0-2-http-clusterip --non-interactive --namespace nginx"
         }
       ],
       "notes": [
@@ -571,7 +571,7 @@
         },
         {
           "comment": "put the signed package into a Space in one command: it pulls, renders and uploads",
-          "command": "cub package install oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2@sha256:7cf08c0348a32d577ffa0e16069ec6c2510ce773b372008d25b938f9546c5f67 --base http-clusterip --space <your-space> --namespace nginx --non-interactive",
+          "command": "cub package install oci://ghcr.io/confighub/packages/bitnami-nginx:v24.0.2@sha256:87c91cee1f4bacd3fee5ff77f01a61956e98d3a357f4f5c2f73dd8a5e65553e0 --base http-clusterip --space <your-space> --namespace nginx --non-interactive",
           "needsAccount": true,
           "writes": true
         },

@@ -64,11 +64,18 @@ spec:
     nextAction: ""
   installerPackage:
     path: "packages/bitnami/redis/27.0.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:27.0.0@sha256:d38f3fecadcc4c4cb26d9fb6c1fc58402c7dfa1cf08673afe7b00041c7614ae6"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:27.0.0"
-    manifestDigest: "sha256:d38f3fecadcc4c4cb26d9fb6c1fc58402c7dfa1cf08673afe7b00041c7614ae6"
-    layerDigest: "sha256:6acadb79462876cae51d10d0c13e8783aa8340f01f35c1b3b06ae229158462f4"
-    publicationReceipt: "runs/installer-oci/bitnami-redis/27.0.0/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/bitnami-redis:v27.0.0@sha256:dbd4b911f409488209fe8ade9d45c81a195b5da0106a7ae781b99c9462f66691"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/bitnami-redis:v27.0.0"
+    manifestDigest: "sha256:dbd4b911f409488209fe8ade9d45c81a195b5da0106a7ae781b99c9462f66691"
+    layerDigest: "sha256:fc574bdfe34b60b8de4a1fb764bfa28e95ac2bd518007491985f4567a4d1bd5d"
+    publicationReceipt: "runs/ghcr-packages/bitnami-redis/v27.0.0.yaml"
+    name: "bitnami-redis"
+    tag: "v27.0.0"
+    installCommand: "cub package install bitnami-redis:v27.0.0 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/bitnami-redis@sha256:dbd4b911f409488209fe8ade9d45c81a195b5da0106a7ae781b99c9462f66691"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:27.0.0@sha256:d38f3fecadcc4c4cb26d9fb6c1fc58402c7dfa1cf08673afe7b00041c7614ae6"
+      publicationReceipt: "runs/installer-oci/bitnami-redis/27.0.0/installer-package-publication-receipt.yaml"
     installer: "packages/bitnami/redis/27.0.0/installer.yaml"
     receipt: "recipes/bitnami/redis/27.0.0/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "6acadb79462876cae51d10d0c13e8783aa8340f01f35c1b3b06ae229158462f4"
@@ -108,7 +115,7 @@ spec:
         default: false
         description: "Redis static password demo variant rendered from bitnami/redis@27.0.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:27.0.0@sha256:d38f3fecadcc4c4cb26d9fb6c1fc58402c7dfa1cf08673afe7b00041c7614ae6 --base default --work-dir <tmp> --non-interactive --namespace redis"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/bitnami-redis:v27.0.0@sha256:dbd4b911f409488209fe8ade9d45c81a195b5da0106a7ae781b99c9462f66691 --base default --work-dir <tmp> --non-interactive --namespace redis"
         helmReleaseObjectCount: 14
         cubInstallObjectCountIncludingSupport: 15
         semanticObjectMatches: "14/14"
@@ -179,7 +186,7 @@ spec:
         default: true
         description: "Redis existing Secret default variant rendered from bitnami/redis@27.0.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:27.0.0@sha256:d38f3fecadcc4c4cb26d9fb6c1fc58402c7dfa1cf08673afe7b00041c7614ae6 --base reuse-existing-secret --work-dir <tmp> --non-interactive --namespace redis"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/bitnami-redis:v27.0.0@sha256:dbd4b911f409488209fe8ade9d45c81a195b5da0106a7ae781b99c9462f66691 --base reuse-existing-secret --work-dir <tmp> --non-interactive --namespace redis"
         helmReleaseObjectCount: 13
         cubInstallObjectCountIncludingSupport: 14
         semanticObjectMatches: "13/13"

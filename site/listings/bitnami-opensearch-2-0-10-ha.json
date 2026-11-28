@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:33e9d603109b517560aaa5e244acc3a825977fd5e417b436da07b63930ac2a78",
+      "sha256": "sha256:168547f46c3c4c20ef028a08b6d32d3ad3eef87df4443bb53c51310553722cc3",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/bitnami-opensearch-2-0-10-ha.yaml",
-      "sha256": "sha256:33ae08ae83c0ea7158218bea32cf53331e0a4229c9d6174217dec99622f41aaa",
+      "sha256": "sha256:42730a9adc5ef9cc4f6b0911d1b516937ecbab1902630a0d0f7b90e1755dc461",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/bitnami-opensearch-2-0-10-ha.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -36,7 +36,7 @@
     "name": "bitnami/opensearch",
     "version": "2.0.10",
     "reference": "bitnami/opensearch@2.0.10",
-    "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-opensearch:2.0.10@sha256:3334c0f8f9ec8db8de4c35b946912dfd9a0822e8b640b62f60da6b8714be79d0",
+    "ociRef": "oci://ghcr.io/confighub/packages/opensearch:v2.0.10@sha256:0e6fdc9b2eb17a096c4cee18110f18ab5347fb29f049c7322d005ce07da80c78",
     "record": "data/helm-render-intents/intents/bitnami-opensearch-2-0-10-ha.yaml",
     "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/bitnami-opensearch-2-0-10-ha.yaml",
     "selection": {
@@ -91,7 +91,7 @@
     }
   },
   "oci": {
-    "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-opensearch:2.0.10@sha256:3334c0f8f9ec8db8de4c35b946912dfd9a0822e8b640b62f60da6b8714be79d0",
+    "sourcePackageRef": "oci://ghcr.io/confighub/packages/opensearch:v2.0.10@sha256:0e6fdc9b2eb17a096c4cee18110f18ab5347fb29f049c7322d005ce07da80c78",
     "bundles": [
       {
         "role": "source-package",
@@ -455,7 +455,7 @@
         },
         {
           "comment": "render this base from the signed package; step 3 can upload this directory",
-          "command": "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-opensearch:2.0.10@sha256:3334c0f8f9ec8db8de4c35b946912dfd9a0822e8b640b62f60da6b8714be79d0 --base ha --work-dir ./bitnami-opensearch-2-0-10-ha --non-interactive --namespace default"
+          "command": "cub installer setup --pull oci://ghcr.io/confighub/packages/opensearch:v2.0.10@sha256:0e6fdc9b2eb17a096c4cee18110f18ab5347fb29f049c7322d005ce07da80c78 --base ha --work-dir ./bitnami-opensearch-2-0-10-ha --non-interactive --namespace default"
         }
       ],
       "notes": [
@@ -519,7 +519,7 @@
         },
         {
           "comment": "put the signed package into a Space in one command: it pulls, renders and uploads",
-          "command": "cub package install oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-opensearch:2.0.10@sha256:3334c0f8f9ec8db8de4c35b946912dfd9a0822e8b640b62f60da6b8714be79d0 --base ha --space <your-space> --namespace default --non-interactive",
+          "command": "cub package install oci://ghcr.io/confighub/packages/opensearch:v2.0.10@sha256:0e6fdc9b2eb17a096c4cee18110f18ab5347fb29f049c7322d005ce07da80c78 --base ha --space <your-space> --namespace default --non-interactive",
           "needsAccount": true,
           "writes": true
         },

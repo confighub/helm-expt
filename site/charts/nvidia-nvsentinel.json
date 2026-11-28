@@ -19,7 +19,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvsentinel:v1.26.0@sha256:4046e444dbc245b6077a1f568de1139dd8bb20d59eb97ac49d6c2d85a9ded0a9"
+        "ociRef": "oci://ghcr.io/confighub/packages/nvsentinel:v1.26.0@sha256:6c35b6bd95699815b1394bf476373fab41239bd93677371745751a7bd3992ba5",
+        "installCommand": "cub package install nvsentinel:v1.26.0 --space <space>"
       },
       "bases": [
         {
@@ -67,7 +68,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvsentinel:v1.25.0@sha256:5b6363f704e89c754c2901a85ade183312afca87a94d97aa22f55d2f4d23189e"
+        "ociRef": "oci://ghcr.io/confighub/packages/nvsentinel:v1.25.0@sha256:6f4535bf812888a1c3b80429225b42d0a77f8afbeafa15d0e2e1002d35f4f9d3",
+        "installCommand": "cub package install nvsentinel:v1.25.0 --space <space>"
       },
       "bases": [
         {
@@ -133,7 +135,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvsentinel:v1.20.0@sha256:d17f99a1d606e58f80cd2bf6cf9fc736d72554eab18a6e3c22cb5f2fc96586f4"
+        "ociRef": "oci://ghcr.io/confighub/packages/nvsentinel:v1.20.0@sha256:8c298a0ab44f554c515ca838daed0308e8bbd469e449a9b6b8319caa8845c802",
+        "installCommand": "cub package install nvsentinel:v1.20.0 --space <space>"
       },
       "bases": [
         {
@@ -199,7 +202,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvsentinel:v1.9.0@sha256:d13963c102f908c62a297120947532bc4101486e72d5cb36b1708a04a6e5283b"
+        "ociRef": "oci://ghcr.io/confighub/packages/nvsentinel:v1.9.0@sha256:28a31f4888eb6839fa4b840382cf6ea6ad51a08195dfc573d69ac7f1f9826107",
+        "installCommand": "cub package install nvsentinel:v1.9.0 --space <space>"
       },
       "bases": [
         {

@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the default base variant into ./fairwinds-stable-vpa-4-11-0-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-vpa:4.11.0@sha256:449c4a96412aaf799622daab235efd8800f9700c0bd5b36c9523d95756e9fc8f --base default --work-dir ./fairwinds-stable-vpa-4-11-0-default --non-interactive --namespace default
+cub installer setup --pull oci://ghcr.io/confighub/packages/fairwinds-vpa:v4.11.0@sha256:7cc3c4b224e8609c4a224b969710707266eed7875ea3c35a06dc152ef1da5129 --base default --work-dir ./fairwinds-stable-vpa-4-11-0-default --non-interactive --namespace default
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./fairwinds-stable-vpa-4-11-0-default/out/manifests

@@ -67,11 +67,18 @@ spec:
     nextAction: "review chart analysis and create a recipe candidate"
   installerPackage:
     path: "packages/nvidia/gpu-operator/v26.7.1"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.7.1@sha256:03fa8aec9221b64cc5c25f3334775338a9f98c0529bad66f12340d124c238b71"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.7.1"
-    manifestDigest: "sha256:03fa8aec9221b64cc5c25f3334775338a9f98c0529bad66f12340d124c238b71"
-    layerDigest: "sha256:3a3722f1ad3ceaa7280c765c22b2f57ce7f2cd08f9911f283474a35238aa10bd"
-    publicationReceipt: "runs/installer-oci/nvidia-gpu-operator/v26.7.1/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/gpu-operator:v26.7.1@sha256:4ed84ef6638e41bb2df3afb9c4f30012104a079215e39f16445f611ee1053f25"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/gpu-operator:v26.7.1"
+    manifestDigest: "sha256:4ed84ef6638e41bb2df3afb9c4f30012104a079215e39f16445f611ee1053f25"
+    layerDigest: "sha256:cb9594bec78b1f14ae20d503e7071d301760fe7e71bb6bcc7039c65f3fe7ad58"
+    publicationReceipt: "runs/ghcr-packages/gpu-operator/v26.7.1.yaml"
+    name: "gpu-operator"
+    tag: "v26.7.1"
+    installCommand: "cub package install gpu-operator:v26.7.1 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/gpu-operator@sha256:4ed84ef6638e41bb2df3afb9c4f30012104a079215e39f16445f611ee1053f25"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.7.1@sha256:03fa8aec9221b64cc5c25f3334775338a9f98c0529bad66f12340d124c238b71"
+      publicationReceipt: "runs/installer-oci/nvidia-gpu-operator/v26.7.1/installer-package-publication-receipt.yaml"
     installer: "packages/nvidia/gpu-operator/v26.7.1/installer.yaml"
     receipt: "recipes/nvidia/gpu-operator/v26.7.1/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "3a3722f1ad3ceaa7280c765c22b2f57ce7f2cd08f9911f283474a35238aa10bd"
@@ -205,7 +212,7 @@ spec:
         default: true
         description: "gpu-operator chart defaults variant rendered from nvidia/gpu-operator@v26.7.1"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.7.1@sha256:03fa8aec9221b64cc5c25f3334775338a9f98c0529bad66f12340d124c238b71 --base default --work-dir <tmp> --non-interactive --namespace gpu-operator"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/gpu-operator:v26.7.1@sha256:4ed84ef6638e41bb2df3afb9c4f30012104a079215e39f16445f611ee1053f25 --base default --work-dir <tmp> --non-interactive --namespace gpu-operator"
         helmReleaseObjectCount: 27
         cubInstallObjectCountIncludingSupport: 28
         semanticObjectMatches: "27/27"
@@ -339,7 +346,7 @@ spec:
         default: false
         description: "gpu-operator driver 580.105.08 (driver support for this chart version and for any operating system was not checked) variant rendered from nvidia/gpu-operator@v26.7.1"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.7.1@sha256:03fa8aec9221b64cc5c25f3334775338a9f98c0529bad66f12340d124c238b71 --base driver-580.105.08 --work-dir <tmp> --non-interactive --namespace gpu-operator"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/gpu-operator:v26.7.1@sha256:4ed84ef6638e41bb2df3afb9c4f30012104a079215e39f16445f611ee1053f25 --base driver-580.105.08 --work-dir <tmp> --non-interactive --namespace gpu-operator"
         helmReleaseObjectCount: 27
         cubInstallObjectCountIncludingSupport: 28
         semanticObjectMatches: "27/27"
@@ -473,7 +480,7 @@ spec:
         default: false
         description: "gpu-operator driver 580.126.20 (driver support for this chart version and for any operating system was not checked) variant rendered from nvidia/gpu-operator@v26.7.1"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.7.1@sha256:03fa8aec9221b64cc5c25f3334775338a9f98c0529bad66f12340d124c238b71 --base driver-580.126.20 --work-dir <tmp> --non-interactive --namespace gpu-operator"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/gpu-operator:v26.7.1@sha256:4ed84ef6638e41bb2df3afb9c4f30012104a079215e39f16445f611ee1053f25 --base driver-580.126.20 --work-dir <tmp> --non-interactive --namespace gpu-operator"
         helmReleaseObjectCount: 27
         cubInstallObjectCountIncludingSupport: 28
         semanticObjectMatches: "27/27"
@@ -607,7 +614,7 @@ spec:
         default: false
         description: "gpu-operator pre-installed NVIDIA driver variant rendered from nvidia/gpu-operator@v26.7.1"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.7.1@sha256:03fa8aec9221b64cc5c25f3334775338a9f98c0529bad66f12340d124c238b71 --base preinstalled-driver --work-dir <tmp> --non-interactive --namespace gpu-operator"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/gpu-operator:v26.7.1@sha256:4ed84ef6638e41bb2df3afb9c4f30012104a079215e39f16445f611ee1053f25 --base preinstalled-driver --work-dir <tmp> --non-interactive --namespace gpu-operator"
         helmReleaseObjectCount: 27
         cubInstallObjectCountIncludingSupport: 28
         semanticObjectMatches: "27/27"
@@ -741,7 +748,7 @@ spec:
         default: false
         description: "gpu-operator pre-installed NVIDIA driver and container toolkit variant rendered from nvidia/gpu-operator@v26.7.1"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.7.1@sha256:03fa8aec9221b64cc5c25f3334775338a9f98c0529bad66f12340d124c238b71 --base preinstalled-driver-and-toolkit --work-dir <tmp> --non-interactive --namespace gpu-operator"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/gpu-operator:v26.7.1@sha256:4ed84ef6638e41bb2df3afb9c4f30012104a079215e39f16445f611ee1053f25 --base preinstalled-driver-and-toolkit --work-dir <tmp> --non-interactive --namespace gpu-operator"
         helmReleaseObjectCount: 27
         cubInstallObjectCountIncludingSupport: 28
         semanticObjectMatches: "27/27"
@@ -848,7 +855,7 @@ spec:
         default: false
         description: "gpu-operator Node Feature Discovery already in the cluster variant rendered from nvidia/gpu-operator@v26.7.1"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.7.1@sha256:03fa8aec9221b64cc5c25f3334775338a9f98c0529bad66f12340d124c238b71 --base external-nfd --work-dir <tmp> --non-interactive --namespace gpu-operator"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/gpu-operator:v26.7.1@sha256:4ed84ef6638e41bb2df3afb9c4f30012104a079215e39f16445f611ee1053f25 --base external-nfd --work-dir <tmp> --non-interactive --namespace gpu-operator"
         helmReleaseObjectCount: 12
         cubInstallObjectCountIncludingSupport: 13
         semanticObjectMatches: "12/12"
@@ -955,7 +962,7 @@ spec:
         default: false
         description: "gpu-operator AICR EKS training values variant rendered from nvidia/gpu-operator@v26.7.1"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.7.1@sha256:03fa8aec9221b64cc5c25f3334775338a9f98c0529bad66f12340d124c238b71 --base aicr-eks-training --work-dir <tmp> --non-interactive --namespace gpu-operator"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/gpu-operator:v26.7.1@sha256:4ed84ef6638e41bb2df3afb9c4f30012104a079215e39f16445f611ee1053f25 --base aicr-eks-training --work-dir <tmp> --non-interactive --namespace gpu-operator"
         helmReleaseObjectCount: 13
         cubInstallObjectCountIncludingSupport: 14
         semanticObjectMatches: "13/13"

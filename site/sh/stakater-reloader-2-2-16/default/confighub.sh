@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the default base variant into ./stakater-reloader-2-2-16-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.16@sha256:66bffd7fc23fea77b8ce4682734e6850457bbb16743e324c371cbc1798677052 --base default --work-dir ./stakater-reloader-2-2-16-default --non-interactive --namespace reloader
+cub installer setup --pull oci://ghcr.io/confighub/packages/reloader:v2.2.16@sha256:7aadcdbb573aef383790b45c110ad8e728190c6ab22abfd9de9479b9c64fc402 --base default --work-dir ./stakater-reloader-2-2-16-default --non-interactive --namespace reloader
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./stakater-reloader-2-2-16-default --space "${SPACE}"

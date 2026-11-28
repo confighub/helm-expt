@@ -49,7 +49,10 @@ for exact base-variant evidence.
 | Value model | [recipes/opencost/opencost/2.5.21/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/opencost/opencost/2.5.21/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/opencost/opencost/2.5.21/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/opencost-opencost:2.5.21@sha256:fe20f3373efbf0a04f374fa580de65ffb9401b0f471c41391c887edfb3859b75` |
+| Install into a Space | `cub package install opencost:v2.5.21 --space <space>` |
+| Installer package OCI | `oci://ghcr.io/confighub/packages/opencost:v2.5.21@sha256:731ef4b3c87942176abf364f71b33133c6f318f0805dee084102657ef9dcbf2d` |
+| Installer package publication | [runs/ghcr-packages/opencost/v2.5.21.yaml](../../../../runs/ghcr-packages/opencost/v2.5.21.yaml) |
+| Earlier location | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/opencost-opencost:2.5.21@sha256:fe20f3373efbf0a04f374fa580de65ffb9401b0f471c41391c887edfb3859b75` |
 | Installer package source | [packages/opencost/opencost/2.5.21](../../../../packages/opencost/opencost/2.5.21) |
 | Installer package receipt | [recipes/opencost/opencost/2.5.21/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/opencost/opencost/2.5.21/artifact-index.yaml](artifact-index.yaml) |
@@ -77,12 +80,22 @@ for exact base-variant evidence.
 
 ## Current Install Shape
 
+Install the package into a ConfigHub Space, which renders it and uploads
+one Unit per resource:
+
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/opencost-opencost:2.5.21@sha256:fe20f3373efbf0a04f374fa580de65ffb9401b0f471c41391c887edfb3859b75 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub package install opencost:v2.5.21 --space opencost --base <variant> --namespace <namespace>
+```
+
+Or render it locally from the exact package bytes, with no Space:
+
+```sh
+cub installer setup --pull oci://ghcr.io/confighub/packages/opencost:v2.5.21@sha256:731ef4b3c87942176abf364f71b33133c6f318f0805dee084102657ef9dcbf2d --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is
-the public package users pull; the `packages/...` path is the repo source path
+the public package users pull, signed by the package publish workflow; check it with
+`cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/opencost@sha256:731ef4b3c87942176abf364f71b33133c6f318f0805dee084102657ef9dcbf2d`. The `packages/...` path is the repo source path
 used by maintainers and proof scripts. The proof path compares regular Helm
 output with real `cub installer setup` output and explains every intentional
 difference, such as the Namespace support object or separated Secrets.

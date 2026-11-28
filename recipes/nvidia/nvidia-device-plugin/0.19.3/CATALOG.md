@@ -49,7 +49,10 @@ for exact base-variant evidence.
 | Value model | [recipes/nvidia/nvidia-device-plugin/0.19.3/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/nvidia/nvidia-device-plugin/0.19.3/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/nvidia/nvidia-device-plugin/0.19.3/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvidia-device-plugin:0.19.3@sha256:9a4be497da7d3a34faff8bded3a878fb09528138fd3ee94539c97222b7610e07` |
+| Install into a Space | `cub package install nvidia-device-plugin:v0.19.3 --space <space>` |
+| Installer package OCI | `oci://ghcr.io/confighub/packages/nvidia-device-plugin:v0.19.3@sha256:8b8b53ef42b75acd08a25bcae6df592c53096dc0177e02d393821ef97ba8c4f3` |
+| Installer package publication | [runs/ghcr-packages/nvidia-device-plugin/v0.19.3.yaml](../../../../runs/ghcr-packages/nvidia-device-plugin/v0.19.3.yaml) |
+| Earlier location | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvidia-device-plugin:0.19.3@sha256:9a4be497da7d3a34faff8bded3a878fb09528138fd3ee94539c97222b7610e07` |
 | Installer package source | [packages/nvidia/nvidia-device-plugin/0.19.3](../../../../packages/nvidia/nvidia-device-plugin/0.19.3) |
 | Installer package receipt | [recipes/nvidia/nvidia-device-plugin/0.19.3/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/nvidia/nvidia-device-plugin/0.19.3/artifact-index.yaml](artifact-index.yaml) |
@@ -89,12 +92,22 @@ for exact base-variant evidence.
 
 ## Current Install Shape
 
+Install the package into a ConfigHub Space, which renders it and uploads
+one Unit per resource:
+
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvidia-device-plugin:0.19.3@sha256:9a4be497da7d3a34faff8bded3a878fb09528138fd3ee94539c97222b7610e07 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub package install nvidia-device-plugin:v0.19.3 --space nvidia-device-plugin --base <variant> --namespace <namespace>
+```
+
+Or render it locally from the exact package bytes, with no Space:
+
+```sh
+cub installer setup --pull oci://ghcr.io/confighub/packages/nvidia-device-plugin:v0.19.3@sha256:8b8b53ef42b75acd08a25bcae6df592c53096dc0177e02d393821ef97ba8c4f3 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is
-the public package users pull; the `packages/...` path is the repo source path
+the public package users pull, signed by the package publish workflow; check it with
+`cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/nvidia-device-plugin@sha256:8b8b53ef42b75acd08a25bcae6df592c53096dc0177e02d393821ef97ba8c4f3`. The `packages/...` path is the repo source path
 used by maintainers and proof scripts. The proof path compares regular Helm
 output with real `cub installer setup` output and explains every intentional
 difference, such as the Namespace support object or separated Secrets.

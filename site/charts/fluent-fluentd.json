@@ -19,7 +19,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fluent-fluentd:0.5.3@sha256:62d68890785b4a34ec81787fc8fb1e4d093fb0a86b7482404e91e3d44cf3513b"
+        "ociRef": "oci://ghcr.io/confighub/packages/fluentd:v0.5.3@sha256:50af03843ff9b42f6a8696bb179a8accf7b5ad35328d67b69774c3156dbc0f62",
+        "installCommand": "cub package install fluentd:v0.5.3 --space <space>"
       },
       "bases": [
         {
